@@ -14,17 +14,16 @@ body {
 @supports (scrollbar-color: auto) {
   body {
   scrollbar-color: transparent;
+  scrollbar-width: 0px; 
   }
 }
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 @supports selector(::-webkit-scrollbar) {
-  body::-webkit-scrollbar {
-  /* background: transparent; */
-  width: 0px;
+  #app::-webkit-scrollbar-track {
+  background: #000;
   }
-  body::-webkit-scrollbar-thumb {
-  /* background: transparent; */
-  width: 0px;
+  #app::-webkit-scrollbar-thumb {
+  background: #000;
   }
 }

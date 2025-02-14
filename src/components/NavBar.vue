@@ -39,7 +39,7 @@ onMounted(() => {
 .scrollOn{
 	background: #fff;
 	color: #000;
-	padding: @apply py-4
+	padding: @apply py-4;
 }
 
 </style>
