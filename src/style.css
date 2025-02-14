@@ -1,3 +1,30 @@
 @import "tailwindcss";
+:root{
+  font-family:"Inter", "sans-serif";
+  color: #fff;
+  scrollbar-width: 0px;
+  scrollbar-color: transparent;
+}
+body {
+
+}
 
 
+/* For browsers that support `scrollbar-*` properties */
+@supports (scrollbar-color: auto) {
+  body {
+  scrollbar-color: transparent;
+  }
+}
+
+/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+@supports selector(::-webkit-scrollbar) {
+  body::-webkit-scrollbar {
+  /* background: transparent; */
+  width: 0px;
+  }
+  body::-webkit-scrollbar-thumb {
+  /* background: transparent; */
+  width: 0px;
+  }
+}
