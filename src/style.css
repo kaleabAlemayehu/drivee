@@ -4,6 +4,7 @@
   color: #fff;
   scrollbar-width: 0px;
   scrollbar-color: transparent;
+	box-sizing: border-box;
 }
 body {
 
@@ -20,10 +21,10 @@ body {
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 @supports selector(::-webkit-scrollbar) {
-  #app::-webkit-scrollbar-track {
-  background: #000;
+  html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+		display: none !important;
   }
-  #app::-webkit-scrollbar-thumb {
-  background: #000;
+  html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+		display: none !important;
   }
 }
