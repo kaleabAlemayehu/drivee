@@ -3,10 +3,13 @@ const badges: Array<string> = ["luxury", "comfort", "prestige"];
 </script>
 <template>
   <div
-    class="bg-white h-[calc(100vh-10rem)] w-full mx-auto mt-36 p-0 grid grid-cols-8 gap-x-6"
+    class="bg-white h-[calc(100vh-10rem)] w-full mx-auto mt-0 p-0 grid grid-cols-8 gap-x-6"
   >
-    <div class="col-span-4 flex flex-col justify-center mx-auto pl-50">
-      <div class="text-6xl font-semibold text-black">Rent A Car</div>
+    <div class="col-span-4 flex items-start justify-start">
+      <img src="../assets/rentBike.jpg" class="object-contain h-full w-full" />
+    </div>
+    <div class="col-span-4 flex flex-col justify-center w-5/6 px-8">
+      <div class="text-6xl font-semibold text-black">Rent A Bike</div>
       <div class="flex items-center w-1/4 my-8 gap-x-5">
         <div
           class="bg-gray-100 px-3 py-2 text-gray-500 font-light uppercase rounded-md"
@@ -27,11 +30,8 @@ const badges: Array<string> = ["luxury", "comfort", "prestige"];
       <div
         class="inline w-36 px-8 py-4 bg-black rounded-md my-8 cursor-pointer"
       >
-        Rent Car
+        Rent Bike
       </div>
-    </div>
-    <div class="col-span-4 flex items-start justify-start">
-      <img src="../assets/rentCar.jpg" class="object-contain h-full w-full" />
     </div>
   </div>
 </template>
