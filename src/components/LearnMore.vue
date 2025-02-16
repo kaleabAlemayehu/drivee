@@ -25,10 +25,10 @@ import { Icon } from "@iconify/vue";
       <div
         class="inline-flex justify-between w-48 px-8 py-4 bg-black rounded-md my-16 cursor-pointer"
       >
-        <div class="">Learn More</div>
+        <div class="text-white">Learn More</div>
         <Icon
           icon="lucide:arrow-up-right"
-          class="inline dark:text-white text-2xl"
+          class="inline dark:text-white text-white text-2xl"
         />
       </div>
     </div>

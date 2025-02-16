@@ -20,7 +20,7 @@ onMounted(() => {
 <template>
   <div
     ref="wrapper"
-    class="w-full flex items-center z-100 py-2 fixed top-0 right-0 left-0 transition-all duration-300 bg-gray-950 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10"
+    class="w-full flex items-center z-100 py-2 fixed top-0 right-0 left-0 transition-all duration-300 bg-gray-950 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 text-white"
   >
     <div
       class="grid grid-cols-3 justify-between items-center px-10 min-h-20 mx-auto min-w-5/6"

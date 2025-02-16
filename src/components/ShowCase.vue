@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="bg-black -z-10 w-full h-screen flex items-center relative overflow-hidden"
+    class="bg-black text-white -z-10 w-full h-screen flex items-center relative overflow-hidden"
   >
     <div class="flex mx-auto min-w-5/6 px-10">
       <div class="">
@@ -15,12 +15,12 @@
         </div>
         <div class="my-16 mx-0 flex justify-around w-1/4">
           <div
-            class="rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-black bg-white! cursor-pointer"
+            class="rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-black bg-white! cursor-pointer!"
           >
             Rent Car
           </div>
           <div
-            class="rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-white! bg-black cursor-pointer"
+            class="rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-white! bg-black cursor-pointer!"
           >
             Rent Bike
           </div>
