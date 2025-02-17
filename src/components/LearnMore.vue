@@ -23,7 +23,7 @@ import { Icon } from "@iconify/vue";
         Eligible for the Onboard Bonus.
       </div>
       <div
-        class="inline-flex justify-between w-48 px-8 py-4 bg-black rounded-md my-16 cursor-pointer"
+        class="select-none inline-flex justify-between w-48 px-8 py-4 bg-black rounded-md my-16 cursor-pointer"
       >
         <div class="text-white">Learn More</div>
         <Icon

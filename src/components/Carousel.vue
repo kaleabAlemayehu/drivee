@@ -55,7 +55,7 @@ const handleRight = async () => {
       class="flex justify-center items-center relative -top-25/100 w-5/6 mx-auto h-full"
     >
       <div
-        class="group hover:shadow-lg transition-shadow duration-200 absolute inline-flex top-1/2 left-10 size-20 bg-white cursor-pointer rounded-full justify-center items-center focus:scale-110 transform -translate-y-1/2"
+        class="group select-none hover:shadow-lg transition-shadow duration-200 absolute inline-flex top-1/2 left-10 size-20 bg-white cursor-pointer rounded-full justify-center items-center focus:scale-110 transform -translate-y-1/2"
         @click="handleLeft()"
       >
         <Icon
@@ -83,7 +83,7 @@ const handleRight = async () => {
       </div>
 
       <div
-        class="group hover:shadow-lg transition-shadow duration-200 absolute inline-flex top-1/2 right-10 size-20 bg-white cursor-pointer rounded-full justify-center items-center focus:scale-110 transform -translate-y-1/2"
+        class="group select-none hover:shadow-lg transition-shadow duration-200 absolute inline-flex top-1/2 right-10 size-20 bg-white cursor-pointer rounded-full justify-center items-center focus:scale-110 transform -translate-y-1/2"
         @click="handleRight()"
       >
         <Icon

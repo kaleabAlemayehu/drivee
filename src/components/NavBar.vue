@@ -5,7 +5,6 @@ const wrapper = ref<HTMLElement | null>(null);
 const pages: Array<string> = ["Hostings", "Contact Us", "Account"];
 onMounted(() => {
   if (!wrapper.value) return;
-
   window.addEventListener("scroll", (e) => {
     e.preventDefault();
     if (window.scrollY > 70) {
@@ -13,7 +12,6 @@ onMounted(() => {
     } else {
       wrapper.value?.classList.remove("scrollOn");
     }
-    console.log(wrapper.value.classList);
   });
 });
 </script>
@@ -41,12 +39,12 @@ onMounted(() => {
       </div>
       <div class="flex justify-end gap-x-6 text-lg">
         <div
-          class="rounded-md border-white border-[1px] outline-none ring-0 py-3 px-5 text-white bg-black cursor-pointer"
+          class="select-none rounded-md border-white border-[1px] outline-none ring-0 py-3 px-5 text-white bg-black cursor-pointer"
         >
           Sign In
         </div>
         <div
-          class="rounded-md border-black border-[1px] outline-none ring-0 py-3 px-5 text-black bg-white cursor-pointer"
+          class="select-none rounded-md border-black border-[1px] outline-none ring-0 py-3 px-5 text-black bg-white cursor-pointer"
         >
           Sign Up
         </div>

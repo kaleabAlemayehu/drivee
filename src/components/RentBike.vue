@@ -28,7 +28,7 @@ const badges: Array<string> = ["luxury", "comfort", "prestige"];
         allows you to manage your booking and view your trip history with ease.
       </div>
       <div
-        class="text-white inline w-36 px-8 py-4 bg-black rounded-md my-8 cursor-pointer"
+        class="select-none text-white inline w-36 px-8 py-4 bg-black rounded-md my-8 cursor-pointer"
       >
         Rent Bike
       </div>
