@@ -6,6 +6,7 @@ import RentBike from "./components/RentBike.vue";
 import LearnMore from "./components/LearnMore.vue";
 import Why from "./components/Why.vue";
 import Testimonials from "./components/Testimonials.vue";
+import Carousel from "./components/Carousel.vue";
 </script>
 
 <template>
@@ -16,6 +17,7 @@ import Testimonials from "./components/Testimonials.vue";
   <LearnMore />
   <Why />
   <Testimonials />
+  <Carousel />
 </template>
 
 <style scoped></style>

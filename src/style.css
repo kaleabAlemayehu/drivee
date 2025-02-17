@@ -1,4 +1,7 @@
 @import "tailwindcss";
+*, *::before, *::after{
+	box-sizing: border-box;
+}
 :root{
   font-family:"Inter", "sans-serif";
   color: #000;
