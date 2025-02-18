@@ -13,7 +13,7 @@ const items = ref([
 ]);
 const windowSize: Number = 5;
 const startIndex = ref(0);
-const transilateX = ref(0);
+const transitionX = ref(0);
 const isSliding = ref(false);
 const visibleItems = computed(() => {
   return Array.from(
@@ -24,12 +24,12 @@ const visibleItems = computed(() => {
 
 const handleLeft = async () => {
   if (isSliding.value) return;
-  isSlding.value = true;
-  transilateX.value = 100;
-  await new Promise((resovle) => setTimeout(resolve, 300));
+  isSliding.value = true;
+  transitionX.value = 20;
+  await new Promise((resolve) => setTimeout(resolve, 300));
   startIndex.value =
     (startIndex.value - 1 + items.value.length) % items.value.length;
-  transilateX.value = 0;
+  transitionX.value = 0;
   await nextTick();
   isSliding.value = false;
 };
@@ -37,14 +37,19 @@ const handleLeft = async () => {
 const handleRight = async () => {
   if (isSliding.value) return;
   isSliding.value = true;
-  transilateX.value = -100;
+  transitionX.value = -20;
   await new Promise((resolve) => setTimeout(resolve, 300));
+
   startIndex.value =
     (startIndex.value + 1 + items.value.length) % items.value.length;
-  transilateX.value = 0;
+  transitionX.value = 0;
   await nextTick();
   isSliding.value = false;
 };
+const show = ref(true);
+function toggle() {
+  show.value = !show.value;
+}
 </script>
 <template>
   <div class="h-screen bg-gray-100 w-full">
@@ -55,41 +60,59 @@ const handleRight = async () => {
       class="flex justify-center items-center relative -top-25/100 w-5/6 mx-auto h-full"
     >
       <div
-        class="group select-none hover:shadow-lg transition-shadow duration-200 absolute inline-flex top-1/2 left-10 size-20 bg-white cursor-pointer rounded-full justify-center items-center focus:scale-110 transform -translate-y-1/2"
-        @click="handleLeft()"
+        class="z-10 justify-end pr-4 items-center w-64 h-100 bg-gray-100 select-none absolute inline-flex top-1/2 transform -translate-y-1/2 -left-30"
       >
-        <Icon
-          icon="lucide:chevron-left"
-          class="block dark:text-white group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
-        />
+        <div
+          class="hover:shadow-lg transition-shadow bg-white size-20 duration-200 cursor-pointer rounded-full justify-center items-center focus:scale-110 flex"
+          @click="handleLeft()"
+        >
+          <Icon
+            icon="lucide:chevron-left"
+            class="block dark:text-white group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
+          />
+        </div>
       </div>
 
       <div
         class="absolute flex justify-center gap-x-5 items-center w-5/6 top-1/2 transform -translate-y-1/2 transition-transform duration-300"
         :style="{ transform: `translateX(${transitionX}%)` }"
       >
-        <div
+        <transition
+          enter-active-class="transition-opacity duration-800"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="transition-opacity duration-800"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
           v-for="(el, i) in visibleItems"
           :key="el"
-          class="rounded-full size-60 border-white border-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 text-center text-2xl font-semibold text-black/70"
         >
-          <img
-            :src="`./city${el.index}.jpg`"
-            alt=""
-            class="inline-block mb-10 w-full h-full rounded-full object-cover object-center"
-          />
-          {{ el.name }}
-        </div>
+          <div
+            v-if="show"
+            class="rounded-full size-60 border-white border-8 shadow-xl hover:shadow-2xl transition-all duration-300 text-center text-2xl font-semibold text-black/70 select-none"
+          >
+            <img
+              :src="`./city${el.index}.jpg`"
+              alt=""
+              class="inline-block mb-10 w-full h-full rounded-full object-cover object-center"
+            />
+            {{ el.name }}
+          </div>
+        </transition>
       </div>
 
       <div
-        class="group select-none hover:shadow-lg transition-shadow duration-200 absolute inline-flex top-1/2 right-10 size-20 bg-white cursor-pointer rounded-full justify-center items-center focus:scale-110 transform -translate-y-1/2"
-        @click="handleRight()"
+        class="z-10 justify-start pl-4 items-center w-64 h-100 bg-gray-100 select-none absolute inline-flex top-1/2 transform -translate-y-1/2 -right-30"
       >
-        <Icon
-          icon="lucide:chevron-right"
-          class="block dark:text-white group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
-        />
+        <div
+          class="hover:shadow-lg transition-shadow bg-white size-20 duration-200 cursor-pointer rounded-full justify-center items-center focus:scale-110 flex"
+          @click="handleRight()"
+        >
+          <Icon
+            icon="lucide:chevron-right"
+            class="block dark:text-white group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
+          />
+        </div>
       </div>
     </div>
   </div>
