@@ -7,6 +7,7 @@ import LearnMore from "./components/LearnMore.vue";
 import Why from "./components/Why.vue";
 import Testimonials from "./components/Testimonials.vue";
 import Carousel from "./components/Carousel.vue";
+import FAQ from "./components/FAQ.vue";
 </script>
 
 <template>
@@ -18,6 +19,6 @@ import Carousel from "./components/Carousel.vue";
   <Why />
   <Testimonials />
   <Carousel />
+  <FAQ />
 </template>
-
 <style scoped></style>
