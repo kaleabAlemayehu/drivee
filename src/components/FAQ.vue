@@ -21,7 +21,7 @@ const handleToggle = (i) => {
 const lhs = questions.value.slice(0, Math.ceil(questions.value.length / 2));
 </script>
 <template>
-  <div class="h-screen w-full">
+  <div class="min-h-[calc(100vh-10rem)] w-full">
     <div class="text-7xl font-semibold text-center capitalize mt-40 mb-15">
       have a question
     </div>

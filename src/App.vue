@@ -8,6 +8,7 @@ import Why from "./components/Why.vue";
 import Testimonials from "./components/Testimonials.vue";
 import Carousel from "./components/Carousel.vue";
 import FAQ from "./components/FAQ.vue";
+import Footer from "./components/Footer.vue";
 </script>
 
 <template>
@@ -20,5 +21,6 @@ import FAQ from "./components/FAQ.vue";
   <Testimonials />
   <Carousel />
   <FAQ />
+  <Footer />
 </template>
 <style scoped></style>
