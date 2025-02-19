@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import about from "../views/about.vue";
 import home from "../views/home.vue";
+import rentcar from "../views/rentcar.vue";
 import signup from "../views/signup.vue";
 
 const routes = [
@@ -10,6 +11,15 @@ const routes = [
 		path: "/",
 		components: {
 			default: home,
+			NavBar,
+			Footer,
+		},
+	},
+
+	{
+		path: "/rentcar/",
+		components: {
+			default: rentcar,
 			NavBar,
 			Footer,
 		},
