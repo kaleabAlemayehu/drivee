@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { RouterLink } from "vue-router";
 import { Icon } from "@iconify/vue";
 const wrapper = ref<HTMLElement | null>(null);
 const pages: Array<string> = ["Hostings", "Contact Us", "Account"];
@@ -43,11 +44,12 @@ onMounted(() => {
         >
           Sign In
         </div>
-        <div
+        <router-link
+          to="/signup/"
           class="select-none rounded-md border-black border-[1px] outline-none ring-0 py-3 px-5 text-black bg-white cursor-pointer"
         >
           Sign Up
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -56,6 +58,6 @@ onMounted(() => {
 .scrollOn {
   background: #fff;
   color: #000;
-  padding: @apply py-4;
+  padding-block: 1rem;
 }
 </style>
