@@ -15,6 +15,11 @@ onMounted(() => {
     }
   });
 });
+const hosting: Array<string> = [
+  "Car & Referals",
+  "Bike & Referals",
+  "Car & Referals",
+];
 </script>
 <template>
   <div
@@ -25,17 +30,30 @@ onMounted(() => {
       class="grid grid-cols-3 justify-between items-center px-10 min-h-20 mx-auto min-w-5/6"
     >
       <div class="text-2xl font-semibold">Drivee</div>
-      <div class="flex items-center justify-between">
+      <div class="flex items-stretch justify-between">
         <div
-          class="text-base font-normal cursor-pointer"
+          class="group relative h-full my-0 flex items-center text-base font-normal cursor-pointer z-20"
           v-for="i in pages"
           :key="i"
         >
-          {{ i }}
+          <div class="mr-1">
+            {{ i }}
+          </div>
           <Icon
             icon="lucide:chevron-down"
             class="inline dark:text-white text-xl"
           />
+          <div
+            class="absolute z-10 top-[calc(2*70%)] bg-black/90 w-42 overflow-hidden rounded-b-lg transform transition-transform duration-300 delay-300 origin-top group-hover:scale-y-100 hover:scale-y-100 group-hover:h-auto group-hover:opacity-100 scale-y-0 opacity-0 flex-col flex"
+          >
+            <div
+              v-for="i in hosting"
+              :key="i"
+              class="text-white py-2 px-4 hover:bg-gray-900 w-full"
+            >
+              {{ i }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="flex justify-end gap-x-6 text-lg">
