@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LearnMore from "../components/LearnMore.vue";
+import GetStartedForm from "../components/GetStartedForm.vue";
 </script>
 <template>
   <div
@@ -27,5 +28,12 @@ import LearnMore from "../components/LearnMore.vue";
     </div>
   </div>
   <LearnMore />
+  <div
+    class="h-screen w-full bg-[url(/bgworld.png)] bg-center bg-no-repeat bg-cover py-16"
+  >
+    <div class="w-5/6 px-10 mx-auto flex justify-between">
+      <GetStartedForm />
+    </div>
+  </div>
 </template>
 <style scoped></style>
