@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
 import LearnMore from "../components/LearnMore.vue";
 import GetStartedForm from "../components/GetStartedForm.vue";
+import OnboardingSteps from "../components/OnboardingSteps.vue";
 </script>
 <template>
   <div
@@ -27,12 +29,13 @@ import GetStartedForm from "../components/GetStartedForm.vue";
       </div>
     </div>
   </div>
-  <LearnMore />
+  <LearnMore class="mb-36" />
   <div
     class="h-screen w-full bg-[url(/bgworld.png)] bg-center bg-no-repeat bg-cover py-16"
   >
     <div class="w-5/6 px-10 mx-auto flex justify-between">
       <GetStartedForm />
+      <OnboardingSteps />
     </div>
   </div>
 </template>
