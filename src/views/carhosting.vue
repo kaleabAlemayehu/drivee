@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LearnMore from "../components/LearnMore.vue";
 </script>
 <template>
   <div
@@ -25,5 +26,6 @@
       </div>
     </div>
   </div>
+  <LearnMore />
 </template>
 <style scoped></style>
