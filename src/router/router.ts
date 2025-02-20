@@ -6,6 +6,7 @@ import home from "../views/home.vue";
 import rentcar from "../views/rentcar.vue";
 import rentbike from "../views/rentbike.vue";
 import signup from "../views/signup.vue";
+import carhosting from "../views/carhosting.vue";
 
 const routes = [
 	{
@@ -34,9 +35,9 @@ const routes = [
 		},
 	},
 	{
-		path: "/about/",
+		path: "/hosting/car/",
 		components: {
-			default: about,
+			default: carhosting,
 			NavBar,
 			Footer,
 		},
