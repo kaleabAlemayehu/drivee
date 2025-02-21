@@ -9,11 +9,20 @@ import signup from "../views/signup.vue";
 import carhosting from "../views/carhosting.vue";
 import bikehosting from "../views/bikehosting.vue";
 import contactus from "../views/contactus.vue";
+import cities from "../views/cities.vue";
 const routes = [
 	{
 		path: "/",
 		components: {
 			default: home,
+			NavBar,
+			Footer,
+		},
+	},
+	{
+		path: "/cities/",
+		components: {
+			default: cities,
 			NavBar,
 			Footer,
 		},
