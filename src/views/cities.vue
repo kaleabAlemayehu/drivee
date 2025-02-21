@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
+import Carousel from "../components/Carousel.vue";
 </script>
 <template>
   <div
@@ -13,6 +15,16 @@
         >
           Cities where we provide our services
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full h-[calc(100vh-15rem)] bg-gray-100">
+    <div class="px-5 py-26 mx-auto">
+      <div class="text-5xl font-semibold capitalize text-center">
+        Local services in your Area
+      </div>
+      <div class="">
+        <Carousel class="top-50" />
       </div>
     </div>
   </div>
