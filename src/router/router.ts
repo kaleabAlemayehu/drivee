@@ -8,7 +8,7 @@ import rentbike from "../views/rentbike.vue";
 import signup from "../views/signup.vue";
 import carhosting from "../views/carhosting.vue";
 import bikehosting from "../views/bikehosting.vue";
-
+import contactus from "../views/contactus.vue";
 const routes = [
 	{
 		path: "/",
@@ -31,6 +31,14 @@ const routes = [
 		path: "/rentbike/",
 		components: {
 			default: rentbike,
+			NavBar,
+			Footer,
+		},
+	},
+	{
+		path: "/contactus/",
+		components: {
+			default: contactus,
 			NavBar,
 			Footer,
 		},
