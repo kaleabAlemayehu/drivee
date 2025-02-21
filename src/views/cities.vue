@@ -28,5 +28,38 @@ import Carousel from "../components/Carousel.vue";
       </div>
     </div>
   </div>
+  <div class="w-full bg-white">
+    <div class="px-5 py-16 mx-auto w-5/6">
+      <div class="text-5xl font-semibold capitalize text-center">
+        Your neighbors on Drivee
+      </div>
+      <div class="flex flex-wrap justify-between w-4/5 mx-auto mt-20 mb-10">
+        <div
+          v-for="i in 6"
+          :key="i"
+          class="bg-gray-100 rounded-lg w-32/100 h-[18rem] mb-6 py-6 px-8 flex flex-col shadow-lg"
+        >
+          <div class="flex justify-between items-center">
+            <div class="text-2xl font-semibold capitalize">Andrew T</div>
+            <img
+              src="/andrew.jpeg"
+              alt=""
+              class="inline-block rounded-full size-25 object-cover object-center"
+            />
+          </div>
+          <div class="flex py-5 items-center mb-4">
+            <Icon
+              v-for="i in 5"
+              icon="ic:outline-star"
+              class="text-yellow-600 text-2xl"
+            />
+          </div>
+          <div class="text-gray-400 text-lg capitalize">
+            i love this car! i wish i could rent it monthly
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <style scoped></style>
