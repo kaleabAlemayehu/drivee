@@ -16,7 +16,16 @@ import FAQ from "../components/FAQ.vue";
   <LearnMore />
   <Why />
   <Testimonials />
-  <Carousel />
+
+  <div
+    class="h-screen bg-[url(/bgworld.png)] bg-cover bg-center object-cover origin-center bg-no-repeat w-full"
+  >
+    <div class="capitalize text-center text-5xl font-semibold pt-50 mb-20">
+      Local services we provide
+    </div>
+
+    <Carousel />
+  </div>
   <FAQ />
 </template>
 <style scoped></style>
