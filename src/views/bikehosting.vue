@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import GetStartedForm from "../components/GetStartedForm.vue";
+import ReferForm from "../components/ReferForm.vue";
 import { Icon } from "@iconify/vue";
 </script>
 <template>
   <div
-    class="h-[calc(100vh-10rem)] w-full bg-[url(/bikehosting.jpg)] bg-top bg-cover object-scale-down bg-no-repeat flex justify-center items-center"
+    class="h-[calc(100vh-10rem)] w-full bg-[url(/bikehosting.jpg)] bg-center bg-cover object-scale-down bg-no-repeat flex justify-center items-center"
   >
     <div
       class="bg-black/50 w-full h-full m-0 p-0 flex justify-center items-center"
@@ -141,5 +142,6 @@ import { Icon } from "@iconify/vue";
       </div>
     </div>
   </div>
+  <ReferForm type="bike" />
 </template>
 <style scoped></style>
