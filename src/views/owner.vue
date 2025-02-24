@@ -48,11 +48,11 @@ const orders: Array<object> = [
 </script>
 <template>
   <div class="bg-gray-50 w-full">
-    <div class="w-4/5 mx-auto pt-42">
+    <div class="w-4/5 mx-auto py-42">
       <div class="text-5xl font-semibold text-gray-600 capitalize mb-14">
         Dashboard
       </div>
-      <div class="grid grid-cols-9 grid-rows-3 gap-x-10 gap-y-8 my-8">
+      <div class="grid grid-cols-9 grid-rows-3 gap-x-10 gap-y-8 mt-8">
         <div
           class="h-[45.5rem] w-full border-gray-200 border-2 col-span-3 row-span-3 rounded-xl flex flex-col py-8 px-6 bg-white"
         >
@@ -149,6 +149,39 @@ const orders: Array<object> = [
               </tr>
             </table>
           </div>
+        </div>
+      </div>
+      <div class="w-full mb-18">
+        <div
+          class="relative fill-red-400 w-full h-auto border-gray-200 border-2 bg-white rounded-xl px-28 py-8"
+        >
+          <div class="absolute top-0 left-0 bg-transparent p-8">
+            <div class="capitalize font-semibold text-xl mb-8">real-time</div>
+            <div class="flex flex-col justify-between text-white w-min">
+              <div class="p-2 bg-black mb-2 cursor-pointer">
+                <Icon icon="material-symbols:add" class="text-xl" />
+              </div>
+
+              <div class="p-2 bg-black mb-2 cursor-pointer">
+                <Icon icon="ic:baseline-minus" class="text-xl" />
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute top-0 right-0 bg-transparent p-8">
+            <div class="cursor-pointer p-2">
+              <Icon
+                icon="ph:dots-three-outline-vertical-fill"
+                class="text-xl"
+              />
+            </div>
+          </div>
+          <img
+            src="/earth.svg"
+            alt=""
+            class="inline-block w-full h-full object-contain fill-gray-800 stroke-black"
+          />
+          <!-- <img src="../assets/earth.svg" alt="" /> -->
         </div>
       </div>
     </div>
