@@ -11,6 +11,7 @@ import bikehosting from "../views/bikehosting.vue";
 import contactus from "../views/contactus.vue";
 import cities from "../views/cities.vue";
 import customer from "../views/customer.vue";
+import owner from "../views/owner.vue";
 const routes = [
 	{
 		path: "/",
@@ -24,6 +25,14 @@ const routes = [
 		path: "/customer/",
 		components: {
 			default: customer,
+			NavBar,
+			Footer,
+		},
+	},
+	{
+		path: "/owner/",
+		components: {
+			default: owner,
 			NavBar,
 			Footer,
 		},
