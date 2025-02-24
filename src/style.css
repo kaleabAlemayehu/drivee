@@ -14,20 +14,33 @@ body {
 }
 
 
+th {
+  text-align: center;
+  font-size: 20px;
+  padding-block: 10px;
+}
+
+td {
+  text-align: center;
+  font-size: 18px;
+  padding-block: 15px;
+  padding-inline: 5px;
+}
+
 /* For browsers that support `scrollbar-*` properties */
-@supports (scrollbar-color: auto) {
-  body {
+/* @supports (scrollbar-color: auto) { */
+  * {
   scrollbar-color: transparent;
   scrollbar-width: 0px; 
   }
-}
+/* } */
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
-@supports selector(::-webkit-scrollbar) {
-  html::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+/* @supports selector(::-webkit-scrollbar) { */
+  *::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
 		display: none !important;
   }
-  html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  *::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
 		display: none !important;
   }
-}
+/* } */

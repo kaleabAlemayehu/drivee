@@ -102,17 +102,4 @@ const orders: Array<object> = [
     </div>
   </div>
 </template>
-<style lang="css" scoped>
-th {
-  text-align: center;
-  font-size: 20px;
-  padding-block: 10px;
-}
-
-td {
-  text-align: center;
-  font-size: 18px;
-  padding-block: 15px;
-  padding-inline: 5px;
-}
-</style>
+<style lang="css" scoped></style>
