@@ -36,68 +36,72 @@ const orders: Array<object> = [
     <div class="text-3xl font-bold capitalize mb-8">My Recent Order</div>
     <div class="w-full">
       <table class="w-full">
-        <tr>
-          <th>Booking No</th>
-          <th>Vehicle</th>
-          <th>Pick Up Location</th>
-          <th>Date</th>
-          <th>Return Date</th>
-          <th>Payment</th>
-          <th>Status</th>
-        </tr>
-        <tr>
-          <td>#02323</td>
-          <td>Jeep Renegade</td>
-          <td>Effle Tower, NewYork</td>
-          <td>22/01/2024</td>
-          <td>28/01/2024</td>
-          <td>$500</td>
-          <td>completed</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>Booking No</th>
+            <th>Vehicle</th>
+            <th>Pick Up Location</th>
+            <th>Date</th>
+            <th>Return Date</th>
+            <th>Payment</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#02323</td>
+            <td>Jeep Renegade</td>
+            <td>Effle Tower, NewYork</td>
+            <td>22/01/2024</td>
+            <td>28/01/2024</td>
+            <td>$500</td>
+            <td>completed</td>
+          </tr>
 
-        <tr>
-          <td>#02323</td>
-          <td>Jeep Renegade</td>
-          <td>Effle Tower, NewYork</td>
-          <td>22/01/2024</td>
-          <td>28/01/2024</td>
-          <td>$500</td>
-          <td>completed</td>
-        </tr>
+          <tr>
+            <td>#02323</td>
+            <td>Jeep Renegade</td>
+            <td>Effle Tower, NewYork</td>
+            <td>22/01/2024</td>
+            <td>28/01/2024</td>
+            <td>$500</td>
+            <td>completed</td>
+          </tr>
 
-        <tr>
-          <td>#02323</td>
-          <td>Jeep Renegade</td>
-          <td>Effle Tower, NewYork</td>
-          <td>22/01/2024</td>
-          <td>28/01/2024</td>
-          <td>$500</td>
-          <td>completed</td>
-        </tr>
+          <tr>
+            <td>#02323</td>
+            <td>Jeep Renegade</td>
+            <td>Effle Tower, NewYork</td>
+            <td>22/01/2024</td>
+            <td>28/01/2024</td>
+            <td>$500</td>
+            <td>completed</td>
+          </tr>
 
-        <tr>
-          <td>#02323</td>
-          <td>Jeep Renegade</td>
-          <td>Effle Tower, NewYork</td>
-          <td>22/01/2024</td>
-          <td>28/01/2024</td>
-          <td>$500</td>
-          <td>
-            <span class="rounded-full bg-green-500 inline-block px-3 py-2"
-              >completed</span
-            >
-          </td>
-        </tr>
+          <tr>
+            <td>#02323</td>
+            <td>Jeep Renegade</td>
+            <td>Effle Tower, NewYork</td>
+            <td>22/01/2024</td>
+            <td>28/01/2024</td>
+            <td>$500</td>
+            <td>
+              <span class="rounded-full bg-green-500 inline-block px-3 py-2"
+                >completed</span
+              >
+            </td>
+          </tr>
 
-        <tr>
-          <td>#02323</td>
-          <td>Jeep Renegade</td>
-          <td>Effle Tower, NewYork</td>
-          <td>22/01/2024</td>
-          <td>28/01/2024</td>
-          <td>$500</td>
-          <td>completed</td>
-        </tr>
+          <tr>
+            <td>#02323</td>
+            <td>Jeep Renegade</td>
+            <td>Effle Tower, NewYork</td>
+            <td>22/01/2024</td>
+            <td>28/01/2024</td>
+            <td>$500</td>
+            <td>completed</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
