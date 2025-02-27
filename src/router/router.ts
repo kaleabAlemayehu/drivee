@@ -8,6 +8,7 @@ import rentbike from "../views/rentbike.vue";
 import signup from "../views/signup.vue";
 import carhosting from "../views/carhosting.vue";
 import bikehosting from "../views/bikehosting.vue";
+import carbooking from "../views/carbooking.vue";
 import contactus from "../views/contactus.vue";
 import cities from "../views/cities.vue";
 import customer from "../views/customer.vue";
@@ -82,6 +83,14 @@ const routes = [
 		path: "/hosting/bike/",
 		components: {
 			default: bikehosting,
+			NavBar,
+			Footer,
+		},
+	},
+	{
+		path: "/booking/car/",
+		components: {
+			default: carbooking,
 			NavBar,
 			Footer,
 		},
