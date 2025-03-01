@@ -10,6 +10,7 @@ import onboarding from "../views/onboarding.vue";
 import carhosting from "../views/carhosting.vue";
 import bikehosting from "../views/bikehosting.vue";
 import carbooking from "../views/carbooking.vue";
+import bikebooking from "../views/bikebooking.vue";
 import contactus from "../views/contactus.vue";
 import cities from "../views/cities.vue";
 import customer from "../views/customer.vue";
@@ -92,6 +93,14 @@ const routes = [
 		path: "/booking/car/",
 		components: {
 			default: carbooking,
+			NavBar,
+			Footer,
+		},
+	},
+	{
+		path: "/booking/bike/",
+		components: {
+			default: bikebooking,
 			NavBar,
 			Footer,
 		},
