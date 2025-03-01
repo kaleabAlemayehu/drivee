@@ -3,7 +3,6 @@ import { ref, defineProps } from "vue";
 import { Icon } from "@iconify/vue";
 
 const props = defineProps(["images"]);
-// Define the images array
 
 // Current slide index
 const currentIndex = ref(0);
@@ -34,7 +33,7 @@ const goToSlide = (index) => {
           v-for="(image, index) in props.images"
           :key="index"
           v-show="currentIndex === index"
-          class="absolute inset-0 transition-opacity duration-500 ease-in-out bg-slate-100 mb-20"
+          class="absolute inset-0 transition-opacity duration-500 ease-in-out bg-slate-100 mb-6"
           :class="{
             'opacity-100': currentIndex === index,
             'opacity-0': currentIndex !== index,
@@ -75,7 +74,7 @@ const goToSlide = (index) => {
         v-for="(image, index) in props.images"
         :key="index"
         @click="goToSlide(index)"
-        class="cursor-pointer border-2 z-10 border-transparent w-72 h-40 p-0 rounded-lg overflow-hidden bg-slate-100"
+        class="cursor-pointer border-2 z-10 border-transparent w-72 h-36 p-0 rounded-lg overflow-hidden bg-slate-100"
         :class="[index == currentIndex ? 'border-gray-200!' : '']"
       >
         <img
