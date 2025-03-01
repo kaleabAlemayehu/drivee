@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
-import about from "../views/about.vue";
 import home from "../views/home.vue";
 import rentcar from "../views/rentcar.vue";
 import rentbike from "../views/rentbike.vue";
 import signup from "../views/signup.vue";
-import onboarding from "../views/onboarding.vue";
+import contact from "../views/contact.vue";
 import carhosting from "../views/carhosting.vue";
 import bikehosting from "../views/bikehosting.vue";
 import carbooking from "../views/carbooking.vue";
@@ -15,6 +14,7 @@ import contactus from "../views/contactus.vue";
 import cities from "../views/cities.vue";
 import customer from "../views/customer.vue";
 import owner from "../views/owner.vue";
+import onboarding from "../views/onboarding.vue";
 const routes = [
 	{
 		path: "/",
@@ -103,6 +103,12 @@ const routes = [
 			default: bikebooking,
 			NavBar,
 			Footer,
+		},
+	},
+	{
+		path: "/contact/",
+		components: {
+			default: contact,
 		},
 	},
 	{
