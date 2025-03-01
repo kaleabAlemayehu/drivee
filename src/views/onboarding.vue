@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { Icon } from "@iconify/vue";
+
+const handleDrop = (e) => {
+  console.log("droped", e);
+  e.currentTarget.classList.remove("drag-over");
+// NOTE: handle the file upload as you think
+};
+const handleDrag = (e) => {
+  e.currentTarget.classList.add("drag-over");
+};
+const handleDragLeave = (e) => {
+  e.currentTarget.classList.remove("drag-over");
+};
 </script>
 <template>
   <div
@@ -9,10 +22,16 @@ import { Icon } from "@iconify/vue";
       <div class="w-4/5 mx-auto grid grid-cols-5 gap-x-8 py-12 px-8">
         <div class="col-span-3 grid grid-cols-3 grid-row-4 gap-5">
           <div
-            class="rounded-xl border-[1px] border-gray-300 col-span-3 row-span-3 h-[calc(100vh-22rem)] bg-white flex justify-center items-center flex-col"
+            class="rounded-xl border-[1px] border-gray-300 col-span-3 row-span-3 h-[calc(100vh-22rem)] bg-white flex justify-center items-center flex-col w-full"
+            id="drop_area"
+            @dragover.stop.prevent="handleDrag"
+            @dragenter.stop.prevent="handleDrag"
+            @dragleave.stop.prevent="handleDragLeave"
+            @drop.stop.prevent="handleDrop"
           >
             <Icon icon="material-symbols:upload" class="text-3xl mb-2" />
             <div class="capitalize">upload your vehicle image</div>
+            <input type="file" id="file-input" multiple hidden />
           </div>
           <div
             v-for="i in 3"
@@ -115,4 +134,8 @@ import { Icon } from "@iconify/vue";
     </div>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+#drop_area.drag-over {
+  background-color: #eee;
+}
+</style>
