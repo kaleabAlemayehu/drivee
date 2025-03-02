@@ -25,7 +25,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/customer/",
+		path: "/dashboard/customer/",
 		components: {
 			default: customer,
 			NavBar,
@@ -33,7 +33,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/owner/",
+		path: "/dashboard/owner/",
 		components: {
 			default: owner,
 			NavBar,
@@ -50,7 +50,7 @@ const routes = [
 	},
 
 	{
-		path: "/rentcar/",
+		path: "/book-car/",
 		components: {
 			default: rentcar,
 			NavBar,
@@ -58,7 +58,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/rentbike/",
+		path: "/book-bike/",
 		components: {
 			default: rentbike,
 			NavBar,
@@ -66,7 +66,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/contactus/",
+		path: "/contact-us/",
 		components: {
 			default: contactus,
 			NavBar,
@@ -74,7 +74,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/hosting/car/",
+		path: "/car-hosting/",
 		components: {
 			default: carhosting,
 			NavBar,
@@ -82,7 +82,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/hosting/bike/",
+		path: "/bike-hosting/",
 		components: {
 			default: bikehosting,
 			NavBar,
@@ -90,7 +90,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/booking/car/",
+		path: "/car-booking/{id}",
 		components: {
 			default: carbooking,
 			NavBar,
@@ -98,7 +98,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/booking/bike/",
+		path: "/bike-booking/{id}",
 		components: {
 			default: bikebooking,
 			NavBar,
@@ -106,7 +106,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/contact/",
+		path: "/contact-owner/",
 		components: {
 			default: contact,
 		},
