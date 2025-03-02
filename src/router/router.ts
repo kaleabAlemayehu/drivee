@@ -15,6 +15,7 @@ import cities from "../views/cities.vue";
 import customer from "../views/customer.vue";
 import owner from "../views/owner.vue";
 import onboarding from "../views/onboarding.vue";
+import notfound from "../views/notfound.vue";
 const routes = [
 	{
 		path: "/",
@@ -90,7 +91,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/car-booking/{id}",
+		path: "/car-booking/:id",
 		components: {
 			default: carbooking,
 			NavBar,
@@ -98,7 +99,7 @@ const routes = [
 		},
 	},
 	{
-		path: "/bike-booking/{id}",
+		path: "/bike-booking/:id",
 		components: {
 			default: bikebooking,
 			NavBar,
@@ -121,6 +122,15 @@ const routes = [
 		path: "/signup/",
 		components: {
 			default: signup,
+		},
+	},
+	{
+		path: "/:pathMatch(.*)*",
+		name: "NotFound",
+		components: {
+			default: notfound,
+			NavBar,
+			Footer,
 		},
 	},
 ];
