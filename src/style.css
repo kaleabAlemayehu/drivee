@@ -9,6 +9,30 @@
   scrollbar-color: transparent;
 	box-sizing: border-box;
 }
+
+/* Scrollbar Track (background) */
+*::-webkit-scrollbar {
+  width: 5px; /* Width for vertical scrollbar */
+  height: 10px; /* Height for horizontal scrollbar */
+}
+
+/* Scrollbar Thumb (the draggable part) */
+*::-webkit-scrollbar-thumb {
+  background: #eee; /* Change thumb color */
+  border-radius: 2px; /* Rounded corners */
+}
+
+/* Scrollbar Thumb on Hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #ddd;
+  cursor: pointer;
+}
+
+/* Scrollbar Track */
+*::-webkit-scrollbar-track {
+  background: black;  /* Background of the track
+}
+
 body {
 
 }
@@ -37,10 +61,10 @@ td {
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 /* @supports selector(::-webkit-scrollbar) { */
-  *::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
-		display: none !important;
-  }
-  *::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
-		display: none !important;
-  }
+/*   *::-webkit-scrollbar-track, body::-webkit-scrollbar-track { */
+/* 		display: none !important; */
+/*   } */
+/*   *::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb { */
+/* 		display: none !important; */
+/*   } */
 /* } */
