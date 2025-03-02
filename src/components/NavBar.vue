@@ -29,7 +29,11 @@ const hosting: Array<string> = [
     <div
       class="grid grid-cols-3 justify-between items-center px-10 min-h-20 mx-auto min-w-5/6"
     >
-      <div class="text-2xl font-semibold">Drivee</div>
+      <router-link
+        to="/"
+        class="text-2xl font-semibold cursor-pointer select-none"
+        >Drivee</router-link
+      >
       <div class="flex items-stretch justify-between">
         <div
           class="group relative h-full my-0 flex items-center text-base font-normal cursor-pointer z-20"
@@ -57,11 +61,12 @@ const hosting: Array<string> = [
         </div>
       </div>
       <div class="flex justify-end gap-x-6 text-lg">
-        <div
+        <router-link
+          to="/sign-in/"
           class="select-none rounded-md border-white border-[1px] outline-none ring-0 py-3 px-5 text-white bg-black cursor-pointer"
         >
           Sign In
-        </div>
+        </router-link>
         <router-link
           to="/signup/"
           class="select-none rounded-md border-black border-[1px] outline-none ring-0 py-3 px-5 text-black bg-white cursor-pointer"

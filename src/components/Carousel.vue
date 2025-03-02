@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, nextTick } from "vue";
+import { RouterLink } from "vue-router";
 import { Icon } from "@iconify/vue";
 const items = ref([
   { index: 0, name: "NewYork" },
@@ -67,7 +68,8 @@ function toggle() {
     <div
       class="absolute cursor-pointer flex justify-center gap-x-5 items-center w-5/6 top-1/2 transform -translate-y-1/2 transition-transform duration-300"
     >
-      <div
+      <router-link
+        to="/cities/"
         v-for="(el, i) in visibleItems"
         :key="el"
         class="rounded-full size-60 border-white border-8 shadow-xl hover:shadow-2xl transition-all duration-300 text-center text-2xl font-semibold text-black/70 select-none"
@@ -78,7 +80,7 @@ function toggle() {
           class="inline-block mb-10 w-full h-full rounded-full object-cover object-center"
         />
         {{ el.name }}
-      </div>
+      </router-link>
     </div>
 
     <div

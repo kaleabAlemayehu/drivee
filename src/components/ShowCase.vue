@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+</script>
 <template>
   <div
-    class="bg-black text-white -z-10 w-full h-screen flex items-center relative overflow-hidden"
+    class="bg-black text-white z-10 w-full h-screen flex items-center relative overflow-hidden"
   >
     <div class="flex mx-auto min-w-5/6 px-10">
       <div class="">
@@ -14,16 +16,18 @@
           with many extraordinary
         </div>
         <div class="my-16 mx-0 flex justify-around w-1/4">
-          <div
+          <router-link
+            to="/book-car/"
             class="select-none rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-black bg-white! cursor-pointer!"
           >
             Rent Car
-          </div>
-          <div
+          </router-link>
+          <router-link
+            to="/book-bike/"
             class="select-none rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-white! bg-black cursor-pointer!"
           >
             Rent Bike
-          </div>
+          </router-link>
         </div>
         <div class="">
           <img

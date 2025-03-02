@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { RouterLink } from "vue-router";
 </script>
 <template>
   <div
@@ -22,7 +23,8 @@ import { Icon } from "@iconify/vue";
         For Cars. Zone 1 gets the highest bonus, while zones 4 and 5 aren't
         Eligible for the Onboard Bonus.
       </div>
-      <div
+      <router-link
+        to="/car-hosting/"
         class="select-none inline-flex justify-between w-48 px-8 py-4 bg-black rounded-md my-16 cursor-pointer"
       >
         <div class="text-white">Learn More</div>
@@ -30,7 +32,7 @@ import { Icon } from "@iconify/vue";
           icon="lucide:arrow-up-right"
           class="inline dark:text-white text-white text-2xl"
         />
-      </div>
+      </router-link>
     </div>
     <div class=""></div>
     <div class="flex items-start justify-start">

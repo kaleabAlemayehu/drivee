@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from "vue-router";
 const badges: Array<string> = ["luxury", "comfort", "prestige"];
 </script>
 <template>
@@ -24,11 +25,12 @@ const badges: Array<string> = ["luxury", "comfort", "prestige"];
         and book it for the duration of your choice. Our user-friendly platform
         allows you to manage your booking and view your trip history with ease.
       </div>
-      <div
+      <router-link
+        to="/book-car/"
         class="select-none text-white inline w-36 px-8 py-4 bg-black rounded-md my-8 cursor-pointer"
       >
         Rent Car
-      </div>
+      </router-link>
     </div>
     <div class="col-span-4 flex items-start justify-start">
       <img src="../assets/rentCar.jpg" class="object-contain h-full w-full" />
