@@ -30,7 +30,7 @@
 
 /* Scrollbar Track */
 *::-webkit-scrollbar-track {
-  background: black;  /* Background of the track
+  background: black;  /* Background of the track*/
 }
 
 body {

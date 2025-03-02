@@ -31,8 +31,6 @@ const handleFiles = (files) => {
       }
     };
   }
-  console.log("preview-files", previewImages.value);
-  // console.log("files", files);
 };
 
 function isValidFileType(file) {

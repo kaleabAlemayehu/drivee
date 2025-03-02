@@ -59,7 +59,7 @@ function toggle() {
       >
         <Icon
           icon="lucide:chevron-left"
-          class="block dark:text-white group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
+          class="block group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
         />
       </div>
     </div>
@@ -90,7 +90,7 @@ function toggle() {
       >
         <Icon
           icon="lucide:chevron-right"
-          class="block dark:text-white group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
+          class="block group-hover:text-black transition-colors duration-500 text-gray-500 text-4xl w-full"
         />
       </div>
     </div>

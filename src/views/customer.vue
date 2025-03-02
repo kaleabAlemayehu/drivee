@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import Dashboard from "../components/Dashboard.vue";
+import MyProfile from "../components/CustomerMyProfile.vue";
+import MyOrders from "../components/CustomerMyOrders.vue";
 const navs: Array<object> = [
   {
     icon: "ic:baseline-home",
@@ -86,7 +88,9 @@ const navs: Array<object> = [
           </div>
         </div>
       </div>
-      <Dashboard class="" />
+      <!-- <Dashboard class="" /> -->
+      <!-- <MyProfile class="" /> -->
+      <MyOrders class="" />
     </div>
   </div>
 </template>
