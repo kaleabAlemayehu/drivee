@@ -1,12 +1,45 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
-
+const files = ref(null);
+const fileInput = ref(null);
+const previewImages = ref([]);
 const handleDrop = (e) => {
   console.log("droped", e);
   e.currentTarget.classList.remove("drag-over");
-// NOTE: handle the file upload as you think
+  // NOTE: handle the file upload as you think
+  files.value = e.dataTransfer.files;
+
+  // Checking if there are any files
+  if (files.value.length) {
+    // Assigning the files to the hidden input from the first step
+    fileInput.files = files.value;
+    // Processing the files for previews (next step)
+    handleFiles(files.value);
+  }
 };
+const handleFiles = (files) => {
+  for (const file of files) {
+    // Initializing the FileReader API and reading the file
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    // INFO: Once the file has been loaded, fire the processing
+    reader.onloadend = function (e) {
+      if (isValidFileType(file)) {
+        previewImages.value.push(e.target.result);
+      }
+    };
+  }
+  console.log("preview-files", previewImages.value);
+  // console.log("files", files);
+};
+
+function isValidFileType(file) {
+  const allowedTypes = ["image/jpeg", "image/png", "image/svg"];
+  return allowedTypes.includes(file.type);
+}
+
 const handleDrag = (e) => {
   e.currentTarget.classList.add("drag-over");
 };
@@ -20,24 +53,30 @@ const handleDragLeave = (e) => {
   >
     <div class="bg-white/45 w-full h-full">
       <div class="w-4/5 mx-auto grid grid-cols-5 gap-x-8 py-12 px-8">
-        <div class="col-span-3 grid grid-cols-3 grid-row-4 gap-5">
+        <div class="col-span-3 grid grid-cols-1 grid-row-4 gap-y-5">
           <div
-            class="rounded-xl border-[1px] border-gray-300 col-span-3 row-span-3 h-[calc(100vh-22rem)] bg-white flex justify-center items-center flex-col w-full"
+            class="rounded-xl border-[1.9px] border-dashed border-gray-300 row-span-3 h-[calc(100vh-22rem)] bg-white flex justify-center items-center flex-col w-full"
             id="drop_area"
-            @dragover.stop.prevent="handleDrag"
-            @dragenter.stop.prevent="handleDrag"
-            @dragleave.stop.prevent="handleDragLeave"
-            @drop.stop.prevent="handleDrop"
+            @dragover.stop.prevent.capture="handleDrag"
+            @dragenter.stop.prevent.capture="handleDrag"
+            @dragleave.stop.prevent.capture="handleDragLeave"
+            @drop.stop.prevent.capture="handleDrop"
           >
             <Icon icon="material-symbols:upload" class="text-3xl mb-2" />
             <div class="capitalize">upload your vehicle image</div>
-            <input type="file" id="file-input" multiple hidden />
+            <input type="file" ref="fileInput" multiple hidden />
           </div>
           <div
-            v-for="i in 3"
-            :key="i"
-            class="bg-white rounded-xl border-[1px] border-gray-100 h-[13rem]"
-          ></div>
+            class="col-span-3 flex justify-start w-full h-full overflow-x-auto preview"
+          >
+            <div
+              v-for="i in previewImages"
+              :key="i"
+              class="flex-none bg-white rounded-xl border-[1px] border-gray-100 w-[17rem] h-[13rem] mr-3 mb-2"
+            >
+              <img :src="i" :alt="i" class="w-full h-full object-contain" />
+            </div>
+          </div>
         </div>
         <div
           class="col-span-2 bg-white rounded-xl h-[calc(100vh-20rem)] px-12 py-16"
@@ -137,5 +176,17 @@ const handleDragLeave = (e) => {
 <style scoped>
 #drop_area.drag-over {
   background-color: #eee;
+  border-width: 2px;
+}
+.preview::-webkit-scrollbar-track {
+  background: #ddd!; /* Change thumb color */
+}
+.preview::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 5px; /* Rounded corners */
+}
+.preview::-webkit-scrollbar {
+  width: 3px; /* Width for vertical scrollbar */
+  height: 10px; /* Height for horizontal scrollbar */
 }
 </style>
