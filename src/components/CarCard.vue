@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from "vue-router";
 const props = defineProps(["i"]);
 </script>
 <template>
@@ -31,11 +32,12 @@ const props = defineProps(["i"]);
       <div class="grid grid-cols-2 py-2">
         <div class="text-3xl text-black font-bold">$56</div>
         <div class="flex items-center p-0 m-0 justify-end">
-          <div
+          <router-link
+            :to="`/car-booking/${props.i}`"
             class="text-lg font-bold text-white py-3 px-6 bg-black rounded-lg cursor-pointer select-none"
           >
             Rent Car
-          </div>
+          </router-link>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { RouterLink } from "vue-router";
 </script>
 <template>
   <div class="w-4/10 rounded-xl bg-white py-8 px-16 flex flex-col">
@@ -83,14 +84,16 @@ import { Icon } from "@iconify/vue";
           >Zip Code &nbsp;<span class="text-red-600">*</span></label
         >
       </div>
-      <div
+      <!-- TODO:  form handling is needed the router navigation is just moving forward  -->
+      <router-link
+        to="/onboarding/"
         class="bg-black rounded-lg text-white w-min py-2 px-6 self-end flex items-center cursor-pointer"
       >
         <Icon
           icon="material-symbols:arrow-right-alt"
           class="inline-block ml-8 mr-2 text-5xl"
         />
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

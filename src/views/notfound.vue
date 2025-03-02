@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from "vue-router";
 import { Icon } from "@iconify/vue";
 </script>
 <template>
@@ -9,7 +10,8 @@ import { Icon } from "@iconify/vue";
         404 <span class="text-red-600"> page </span>
         not found
       </div>
-      <div
+      <router-link
+        to="/"
         class="text-white bg-black rounded-xl py-3 px-4 text-xl font-bold inline-block cursor-pointer select-none"
       >
         <Icon
@@ -17,7 +19,7 @@ import { Icon } from "@iconify/vue";
           class="inline text-3xl"
         />
         back to home
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

@@ -16,6 +16,10 @@ import customer from "../views/customer.vue";
 import owner from "../views/owner.vue";
 import onboarding from "../views/onboarding.vue";
 import notfound from "../views/notfound.vue";
+// INFO: components
+import Dashboard from "../components/Dashboard.vue";
+import MyProfile from "../components/CustomerMyProfile.vue";
+import MyOrders from "../components/CustomerMyOrders.vue";
 const routes = [
 	{
 		path: "/",
@@ -32,6 +36,11 @@ const routes = [
 			NavBar,
 			Footer,
 		},
+		children: [
+			{ path: "", component: Dashboard },
+			{ path: "profile", component: MyProfile },
+			{ path: "order", component: MyOrders },
+		],
 	},
 	{
 		path: "/dashboard/owner/",

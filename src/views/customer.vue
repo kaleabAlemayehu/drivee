@@ -1,32 +1,39 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { RouterView, RouterLink, useRoute } from "vue-router";
 import Dashboard from "../components/Dashboard.vue";
 import MyProfile from "../components/CustomerMyProfile.vue";
 import MyOrders from "../components/CustomerMyOrders.vue";
+
 const navs: Array<object> = [
   {
     icon: "ic:baseline-home",
     title: "Dashboard",
+    route: "/dashboard/customer/",
   },
 
   {
     icon: "material-symbols:person",
     title: "My Profile",
+    route: "/dashboard/customer/profile/",
   },
 
   {
     icon: "uis:calender",
     title: "My Order",
+    route: "/dashboard/customer/order/",
   },
 
   {
     icon: "ant-design:insurance-filled",
     title: "Insurance & Policy",
+    route: "/insuratance-and-policy/",
   },
 
   {
     icon: "uil:exit",
     title: "Sign Out",
+    route: "/",
   },
 ];
 </script>
@@ -79,18 +86,22 @@ const navs: Array<object> = [
           </div>
         </div>
         <div class="flex flex-col mt-4">
-          <div
+          <router-link
             v-for="i in navs"
-            class="w-full py-5 px-6 cursor-pointer hover:bg-black hover:text-white hover:font-bold rounded-xl flex font-[500] transition-colors duration-300"
+            :to="i.route"
+            class="w-full py-5 px-6 cursor-pointer hover:bg-gray-200 rounded-xl flex font-[500] transition-colors duration-300 mb-2"
+            :class="[
+              i.route == $route.fullPath
+                ? 'bg-black! text-white font-bold'
+                : '',
+            ]"
           >
             <Icon :icon="i.icon" class="text-2xl inline-block mr-8" />
             <div class="text-xl capitalize">{{ i.title }}</div>
-          </div>
+          </router-link>
         </div>
       </div>
-      <!-- <Dashboard class="" /> -->
-      <!-- <MyProfile class="" /> -->
-      <MyOrders class="" />
+      <router-view> </router-view>
     </div>
   </div>
 </template>
