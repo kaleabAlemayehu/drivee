@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const cards: Array<object> = [
+import type { Testimonials } from "../types/index.ts";
+const cards: Array<Testimonials> = [
   {
     name: "Rebecca Parker",
     title: "excellent service! car rent serive",
@@ -30,7 +31,7 @@ const cards: Array<object> = [
     >
       <div
         v-for="(c, i) in cards"
-        :key="c"
+        :key="c.name"
         class="w-3/10 bg-white shadow-2xl shadow-gray-200 flex relative"
       >
         <img

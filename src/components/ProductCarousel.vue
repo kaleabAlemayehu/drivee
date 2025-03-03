@@ -19,7 +19,7 @@ const prevSlide = () => {
 };
 
 // Function to go to a specific slide
-const goToSlide = (index) => {
+const goToSlide = (index: number) => {
   currentIndex.value = index;
 };
 </script>

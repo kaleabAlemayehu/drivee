@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+	createRouter,
+	createWebHistory,
+	type RouteRecordRaw,
+} from "vue-router";
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import home from "../views/home.vue";
@@ -20,7 +24,8 @@ import notfound from "../views/notfound.vue";
 import Dashboard from "../components/Dashboard.vue";
 import MyProfile from "../components/CustomerMyProfile.vue";
 import MyOrders from "../components/CustomerMyOrders.vue";
-const routes = [
+
+const routes: RouteRecordRaw[] = [
 	{
 		path: "/",
 		components: {
