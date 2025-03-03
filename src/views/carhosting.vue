@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
 import LearnMore from "../components/LearnMore.vue";
 import GetStartedForm from "../components/GetStartedForm.vue";
 import OnboardingSteps from "../components/OnboardingSteps.vue";

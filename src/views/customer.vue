@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-import { RouterView, RouterLink, useRoute } from "vue-router";
-import Dashboard from "../components/Dashboard.vue";
-import MyProfile from "../components/CustomerMyProfile.vue";
-import MyOrders from "../components/CustomerMyOrders.vue";
-
-const navs: Array<object> = [
+import type { CustomerNav } from "../types/index.ts";
+import { RouterView, RouterLink } from "vue-router";
+const navs: Array<CustomerNav> = [
   {
     icon: "ic:baseline-home",
     title: "Dashboard",

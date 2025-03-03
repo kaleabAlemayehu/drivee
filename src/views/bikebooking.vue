@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { Icon } from "@iconify/vue";
 import ProductCarousel from "../components/ProductCarousel.vue";
 const images = [

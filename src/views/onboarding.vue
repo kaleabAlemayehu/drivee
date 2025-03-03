@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, type Ref } from "vue";
 import { Icon } from "@iconify/vue";
-const files = ref(null);
-const fileInput = ref(null);
-const previewImages = ref([]);
-const handleDrop = (e) => {
-  console.log("droped", e);
-  e.currentTarget.classList.remove("drag-over");
+const fileInput: Ref<HTMLInputElement | null> = ref(null);
+const files: Ref<FileList | null> = ref(null);
+
+const previewImages = ref<string[]>([]);
+const handleDrop = (e: DragEvent) => {
+  (e?.currentTarget as HTMLElement)?.classList.remove("drag-over");
   // NOTE: handle the file upload as you think
-  files.value = e.dataTransfer.files;
+  files.value = e.dataTransfer?.files as FileList;
 
   // Checking if there are any files
   if (files.value.length) {
     // Assigning the files to the hidden input from the first step
-    fileInput.files = files.value;
+    fileInput.value!.files = files.value;
     // Processing the files for previews (next step)
     handleFiles(files.value);
   }
 };
-const handleFiles = (files) => {
+const handleFiles = (files: FileList) => {
   for (const file of files) {
     // Initializing the FileReader API and reading the file
     const reader = new FileReader();
@@ -27,22 +27,24 @@ const handleFiles = (files) => {
     // INFO: Once the file has been loaded, fire the processing
     reader.onloadend = function (e) {
       if (isValidFileType(file)) {
-        previewImages.value.push(e.target.result);
+        if (e.target?.result !== null && e.target?.result !== undefined) {
+          previewImages.value.push(e.target.result as string);
+        }
       }
     };
   }
 };
 
-function isValidFileType(file) {
+function isValidFileType(file: File) {
   const allowedTypes = ["image/jpeg", "image/png", "image/svg"];
   return allowedTypes.includes(file.type);
 }
 
-const handleDrag = (e) => {
-  e.currentTarget.classList.add("drag-over");
+const handleDrag = (e: DragEvent) => {
+  (e?.currentTarget as HTMLElement)?.classList?.add("drag-over");
 };
-const handleDragLeave = (e) => {
-  e.currentTarget.classList.remove("drag-over");
+const handleDragLeave = (e: DragEvent) => {
+  (e?.currentTarget as HTMLElement)?.classList?.remove("drag-over");
 };
 </script>
 <template>
@@ -68,8 +70,8 @@ const handleDragLeave = (e) => {
             class="col-span-3 flex justify-start w-full h-full overflow-x-auto preview"
           >
             <div
-              v-for="i in previewImages"
-              :key="i"
+              v-for="(i, index) in previewImages"
+              :key="index"
               class="flex-none bg-white rounded-xl border-[1px] border-gray-100 w-[17rem] h-[13rem] mr-3 mb-2"
             >
               <img :src="i" :alt="i" class="w-full h-full object-contain" />

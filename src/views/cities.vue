@@ -52,6 +52,7 @@ import Carousel from "../components/Carousel.vue";
               v-for="i in 5"
               icon="ic:outline-star"
               class="text-yellow-600 text-2xl"
+              :key="i"
             />
           </div>
           <div class="text-gray-400 text-lg capitalize">

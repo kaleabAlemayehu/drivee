@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type{ OwnerNav, OrderInfo} from "../types/index.ts"
 import { Icon } from "@iconify/vue";
-const navs: Array<object> = [
+const navs: Array<OwnerNav> = [
   {
     icon: "ic:baseline-home",
     title: "Dashboard",
@@ -27,7 +28,7 @@ const navs: Array<object> = [
   },
 ];
 
-const orders: Array<object> = [
+const orders: Array<OrderInfo> = [
   {
     icon: "mingcute:history-anticlockwise-fill",
     title: "Turn Over",
