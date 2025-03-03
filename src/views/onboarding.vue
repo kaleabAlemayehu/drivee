@@ -49,7 +49,7 @@ const handleDragLeave = (e: DragEvent) => {
 </script>
 <template>
   <div
-    class="h-screen w-full bg-[url(/bgworld.png)] bg-no-repeat bg-cover bg-center"
+    class="h-screen w-full bg-world bg-no-repeat bg-cover bg-center"
   >
     <div class="bg-white/45 w-full h-full">
       <div class="w-4/5 mx-auto grid grid-cols-5 gap-x-8 py-12 px-8">

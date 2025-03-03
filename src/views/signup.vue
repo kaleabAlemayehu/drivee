@@ -5,7 +5,7 @@ import { Icon } from "@iconify/vue";
 <template>
   <div class="h-screen w-full flex w-hidden">
     <div
-      class="bg-cover bg-[url(/signup.jpeg)] bg-center h-full object-none origin-center w-full bg-no-repeat m-0"
+      class="bg-cover bg-signup bg-center h-full object-none origin-center w-full bg-no-repeat m-0"
     >
       <div
         class="w-full bg-black/65 text-white h-full flex justify-center items-center mx-auto flex-col select-none"

@@ -9,7 +9,7 @@ const props = defineProps(["i"]);
   >
     <div class="rounded-xl rounded-b-none">
       <img
-        :src="`/bikephoto${props.i}.png`"
+        :src="props.i"
         alt=""
         class="w-full h-full inline-block object-contain origin-center"
       />
@@ -34,7 +34,7 @@ const props = defineProps(["i"]);
         <div class="text-3xl text-black font-bold">$56</div>
         <div class="flex items-center p-0 m-0 justify-end">
           <router-link
-            :to="`/bike-booking/${props.i}`"
+            :to="`/bike-booking/1`"
             class="text-lg font-bold text-white py-3 px-6 bg-black rounded-lg cursor-pointer select-none"
           >
             Rent Bike

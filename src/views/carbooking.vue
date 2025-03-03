@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import ProductCarousel from "../components/ProductCarousel.vue";
-const images = [
-  "/carphoto10.png",
-  "/carphoto2.png",
-  "/carphoto3.png",
-  "/carphoto4.png",
-];
+import Image1 from "../assets/carphoto1.png";
+import Image2 from "../assets/carphoto2.png";
+import Image3 from "../assets/carphoto3.png";
+import Image4 from "../assets/carphoto4.png";
+import Image5 from "../assets/carphoto5.png";
+import Image6 from "../assets/carphoto6.png";
+const images = [Image1, Image2, Image3, Image4, Image5, Image6];
 </script>
 <template>
   <div class="w-full bg-white">
@@ -111,7 +112,7 @@ const images = [
         </div>
       </div>
       <div
-        class="mb-44 bg-[url(/bgcarbooking.png)] opacity-80 z-10 bg-no-repeat bg-bottom bg-contain"
+        class="mb-44 bg-car-booking opacity-80 z-10 bg-no-repeat bg-bottom bg-contain"
       >
         <div class="bg-white/65 w-full h-full">
           <div class="mb-24">

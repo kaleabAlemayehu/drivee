@@ -1,23 +1,31 @@
 <script setup lang="ts">
 import type { Testimonials } from "../types/index.ts";
+import image1 from "../assets/comment1.jpg";
+import image2 from "../assets/comment2.jpg";
+import image3 from "../assets/comment3.jpg";
 const cards: Array<Testimonials> = [
   {
     name: "Rebecca Parker",
     title: "excellent service! car rent serive",
     comment:
       "we have been using drivee for our trips needs for several years now and have always been happy with their service. Their customr support is excellent and they are always available to help with any issues we have. their prices are also very competitive.",
+    image: image1,
   },
+
   {
     name: "Jovan Reels",
     title: "excellent service! car rent serive",
     comment:
       "I have been using drivee for my car rental needs for over 5 years now. I have never had any problems with their service. Their customers support is always responsive and helpful. i would recommand drivee to anyone looking for a reliable car rental provider.",
+    image: image2,
   },
   {
     name: "Kanesha Keyton",
     title: "excellent service! car rent serive",
     comment:
       "Endorsed by industry experts. Drivee is The car rental solution you can trust. with years of experience in the field. we provide fast, reliable and secure car rental services.",
+
+    image: image3,
   },
 ];
 </script>
@@ -35,7 +43,7 @@ const cards: Array<Testimonials> = [
         class="w-3/10 bg-white shadow-2xl shadow-gray-200 flex relative"
       >
         <img
-          :src="`/comment${i + 1}.jpg`"
+          :src="c.image"
           alt="customers photo"
           class="object-cover w-full h-max rounded-xl"
         />

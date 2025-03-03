@@ -5,7 +5,7 @@ import { Icon } from "@iconify/vue";
 </script>
 <template>
   <div
-    class="h-[calc(100vh-10rem)] w-full bg-[url(/bikehosting.jpg)] bg-center bg-cover object-scale-down bg-no-repeat flex justify-center items-center"
+    class="h-[calc(100vh-10rem)] w-full bg-bike-hosting bg-center bg-cover object-scale-down bg-no-repeat flex justify-center items-center"
   >
     <div
       class="bg-black/50 w-full h-full m-0 p-0 flex justify-center items-center"
@@ -63,9 +63,7 @@ import { Icon } from "@iconify/vue";
       <img src="../assets/rentBike.jpg" class="object-contain h-full w-full" />
     </div>
   </div>
-  <div
-    class="h-screen w-full bg-[url(/bgworld.png)] bg-center bg-no-repeat bg-cover py-16"
-  >
+  <div class="h-screen w-full bg-world bg-center bg-no-repeat bg-cover py-16">
     <div class="w-5/6 px-10 mx-auto flex justify-between">
       <GetStartedForm />
       <div class="w-4/10 h-full py-6 px-5">

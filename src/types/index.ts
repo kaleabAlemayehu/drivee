@@ -11,6 +11,7 @@ type Testimonials = {
 	name: string;
 	title: string;
 	comment: string;
+	image: string;
 };
 type Stats = {
 	num: string;

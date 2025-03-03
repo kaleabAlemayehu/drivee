@@ -6,7 +6,7 @@ import ReferForm from "../components/ReferForm.vue";
 </script>
 <template>
   <div
-    class="h-[calc(100vh-10rem)] w-full bg-[url(/carhosting.png)] bg-center bg-cover bg-no-repeat flex justify-center items-center"
+    class="h-[calc(100vh-10rem)] w-full bg-car-hosting bg-center bg-cover bg-no-repeat flex justify-center items-center"
   >
     <div
       class="bg-black/50 w-full h-full m-0 p-0 flex justify-center items-center"
@@ -30,9 +30,7 @@ import ReferForm from "../components/ReferForm.vue";
     </div>
   </div>
   <LearnMore class="mb-36" />
-  <div
-    class="h-screen w-full bg-[url(/bgworld.png)] bg-center bg-no-repeat bg-cover py-16"
-  >
+  <div class="h-screen w-full bg-world bg-center bg-no-repeat bg-cover py-16">
     <div class="w-5/6 px-10 mx-auto flex justify-between">
       <GetStartedForm />
       <OnboardingSteps />

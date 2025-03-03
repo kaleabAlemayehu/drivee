@@ -1,5 +1,33 @@
 <script setup lang="ts">
 import CarCard from "../components/CarCard.vue";
+
+import Image1 from "../assets/carphoto1.png";
+import Image2 from "../assets/carphoto2.png";
+import Image3 from "../assets/carphoto3.png";
+import Image4 from "../assets/carphoto4.png";
+import Image5 from "../assets/carphoto5.png";
+import Image6 from "../assets/carphoto6.png";
+import Image7 from "../assets/carphoto7.png";
+import Image8 from "../assets/carphoto8.png";
+import Image9 from "../assets/carphoto9.png";
+import Image10 from "../assets/carphoto10.png";
+import Image11 from "../assets/carphoto11.png";
+import Image12 from "../assets/carphoto12.png";
+
+const images = [
+  Image1,
+  Image2,
+  Image3,
+  Image4,
+  Image5,
+  Image6,
+  Image7,
+  Image8,
+  Image9,
+  Image10,
+  Image11,
+  Image12,
+];
 </script>
 <template>
   <div
@@ -30,7 +58,7 @@ import CarCard from "../components/CarCard.vue";
   </div>
   <div class="w-full bg-gray-100 pt-56 pb-18">
     <div class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto">
-      <CarCard v-for="i in 12" :i="i" />
+      <CarCard v-for="i in images" :i="i" />
     </div>
   </div>
 </template>

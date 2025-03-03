@@ -1,4 +1,36 @@
 @import "tailwindcss";
+
+@utility bg-city {
+	background-image: url("./assets/cities.jpeg");
+}
+
+@utility bg-bike-booking {
+	background-image: url("./assets/bgbikebooking.jpg");
+}
+
+@utility bg-car-booking {
+	background-image: url("./assets/bgcarbooking.png");
+}
+
+@utility bg-signup {
+	background-image: url("./assets/signup.jpeg");
+}
+
+@utility bg-world {
+	background-image: url("./assets/bgworld.png");
+}
+
+@utility bg-bike-hosting {
+	background-image: url("./assets/bikehosting.jpg");
+}
+
+@utility bg-car-hosting {
+	background-image: url("./assets/carhosting.png");
+}
+ @utility bg-contact-us {
+	background-image: url("./assets/contactus.jpeg");
+}
+
 *, *::before, *::after{
 	box-sizing: border-box;
 }

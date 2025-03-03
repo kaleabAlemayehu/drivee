@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import ProductCarousel from "../components/ProductCarousel.vue";
-const images = [
-  "/bikephoto1.png",
-  "/bikephoto2.png",
-  "/bikephoto3.png",
-  "/bikephoto4.png",
-];
+import Image1 from "../assets/bikephoto1.png";
+import Image2 from "../assets/bikephoto2.png";
+import Image3 from "../assets/bikephoto3.png";
+import Image4 from "../assets/bikephoto4.png";
+import Image5 from "../assets/bikephoto5.png";
+import Image6 from "../assets/bikephoto6.png";
+
+const images = [Image1, Image2, Image3, Image4, Image5, Image6];
 </script>
 <template>
   <div class="w-full bg-white">
@@ -110,9 +112,7 @@ const images = [
           </div>
         </div>
       </div>
-      <div
-        class="mb-44 bg-[url(/bgbikebooking.jpg)] z-10 bg-no-repeat bg-center bg-contain"
-      >
+      <div class="mb-44 bg-bike-booking z-10 bg-no-repeat bg-center bg-contain">
         <div class="bg-white/90 w-full h-full">
           <div class="mb-24">
             <div class="font-bold text-3xl uppercase mb-6">bmw m2 2020</div>

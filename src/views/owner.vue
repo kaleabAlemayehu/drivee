@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type{ OwnerNav, OrderInfo} from "../types/index.ts"
+import type { OwnerNav, OrderInfo } from "../types/index.ts";
 import { Icon } from "@iconify/vue";
+import Earth from "../assets/earth.svg";
 const navs: Array<OwnerNav> = [
   {
     icon: "ic:baseline-home",
@@ -184,7 +185,7 @@ const orders: Array<OrderInfo> = [
             </div>
           </div>
           <img
-            src="/earth.svg"
+            :src="Earth"
             alt=""
             class="inline-block w-full h-full object-contain fill-gray-800 stroke-black"
           />

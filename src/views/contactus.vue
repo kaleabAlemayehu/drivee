@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="h-[calc(100vh-10rem)] w-full bg-[url(/contactus.jpeg)] bg-center bg-cover bg-no-repeat flex justify-center items-center"
+    class="h-[calc(100vh-10rem)] w-full bg-contact-us bg-center bg-cover bg-no-repeat flex justify-center items-center"
   >
     <div
       class="bg-black/50 w-full h-full m-0 p-0 flex justify-center items-center"
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div class="w-full bg-[url(/bgworld.png)] bg-top bg-cover bg-no-repeat">
+  <div class="w-full bg-world bg-top bg-cover bg-no-repeat">
     <div class="w-5/6 px-10 mx-auto pt-24 pb-16">
       <div class="text-6xl font-bold mb-8 mt-10 capitalize text-center">
         Need Additional Information?

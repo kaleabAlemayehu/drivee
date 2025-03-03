@@ -2,15 +2,23 @@
 import { ref, computed, nextTick } from "vue";
 import { RouterLink } from "vue-router";
 import { Icon } from "@iconify/vue";
+import Image1 from "../assets/city1.jpg";
+import Image2 from "../assets/city2.jpg";
+import Image3 from "../assets/city3.jpg";
+import Image4 from "../assets/city4.jpg";
+import Image5 from "../assets/city5.jpg";
+import Image6 from "../assets/city6.jpg";
+import Image7 from "../assets/city7.jpg";
+import Image0 from "../assets/city0.jpg";
 const items = ref([
-  { index: 0, name: "NewYork" },
-  { index: 1, name: "London" },
-  { index: 2, name: "Dubai" },
-  { index: 3, name: "Tokyo" },
-  { index: 4, name: "Paris" },
-  { index: 5, name: "Berlin" },
-  { index: 6, name: "Singapore" },
-  { index: 7, name: "Beijing" },
+  { index: 0, name: "NewYork", image: Image0 },
+  { index: 1, name: "London", image: Image1 },
+  { index: 2, name: "Dubai", image: Image2 },
+  { index: 3, name: "Tokyo", image: Image3 },
+  { index: 4, name: "Paris", image: Image4 },
+  { index: 5, name: "Berlin", image: Image5 },
+  { index: 6, name: "Singapore", image: Image6 },
+  { index: 7, name: "Beijing", image: Image7 },
 ]);
 const windowSize: number = 5;
 const startIndex = ref(0);
@@ -71,7 +79,7 @@ const handleRight = async () => {
         class="rounded-full size-60 border-white border-8 shadow-xl hover:shadow-2xl transition-all duration-300 text-center text-2xl font-semibold text-black/70 select-none"
       >
         <img
-          :src="`/city${el.index}.jpg`"
+          :src="el.image"
           alt=""
           class="inline-block mb-10 w-full h-full rounded-full object-cover object-center"
         />

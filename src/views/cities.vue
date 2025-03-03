@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import image from "../assets/andrew.jpeg";
 import Carousel from "../components/Carousel.vue";
 </script>
 <template>
   <div
-    class="h-[calc(100vh-10rem)] w-full bg-[url(/cities.jpeg)] bg-center bg-cover bg-no-repeat flex justify-center items-center"
+    class="h-[calc(100vh-10rem)] w-full bg-city bg-center bg-cover bg-no-repeat flex justify-center items-center"
   >
     <div
       class="bg-black/50 w-full h-full m-0 p-0 flex justify-center items-center"
@@ -42,7 +43,7 @@ import Carousel from "../components/Carousel.vue";
           <div class="flex justify-between items-center">
             <div class="text-2xl font-semibold capitalize">Andrew T</div>
             <img
-              src="/andrew.jpeg"
+              :src="image"
               alt=""
               class="inline-block rounded-full size-25 object-cover object-center"
             />
