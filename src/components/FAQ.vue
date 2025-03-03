@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import type { Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Icon } from "@iconify/vue";
-const questions: Array<Number> = ref([1, 2, 3, 4, 5, 6]);
+const questions: Ref<number[], number[]> = ref([1, 2, 3, 4, 5, 6]);
 const tabs: Array<string> = [
   "general",
   "security",
@@ -25,12 +26,12 @@ const rhs = questions.value.slice(
   Math.ceil(questions.value.length / 2),
   questions.value.length,
 );
-const selectedIndex = ref(null);
-const handleTab = (tab) => {
+const selectedIndex: Ref<number | null> = ref(null);
+const handleTab = (tab: string): void => {
   activeTab.value = tab;
   router.replace({ hash: `#faq-${tab}` });
 };
-const handleToggle = (i) => {
+const handleToggle = (i: number) => {
   selectedIndex.value = selectedIndex.value == i ? null : i;
 };
 const lhs = questions.value.slice(0, Math.ceil(questions.value.length / 2));
@@ -42,7 +43,7 @@ const lhs = questions.value.slice(0, Math.ceil(questions.value.length / 2));
     </div>
     <div class="flex w-45/100 mx-auto justify-between text-[1.60rem]">
       <div
-        v-for="(t, i) in tabs"
+        v-for="(t, _) in tabs"
         :class="[
           'px-5 py-3 capitalize font-light text-gray-500 cursor-pointer select-none transition-colors duration-300',
           activeTab === t ? 'text-black! font-medium bg-gray-200' : '',

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, type Ref } from "vue";
+import { type CursorPosition } from "../types/index.ts";
 const lensSize = ref({
   width: 240,
   height: 240,
@@ -28,29 +29,31 @@ const cx = ref(0);
 const cy = ref(0);
 
 // Refs
-const image = ref(null);
+const image: Ref<HTMLElement | null> = ref(null);
 
 // Initialize zoom
 const initZoom = () => {
-  const img = image.value;
-  const result = document.querySelector("#result");
+  const img = image?.value as HTMLImageElement;
+  const result: HTMLElement = document.querySelector<HTMLElement>(
+    "#result",
+  ) as HTMLElement;
 
   // Calculate the ratio between result DIV and lens
-  cx.value = result.offsetWidth / lensSize.value.width; // Lens width is 40px
-  cy.value = result.offsetHeight / lensSize.value.height; // Lens height is 40px
+  cx.value = (result.offsetWidth ?? 0) / lensSize.value.width; // Lens width is 40px
+  cy.value = (result.offsetHeight ?? 0) / lensSize.value.height; // Lens height is 40px
 
   // Set background properties for the result DIV
-  resultStyle.value.backgroundImage = `url('${img.src}')`;
-  resultStyle.value.backgroundSize = `${img.width * cx.value}px ${img.height * cy.value}px`;
+  resultStyle.value.backgroundImage = `url('${img?.src}')`;
+  resultStyle.value.backgroundSize = `${img?.width * cx.value}px ${img?.height * cy.value}px`;
 };
 
 // Move lens based on cursor position
-const moveLens = (e) => {
+const moveLens = (e: MouseEvent) => {
   e.preventDefault();
 
   imageStyle.value.opacity = "0";
   showLens.value = true;
-  const img = image.value;
+  const img = image.value as HTMLImageElement;
   const pos = getCursorPos(e);
 
   // Calculate the position of the lens
@@ -69,7 +72,7 @@ const moveLens = (e) => {
   resultStyle.value.backgroundPosition = `-${x * cx.value}px -${y * cy.value}px`;
 };
 
-const mouseLeave = (e) => {
+const mouseLeave = (e: MouseEvent) => {
   e.preventDefault();
   console.log(imageStyle.value.opacity);
 
@@ -79,15 +82,19 @@ const mouseLeave = (e) => {
 };
 
 // Get cursor position relative to the image
-const getCursorPos = (e) => {
-  const img = image.value;
-  const rect = img.getBoundingClientRect();
-
+const getCursorPos = (e: Event): CursorPosition => {
+  const img = image.value as HTMLImageElement;
+  const rect = img?.getBoundingClientRect();
   // Calculate the cursor's x and y coordinates, relative to the image
-  const x = (e.pageX || e.touches[0].pageX) - rect.left - window.pageXOffset;
-  const y = (e.pageY || e.touches[0].pageY) - rect.top - window.pageYOffset;
-
-  return { x, y };
+  const x =
+    (e as MouseEvent).pageX.valueOf() -
+    rect.left.valueOf() -
+    window.pageXOffset.valueOf();
+  const y =
+    (e as MouseEvent).pageY.valueOf() -
+    rect.top.valueOf() -
+    window.pageYOffset.valueOf();
+  return { x, y } as CursorPosition;
 };
 
 // Initialize zoom on mount
@@ -104,7 +111,6 @@ onMounted(() => {
           src="https://picsum.photos/300/300"
           alt="Zoomable Image"
           @mousemove="moveLens"
-          @touchmove="moveLens"
           @mouseleave="mouseLeave"
           :style="imageStyle"
           class="size-[30rem]"

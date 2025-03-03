@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
-const orders: Array<object> = [
+import { type OrderInfo } from "../types/index.ts";
+const orders: Array<OrderInfo> = [
   {
     icon: "uis:calender",
     title: "Total Order",

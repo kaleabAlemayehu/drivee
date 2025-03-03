@@ -12,7 +12,7 @@ const items = ref([
   { index: 6, name: "Singapore" },
   { index: 7, name: "Beijing" },
 ]);
-const windowSize: Number = 5;
+const windowSize: number = 5;
 const startIndex = ref(0);
 const isSliding = ref(false);
 const visibleItems = computed(() => {
@@ -42,10 +42,6 @@ const handleRight = async () => {
   await nextTick();
   isSliding.value = false;
 };
-const show = ref(true);
-function toggle() {
-  show.value = !show.value;
-}
 </script>
 <template>
   <div
@@ -70,8 +66,8 @@ function toggle() {
     >
       <router-link
         to="/cities/"
-        v-for="(el, i) in visibleItems"
-        :key="el"
+        v-for="(el, _) in visibleItems"
+        :key="el.index"
         class="rounded-full size-60 border-white border-8 shadow-xl hover:shadow-2xl transition-all duration-300 text-center text-2xl font-semibold text-black/70 select-none"
       >
         <img
