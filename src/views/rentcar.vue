@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CarCard from "../components/CarCard.vue";
-
+import mapImage from "./../assets/map.svg";
+import rentCarImage from "./../assets/rentcar.png";
 import Image1 from "../assets/carphoto1.png";
 import Image2 from "../assets/carphoto2.png";
 import Image3 from "../assets/carphoto3.png";
@@ -38,14 +39,10 @@ const images = [
         Rent a car, rent your freedom
       </div>
 
-      <img
-        src="./../assets/map.svg"
-        alt=""
-        class="absolute top-50 -left-40 z-10 m-0"
-      />
+      <img :src="mapImage" alt="" class="absolute top-50 -left-40 z-10 m-0" />
 
       <img
-        src="./../assets/rentcar.png"
+        :src="rentCarImage"
         alt=""
         class="w-200 transform rotate-y-180 absolute -top-10 right-0 z-200 m-0"
       />

@@ -2,6 +2,10 @@
 import { Icon } from "@iconify/vue";
 import type { CustomerNav } from "../types/index.ts";
 import { RouterView, RouterLink } from "vue-router";
+import image from "../assets/comment2.jpg";
+import dudeImage from "../assets/guywithlaptop.svg";
+import flowerImage from "../assets/flowerpot.svg";
+import desktopImage from "../assets/desktop.svg";
 const navs: Array<CustomerNav> = [
   {
     icon: "ic:baseline-home",
@@ -44,19 +48,19 @@ const navs: Array<CustomerNav> = [
       </div>
 
       <img
-        src="./../assets/guywithlaptop.svg"
+        :src="dudeImage"
         alt=""
         class="absolute h-90 bottom-0 left-100 z-10 m-0"
       />
 
       <img
-        src="./../assets/flowerpot.svg"
+        :src="flowerImage"
         alt=""
         class="h-50 absolute bottom-0 left-65 z-200 m-0"
       />
 
       <img
-        src="./../assets/desktop.svg"
+        :src="desktopImage"
         alt=""
         class="h-80 absolute bottom-0 right-65 z-200 m-0"
       />
@@ -71,7 +75,7 @@ const navs: Array<CustomerNav> = [
       >
         <div class="flex flex-col items-center">
           <img
-            src="/comment2.jpg"
+            :src="image"
             alt=""
             class="size-50 rounded-full object-center object-cover inline-block mb-5"
           />

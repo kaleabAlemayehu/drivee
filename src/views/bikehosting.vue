@@ -2,6 +2,7 @@
 import GetStartedForm from "../components/GetStartedForm.vue";
 import ReferForm from "../components/ReferForm.vue";
 import { Icon } from "@iconify/vue";
+import rentBikeImage from "../assets/rentBike.jpg";
 </script>
 <template>
   <div
@@ -60,7 +61,7 @@ import { Icon } from "@iconify/vue";
     </div>
     <div class=""></div>
     <div class="flex items-start justify-start">
-      <img src="../assets/rentBike.jpg" class="object-contain h-full w-full" />
+      <img :src="rentBikeImage" class="object-contain h-full w-full" />
     </div>
   </div>
   <div class="h-screen w-full bg-world bg-center bg-no-repeat bg-cover py-16">

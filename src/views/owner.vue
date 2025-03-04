@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { OwnerNav, OrderInfo } from "../types/index.ts";
+import image from "../assets/comment2.jpg";
 import { Icon } from "@iconify/vue";
 import Earth from "../assets/earth.svg";
 const navs: Array<OwnerNav> = [
@@ -60,8 +61,8 @@ const orders: Array<OrderInfo> = [
         >
           <div class="flex flex-col items-center">
             <img
-              src="/comment2.jpg"
-              alt=""
+              :src="image"
+              alt="profile_image"
               class="size-50 rounded-full object-center object-cover inline-block mb-5"
             />
             <div class="text-3xl font-semibold mb-1 text-center capitalize">

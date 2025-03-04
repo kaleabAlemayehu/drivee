@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 import { RouterLink } from "vue-router";
+import image from "../assets/learnMore.jpg";
 </script>
 <template>
   <div
@@ -36,7 +37,7 @@ import { RouterLink } from "vue-router";
     </div>
     <div class=""></div>
     <div class="flex items-start justify-start">
-      <img src="../assets/learnMore.jpg" class="object-contain h-full w-full" />
+      <img :src="image" class="object-contain h-full w-full" />
     </div>
   </div>
 </template>

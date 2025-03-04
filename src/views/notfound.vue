@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import NOTFOUND form "../assets/notfound.svg"
+import NOTFOUND from "../assets/notfound.svg";
 import { Icon } from "@iconify/vue";
 </script>
 <template>

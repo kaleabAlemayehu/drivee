@@ -12,7 +12,8 @@ import Image9 from "../assets/bikephoto9.png";
 import Image10 from "../assets/bikephoto10.png";
 import Image11 from "../assets/bikephoto11.png";
 import Image12 from "../assets/bikephoto12.png";
-
+import mapImage from "./../assets/map.svg";
+import rentBikeImage from "./../assets/rentbike.png";
 const images = [
   Image1,
   Image2,
@@ -37,14 +38,10 @@ const images = [
         Rent a bike, rent your freedom
       </div>
 
-      <img
-        src="./../assets/map.svg"
-        alt=""
-        class="absolute top-50 -left-40 z-10 m-0"
-      />
+      <img :src="mapImage" alt="" class="absolute top-50 -left-40 z-10 m-0" />
 
       <img
-        src="./../assets/rentbike.png"
+        :src="rentBikeImage"
         alt=""
         class="w-150 absolute top-15 right-0 z-200 m-0"
       />
