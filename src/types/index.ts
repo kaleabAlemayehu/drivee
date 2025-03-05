@@ -26,9 +26,14 @@ type OwnerNav = {
 	icon: string;
 	title: string;
 };
+type NavBarNav = {
+	title: string;
+	route: string;
+};
 export type {
 	CursorPosition,
 	CustomerNav,
+	NavBarNav,
 	OrderInfo,
 	OwnerNav,
 	Stats,

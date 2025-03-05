@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import type { NavBarNav } from "../types/index.ts";
 import { RouterLink } from "vue-router";
 import { Icon } from "@iconify/vue";
 const wrapper = ref<HTMLElement | null>(null);
@@ -15,10 +16,25 @@ onMounted(() => {
     }
   });
 });
-const hosting: Array<string> = [
-  "Car & Referals",
-  "Bike & Referals",
-  "Car & Referals",
+// const hosting: Array<NavBarNav> = [
+//   {
+//     name: "Car Hosting & Referals",
+//     route: "/car-hosting/",
+//   },
+//   {
+//     name: "Bike Hosting & Referals",
+//     route: "/bike-hosting/",
+//   },
+// ];
+const account: Array<NavBarNav> = [
+  {
+    title: "Owner Account",
+    route: "/dashboard/owner/",
+  },
+  {
+    title: "Customer Account",
+    route: "/dashboard/customer/",
+  },
 ];
 </script>
 <template>
@@ -50,13 +66,14 @@ const hosting: Array<string> = [
           <div
             class="absolute z-10 top-[calc(2*70%)] bg-black/90 w-42 overflow-hidden rounded-b-lg transform transition-transform duration-300 delay-300 origin-top group-hover:scale-y-100 hover:scale-y-100 group-hover:h-auto group-hover:opacity-100 scale-y-0 opacity-0 flex-col flex"
           >
-            <div
-              v-for="i in hosting"
-              :key="i"
+            <router-link
+              v-for="i in account"
+              :key="i.title"
+              :to="i.route"
               class="text-white py-2 px-4 hover:bg-gray-900 w-full"
             >
-              {{ i }}
-            </div>
+              {{ i.title }}
+            </router-link>
           </div>
         </div>
       </div>

@@ -38,7 +38,7 @@ const cards: Array<Testimonials> = [
       class="flex rounded-lg w-5/6 mb-35 justify-around mx-auto h-9/10 items-center"
     >
       <div
-        v-for="(c, i) in cards"
+        v-for="(c, _) in cards"
         :key="c.name"
         class="w-3/10 bg-white shadow-2xl shadow-gray-200 flex relative"
       >
