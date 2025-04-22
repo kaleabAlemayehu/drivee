@@ -3,7 +3,7 @@ import { Icon } from "@iconify/vue";
 </script>
 
 <template>
-  <div class="h-screen w-full flex w-hidden">
+  <div class="h-screen w-full flex w-hidden overflow-hidden">
     <div
       class="bg-cover bg-signup bg-center h-full object-none origin-center w-full bg-no-repeat m-0"
     >
@@ -28,16 +28,16 @@ import { Icon } from "@iconify/vue";
         </div>
       </div>
     </div>
-    <div class="h-full bg-white w-full py-8">
+    <div class="h-full max-h-screen overflow-y-hidden bg-white w-full py-8">
       <div class="w-3/5 mx-auto">
-        <div class="text-5xl font-bold capitalize mb-6">Drivee</div>
-        <div class="text-3xl font-bold capitalize mb-2">Create An Account</div>
-        <div class="text-gray-500 text-lg w-85/100 mb-4">
+        <div class="text-5xl font-bold capitalize mb-4">Drivee</div>
+        <div class="text-3xl font-bold capitalize mb-1">Create An Account</div>
+        <div class="text-gray-500 text-lg w-85/100 mb-2">
           We'd love to have you on board. Join over 500+ customers around the
           globe and enhance productivity.
         </div>
         <div
-          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center px-6 py-5 mb-3 cursor-pointer select-none"
+          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center px-6 py-5 mb-2 cursor-pointer select-none"
         >
           <Icon icon="logos:facebook" class="text-3xl mr-18" />
           <div class="text-xl font-semibold text-gray-600">
@@ -46,7 +46,7 @@ import { Icon } from "@iconify/vue";
         </div>
 
         <div
-          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center px-6 py-5 mb-3 cursor-pointer select-none"
+          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center px-6 py-5 mb-2 cursor-pointer select-none"
         >
           <Icon icon="devicon:google" class="text-3xl mr-18" />
           <div class="text-xl font-semibold text-gray-600">
@@ -56,7 +56,7 @@ import { Icon } from "@iconify/vue";
         <div
           class="w-3/4 border-[1px] border-transparent border-t-gray-100 flex flex-col py-4"
         >
-          <div class="w-full mb-2">
+          <div class="w-full mb-1">
             <div class="font-semibold text-xl mb-3">
               Name <span class="text-red-500">*</span>
             </div>
@@ -67,7 +67,7 @@ import { Icon } from "@iconify/vue";
             />
           </div>
 
-          <div class="w-full my-2">
+          <div class="w-full my-1">
             <div class="font-semibold text-xl mb-3">
               Email <span class="text-red-500">*</span>
             </div>
@@ -78,7 +78,7 @@ import { Icon } from "@iconify/vue";
             />
           </div>
 
-          <div class="w-full my-2">
+          <div class="w-full my-1">
             <div class="font-semibold text-xl mb-3">
               Password <span class="text-red-500">*</span>
             </div>
@@ -104,7 +104,7 @@ import { Icon } from "@iconify/vue";
           </div>
 
           <div
-            class="w-full font-semibold cursor-pointer my-8 py-5 px-8 text-center select-none bg-black rounded-lg text-white"
+            class="w-full font-semibold cursor-pointer my-4 py-5 px-8 text-center select-none bg-black rounded-lg text-white"
           >
             Sign up
           </div>
