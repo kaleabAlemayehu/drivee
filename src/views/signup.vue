@@ -3,6 +3,9 @@ import { Icon } from "@iconify/vue";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/yup";
 import * as yup from "yup";
+import { useUserStore } from "../store/useUserStore";
+
+const userStore = useUserStore();
 
 const schema = toTypedSchema(
   yup.object({
@@ -31,6 +34,7 @@ function onInvalidSubmit({ values, errors, results }) {
 
 const onSubmit = handleSubmit((values) => {
   console.log(values);
+  userStore.signup(values.name, values.email, values.password);
 }, onInvalidSubmit);
 </script>
 
