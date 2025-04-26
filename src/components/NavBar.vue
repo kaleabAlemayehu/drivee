@@ -64,13 +64,13 @@ const account: Array<NavBarNav> = [
             class="inline dark:text-white text-xl"
           />
           <div
-            class="absolute z-10 top-[calc(2*70%)] bg-black/90 w-42 overflow-hidden rounded-b-lg transform transition-transform duration-300 delay-300 origin-top group-hover:scale-y-100 hover:scale-y-100 group-hover:h-auto group-hover:opacity-100 scale-y-0 opacity-0 flex-col flex"
+            class="absolute z-10 top-[calc(2*70%)] bg-inherit w-42 overflow-hidden rounded-b-lg transform transition-transform duration-300 delay-300 origin-top group-hover:scale-y-100 hover:scale-y-100 group-hover:h-auto group-hover:opacity-100 scale-y-0 opacity-0 flex-col flex"
           >
             <router-link
               v-for="i in account"
               :key="i.title"
               :to="i.route"
-              class="text-white py-2 px-4 hover:bg-gray-900 w-full"
+              class="text-inherit py-2 px-4 hover:bg-inherit/80 w-full"
             >
               {{ i.title }}
             </router-link>
@@ -96,7 +96,7 @@ const account: Array<NavBarNav> = [
 </template>
 <style scoped>
 .scrollOn {
-  background: #fff;
+  background: #fff !important;
   color: #000;
   padding-block: 1rem;
 }

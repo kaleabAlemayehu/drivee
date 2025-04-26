@@ -1,5 +1,37 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
+import { useForm } from "vee-validate";
+import { toTypedSchema } from "@vee-validate/yup";
+import * as yup from "yup";
+
+const schema = toTypedSchema(
+  yup.object({
+    name: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string().min(8).required(),
+    policy: yup
+      .bool()
+      .oneOf([true], "must agree to terms and privacy policy to signup.")
+      .required(),
+  }),
+);
+const { handleSubmit, defineField, errors } = useForm({
+  validationSchema: schema,
+});
+const [name, nameAttrs] = defineField("name");
+const [email, emailAttrs] = defineField("email");
+const [password, passwordAttrs] = defineField("password");
+const [policy, policyAttrs] = defineField("policy");
+
+function onInvalidSubmit({ values, errors, results }) {
+  console.log(values); // current form values
+  console.log(errors); // a map of field names and their first error message
+  console.log(results); // a detailed map of field names and their validation results
+}
+
+const onSubmit = handleSubmit((values) => {
+  console.log(values);
+}, onInvalidSubmit);
 </script>
 
 <template>
@@ -28,28 +60,33 @@ import { Icon } from "@iconify/vue";
         </div>
       </div>
     </div>
-    <div class="h-full max-h-screen overflow-y-hidden bg-white w-full py-8">
-      <div class="w-3/5 mx-auto">
-        <div class="text-5xl font-bold capitalize mb-4">Drivee</div>
-        <div class="text-3xl font-bold capitalize mb-1">Create An Account</div>
-        <div class="text-gray-500 text-lg w-85/100 mb-2">
+    <form
+      @submit.prevent="onSubmit"
+      class="h-full min-h-screen bg-white w-full xl:py-8 lg:py-4"
+    >
+      <div class="xl:w-3/5 lg:w-6/8 mx-auto">
+        <div class="text-5xl font-bold capitalize xl:mb-4 lg:mb-1">Drivee</div>
+        <div class="text-3xl font-bold capitalize xl:mb-1 lg:mb-0">
+          Create An Account
+        </div>
+        <div class="text-gray-500 text-lg w-85/100 xl:mb-2 lg:mb-1">
           We'd love to have you on board. Join over 500+ customers around the
           globe and enhance productivity.
         </div>
         <div
-          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center px-6 py-5 mb-2 cursor-pointer select-none"
+          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center xl:px-6 lg:px-4 xl:py-5 lg:py-4 mb-2 cursor-pointer select-none"
         >
           <Icon icon="logos:facebook" class="text-3xl mr-18" />
-          <div class="text-xl font-semibold text-gray-600">
+          <div class="xl:text-xl lg:text-lg font-semibold text-gray-600">
             Continue with Facebook
           </div>
         </div>
 
         <div
-          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center px-6 py-5 mb-2 cursor-pointer select-none"
+          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center xl:px-6 lg:px-4 xl:py-5 lg:py-4 mb-2 cursor-pointer select-none"
         >
           <Icon icon="devicon:google" class="text-3xl mr-18" />
-          <div class="text-xl font-semibold text-gray-600">
+          <div class="xl:text-xl lg:text-lg font-semibold text-gray-600">
             Continue with Google
           </div>
         </div>
@@ -64,7 +101,10 @@ import { Icon } from "@iconify/vue";
               type="text"
               class="py-3 px-5 block outline-none ring-1 ring-gray-300 rounded-lg border-none w-full"
               placeholder="Enter Your Name"
+              v-model="name"
+              v-bind="nameAttrs"
             />
+            <div class="text-red-500">{{ errors.name }}</div>
           </div>
 
           <div class="w-full my-1">
@@ -75,7 +115,10 @@ import { Icon } from "@iconify/vue";
               type="text"
               class="py-3 px-5 block outline-none ring-1 ring-gray-300 rounded-lg border-none w-full"
               placeholder="Enter Your Email"
+              v-model="email"
+              v-bind="emailAttrs"
             />
+            <div class="text-red-500">{{ errors.email }}</div>
           </div>
 
           <div class="w-full my-1">
@@ -86,13 +129,18 @@ import { Icon } from "@iconify/vue";
               type="password"
               class="py-3 px-5 block outline-none ring-1 ring-gray-300 rounded-lg border-none w-full"
               placeholder="Enter Your Password"
+              v-model="password"
+              v-bind="passwordAttrs"
             />
+            <div class="text-red-500">{{ errors.password }}</div>
           </div>
 
           <div class="flex items-center justify-start mt-5 mb-3">
             <input
               type="checkbox"
               class="size-4 text-blue-600 bg-gray-100 border-gray-300 rounded-xl mr-4 cursor-pointer"
+              v-model="policy"
+              v-bind="policyAttrs"
             />
 
             <div class="lable-agree inline-block">
@@ -103,18 +151,20 @@ import { Icon } from "@iconify/vue";
             </div>
           </div>
 
-          <div
+          <div class="text-red-500">{{ errors.policy }}</div>
+          <button
             class="w-full font-semibold cursor-pointer my-4 py-5 px-8 text-center select-none bg-black rounded-lg text-white"
+            type="submit"
           >
             Sign up
-          </div>
+          </button>
           <div class="capitalize">
             already have an account?
             <span class="underline cursor-pointer">login here</span>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <style scoped></style>
