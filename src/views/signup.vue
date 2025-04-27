@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import { useForm } from 'vee-validate';
@@ -26,6 +26,7 @@ const schema = toTypedSchema(
 const { handleSubmit, defineField, errors, setValues } = useForm({
   validationSchema: schema,
 });
+
 const [name, nameAttrs] = defineField('name');
 const [email, emailAttrs] = defineField('email');
 const [password, passwordAttrs] = defineField('password');
@@ -55,6 +56,11 @@ const onSubmit = handleSubmit(async (values) => {
       policy: false,
     });
 
+    router.push({ path: '/', replace: true });
+  }
+});
+onBeforeMount(() => {
+  if (userStore.user) {
     router.push({ path: '/', replace: true });
   }
 });
