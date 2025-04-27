@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/yup";
-import * as yup from "yup";
-import { useUserStore } from "../store/useUserStore";
+import { ref } from 'vue';
+import { Icon } from '@iconify/vue';
+import { useForm } from 'vee-validate';
+import { toTypedSchema } from '@vee-validate/yup';
+import * as yup from 'yup';
+import { useUserStore } from '../store/useUserStore';
 
 const userStore = useUserStore();
-
+const submitErr = ref(null);
 const schema = toTypedSchema(
   yup.object({
     name: yup.string().required(),
@@ -14,28 +15,29 @@ const schema = toTypedSchema(
     password: yup.string().min(8).required(),
     policy: yup
       .bool()
-      .oneOf([true], "must agree to terms and privacy policy to signup.")
+      .oneOf([true], 'must agree to terms and privacy policy to signup.')
       .required(),
   }),
 );
 const { handleSubmit, defineField, errors } = useForm({
   validationSchema: schema,
 });
-const [name, nameAttrs] = defineField("name");
-const [email, emailAttrs] = defineField("email");
-const [password, passwordAttrs] = defineField("password");
-const [policy, policyAttrs] = defineField("policy");
+const [name, nameAttrs] = defineField('name');
+const [email, emailAttrs] = defineField('email');
+const [password, passwordAttrs] = defineField('password');
+const [policy, policyAttrs] = defineField('policy');
 
-function onInvalidSubmit({ values, errors, results }) {
-  console.log(values); // current form values
-  console.log(errors); // a map of field names and their first error message
-  console.log(results); // a detailed map of field names and their validation results
-}
-
-const onSubmit = handleSubmit((values) => {
-  console.log(values);
-  userStore.signup(values.name, values.email, values.password);
-}, onInvalidSubmit);
+const onSubmit = handleSubmit(async (values) => {
+  const { message, err } = await userStore.signup(
+    values.name,
+    values.email,
+    values.password,
+  );
+  if (err) {
+    submitErr.value = message;
+  }
+  console.log(`message:${message}, error: ${err}`);
+});
 </script>
 
 <template>
@@ -156,6 +158,8 @@ const onSubmit = handleSubmit((values) => {
           </div>
 
           <div class="text-red-500">{{ errors.policy }}</div>
+          <div class="text-red-500">{{ submitErr }}</div>
+
           <button
             class="w-full font-semibold cursor-pointer my-4 py-5 px-8 text-center select-none bg-black rounded-lg text-white"
             type="submit"
