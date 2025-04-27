@@ -5,8 +5,7 @@ import type { SignupInputs } from '../types';
 const client = useClient();
 export const useUserStore = defineStore('user', {
   state: () => ({
-    // user: JSON.parse(localStorage.getItem("user") || null),
-    user: null,
+    user: JSON.parse(localStorage.getItem('user') || 'null'),
   }),
   getters: {
     isAuthincated: (state) => !!state.user,
@@ -21,7 +20,8 @@ export const useUserStore = defineStore('user', {
       };
       let { message, err } = await client.post('/register', data);
       if (!err) {
-        localStorage.setItem('user', message);
+        this.user = message;
+        localStorage.setItem('user', JSON.stringify(message));
       }
       return { message: message, err: err };
     },
@@ -30,6 +30,8 @@ export const useUserStore = defineStore('user', {
     },
     logout() {
       // clear user data
+      this.user = null;
+      localStorage.removeItem('user');
     },
   },
 });

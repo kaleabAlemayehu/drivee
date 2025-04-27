@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import type { NavBarNav } from "../types/index.ts";
-import { RouterLink } from "vue-router";
-import { Icon } from "@iconify/vue";
+import { ref, onMounted } from 'vue';
+import type { NavBarNav } from '../types/index';
+import { RouterLink } from 'vue-router';
+import { Icon } from '@iconify/vue';
+import { useUserStore } from '../store/useUserStore';
 const wrapper = ref<HTMLElement | null>(null);
-const pages: Array<string> = ["Hostings", "Contact Us", "Account"];
+const pages: Array<string> = ['Hostings', 'Contact Us', 'Account'];
+const userStore = useUserStore();
 onMounted(() => {
   if (!wrapper.value) return;
-  window.addEventListener("scroll", (e) => {
+  window.addEventListener('scroll', (e) => {
     e.preventDefault();
     if (window.scrollY > 70) {
-      wrapper.value?.classList.add("scrollOn");
+      wrapper.value?.classList.add('scrollOn');
     } else {
-      wrapper.value?.classList.remove("scrollOn");
+      wrapper.value?.classList.remove('scrollOn');
     }
   });
 });
+const handleLogout = () => {
+  userStore.logout();
+};
 // const hosting: Array<NavBarNav> = [
 //   {
 //     name: "Car Hosting & Referals",
@@ -28,12 +33,12 @@ onMounted(() => {
 // ];
 const account: Array<NavBarNav> = [
   {
-    title: "Owner Account",
-    route: "/dashboard/owner/",
+    title: 'Owner Account',
+    route: '/dashboard/owner/',
   },
   {
-    title: "Customer Account",
-    route: "/dashboard/customer/",
+    title: 'Customer Account',
+    route: '/dashboard/customer/',
   },
 ];
 </script>
@@ -77,7 +82,31 @@ const account: Array<NavBarNav> = [
           </div>
         </div>
       </div>
-      <div class="flex justify-end gap-x-6 text-lg">
+      <div
+        class="flex items-center justify-end gap-x-6 text-lg"
+        v-if="userStore.user"
+      >
+        <div
+          class="select-none rounded-full border-black border-[1px] outline-none ring-0 size-9 text-md text-black font-bold bg-white cursor-pointer flex justify-center items-center"
+        >
+          <img
+            v-if="userStore.user.profile_image"
+            :src="userStore.user.profile_image"
+            :alt="`${userStore.user.first_name} profile image`"
+          />
+
+          <span class="" v-else>
+            {{ userStore.user.first_name[0].toUpperCase() }}
+          </span>
+        </div>
+        <div
+          @click="handleLogout"
+          class="select-none rounded-md border-none outline-none ring-0 py-3 px-4 text-white bg-red-500 cursor-pointer"
+        >
+          Log Out
+        </div>
+      </div>
+      <div class="flex justify-end gap-x-6 text-lg" v-else>
         <router-link
           to="/sign-in/"
           class="select-none rounded-md border-white border-[1px] outline-none ring-0 py-3 px-5 text-white bg-black cursor-pointer"
