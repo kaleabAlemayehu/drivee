@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useUserStore } from '../store/useUserStore';
+import LoadingIcon from '../components/icons/Loading.vue';
 
+const router = useRouter();
 const userStore = useUserStore();
 const submitErr = ref(null);
+const isLoading = ref(false);
 const schema = toTypedSchema(
   yup.object({
     name: yup.string().required(),
@@ -19,7 +23,7 @@ const schema = toTypedSchema(
       .required(),
   }),
 );
-const { handleSubmit, defineField, errors } = useForm({
+const { handleSubmit, defineField, errors, setValues } = useForm({
   validationSchema: schema,
 });
 const [name, nameAttrs] = defineField('name');
@@ -28,15 +32,31 @@ const [password, passwordAttrs] = defineField('password');
 const [policy, policyAttrs] = defineField('policy');
 
 const onSubmit = handleSubmit(async (values) => {
+  isLoading.value = true;
   const { message, err } = await userStore.signup(
     values.name,
     values.email,
     values.password,
   );
+  // TODO: may want to get rid of this timeout
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 1000);
   if (err) {
     submitErr.value = message;
+  } else {
+    // TODO: add push notification or onsite notification to verify email and fill the remaining fields
+
+    // clear values
+    setValues({
+      name: '',
+      email: '',
+      password: '',
+      policy: false,
+    });
+
+    router.push({ path: '/', replace: true });
   }
-  console.log(`message:${message}, error: ${err}`);
 });
 </script>
 
@@ -158,14 +178,23 @@ const onSubmit = handleSubmit(async (values) => {
           </div>
 
           <div class="text-red-500">{{ errors.policy }}</div>
-          <div class="text-red-500">{{ submitErr }}</div>
+          <div class="text-red-500 text-center">{{ submitErr }}</div>
+          <button
+            v-if="isLoading"
+            class="w-full cursor-not-allowed font-semibold my-4 py-5 px-8 text-center select-none bg-black rounded-lg text-white"
+            type="submit"
+          >
+            <LoadingIcon />
+          </button>
 
           <button
+            v-else
             class="w-full font-semibold cursor-pointer my-4 py-5 px-8 text-center select-none bg-black rounded-lg text-white"
             type="submit"
           >
             Sign up
           </button>
+
           <div class="capitalize">
             already have an account?
             <span class="underline cursor-pointer">login here</span>
