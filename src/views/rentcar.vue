@@ -1,34 +1,37 @@
 <script setup lang="ts">
-import CarCard from "../components/CarCard.vue";
-import mapImage from "./../assets/map.svg";
-import rentCarImage from "./../assets/rentcar.png";
-import Image1 from "../assets/carphoto1.png";
-import Image2 from "../assets/carphoto2.png";
-import Image3 from "../assets/carphoto3.png";
-import Image4 from "../assets/carphoto4.png";
-import Image5 from "../assets/carphoto5.png";
-import Image6 from "../assets/carphoto6.png";
-import Image7 from "../assets/carphoto7.png";
-import Image8 from "../assets/carphoto8.png";
-import Image9 from "../assets/carphoto9.png";
-import Image10 from "../assets/carphoto10.png";
-import Image11 from "../assets/carphoto11.png";
-import Image12 from "../assets/carphoto12.png";
+import { type Ref, ref, onBeforeMount } from 'vue';
+import type { CarCardProps } from '../types/index';
+import { useClient } from '../composables/useClient';
+import CarCard from '../components/CarCard.vue';
+import SkeletonCard from '../components/SkeletonCard.vue';
+import mapImage from './../assets/map.svg';
+import rentCarImage from '../assets/rentcar.png';
+import NOTFOUND from '../assets/notfound.svg';
 
-const images = [
-  Image1,
-  Image2,
-  Image3,
-  Image4,
-  Image5,
-  Image6,
-  Image7,
-  Image8,
-  Image9,
-  Image10,
-  Image11,
-  Image12,
-];
+const isLoading = ref(true);
+const isError = ref(false);
+const cars: Ref<CarCardProps[]> = ref([]);
+const { get } = useClient();
+onBeforeMount(async () => {
+  try {
+    const { data } = await get('/cars/');
+    if (data.status == 'success') {
+      console.log(data);
+      isLoading.value = false;
+      cars.value = data.message;
+    } else {
+      setTimeout(() => {
+        isLoading.value = false;
+        isError.value = true;
+      }, 1000);
+    }
+  } catch (error) {
+    setTimeout(() => {
+      isLoading.value = false;
+      isError.value = true;
+    }, 2000);
+  }
+});
 </script>
 <template>
   <div
@@ -53,9 +56,26 @@ const images = [
       class="absolute bg-white h-48 rounded-lg shadow-gray-200 shadow-lg w-5/6 -bottom-25 z-50! left-0 right-0 mx-auto"
     ></div>
   </div>
-  <div class="w-full bg-gray-100 pt-56 pb-18">
-    <div class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto">
-      <CarCard v-for="i in images" :i="i" />
+  <div
+    class="flex justify-center items-center w-full pt-56 pb-18"
+    v-if="isError"
+  >
+    <div
+      class="w-[40rem] h-[30rem] flex justify-center px-16 py-18 flex-col items-center"
+    >
+      <img :src="NOTFOUND" class="w-full h-full mb-8" />
+      <span class="text-2xl font-semibold py-8 px-8">Unable to Fetch Cars</span>
+    </div>
+  </div>
+  <div class="w-full bg-gray-100 pt-56 pb-18" v-else>
+    <div
+      class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto"
+      v-if="isLoading"
+    >
+      <SkeletonCard v-for="i in 12" :i="i" v-bind:key="i" />
+    </div>
+    <div class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto" v-else>
+      <CarCard v-for="c in cars" v-bind="c as any" v-bind:key="c" />
     </div>
   </div>
 </template>

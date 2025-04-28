@@ -37,7 +37,19 @@ type SignupInputs = {
   password: string;
   policy?: boolean;
 };
+interface CarCardProps {
+  id: string;
+  thumbnail_picture: string;
+  make: string;
+  model: string;
+  year: string;
+  transmission: string;
+  fuel_type: string;
+  price_per_hour: number;
+  mileage: number;
+}
 export type {
+  CarCardProps,
   SignupInputs,
   CursorPosition,
   CustomerNav,
