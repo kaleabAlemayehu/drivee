@@ -7,7 +7,6 @@ import SkeletonCard from '../components/SkeletonCard.vue';
 import IsError from '../components/IsError.vue';
 import mapImage from './../assets/map.svg';
 import rentCarImage from '../assets/rentcar.png';
-import NOTFOUND from '../assets/notfound.svg';
 
 const isLoading = ref(true);
 const isError = ref(false);
@@ -17,7 +16,7 @@ onBeforeMount(async () => {
   try {
     const { data } = await get('/cars/');
     if (data.status == 'success') {
-      console.log(data);
+      console.log(data.message);
       isLoading.value = false;
       cars.value = data.message;
     } else {

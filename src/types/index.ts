@@ -47,6 +47,7 @@ interface CarCardProps {
   fuel_type: string;
   price_per_hour: number;
   mileage: number;
+  status: string;
 }
 export type {
   CarCardProps,

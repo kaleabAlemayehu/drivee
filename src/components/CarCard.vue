@@ -2,7 +2,6 @@
 import { RouterLink } from 'vue-router';
 import type { CarCardProps } from '../types/index';
 const props = defineProps<CarCardProps>();
-console.log(props);
 </script>
 <template>
   <div
@@ -11,10 +10,28 @@ console.log(props);
     <div class="absolute top-5 left-5">
       <span class="relative flex size-3">
         <span
-          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"
+          :class="[
+            'absolute inline-flex h-full w-full animate-ping rounded-full  opacity-75',
+            props.status == 'avaliable'
+              ? 'bg-green-500'
+              : props.status == 'rented'
+                ? 'bg-yellow-500'
+                : props.status == 'inactive'
+                  ? 'bg-red-500'
+                  : '',
+          ]"
         ></span>
         <span
-          class="relative inline-flex size-3 rounded-full bg-green-500"
+          :class="[
+            'relative inline-flex size-3 rounded-full ',
+            props.status == 'avaliable'
+              ? 'bg-green-500'
+              : props.status == 'rented'
+                ? 'bg-yellow-500'
+                : props.status == 'inactive'
+                  ? 'bg-red-500'
+                  : '',
+          ]"
         ></span>
       </span>
     </div>

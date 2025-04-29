@@ -161,10 +161,7 @@ onBeforeMount(async () => {
             <div
               class="w-1/2 capitalize text-left mb-5 text-gray-700 text-lg font-light"
             >
-              <!-- TODO: add description for the car table and making it render on this -->
-              the bmw m2 is the high-performance version of the 2 series 2-door
-              coupe. the first generation of the m2 is the f8u coupe and is
-              powered by turbocharged.
+              {{ car.description }}
             </div>
           </div>
           <div class="">
