@@ -4,6 +4,7 @@ import type { CarCardProps } from '../types/index';
 import { useClient } from '../composables/useClient';
 import CarCard from '../components/CarCard.vue';
 import SkeletonCard from '../components/SkeletonCard.vue';
+import IsError from '../components/IsError.vue';
 import mapImage from './../assets/map.svg';
 import rentCarImage from '../assets/rentcar.png';
 import NOTFOUND from '../assets/notfound.svg';
@@ -56,17 +57,7 @@ onBeforeMount(async () => {
       class="absolute bg-white h-48 rounded-lg shadow-gray-200 shadow-lg w-5/6 -bottom-25 z-50! left-0 right-0 mx-auto"
     ></div>
   </div>
-  <div
-    class="flex justify-center items-center w-full pt-56 pb-18"
-    v-if="isError"
-  >
-    <div
-      class="w-[40rem] h-[30rem] flex justify-center px-16 py-18 flex-col items-center"
-    >
-      <img :src="NOTFOUND" class="w-full h-full mb-8" />
-      <span class="text-2xl font-semibold py-8 px-8">Unable to Fetch Cars</span>
-    </div>
-  </div>
+  <IsError v-if="isError" message="Unable to Fetch Cars" />
   <div class="w-full bg-gray-100 pt-56 pb-18" v-else>
     <div
       class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto"
