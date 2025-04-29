@@ -1,17 +1,56 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import ProductCarousel from "../components/ProductCarousel.vue";
-import Image1 from "../assets/carphoto1.png";
-import Image2 from "../assets/carphoto2.png";
-import Image3 from "../assets/carphoto3.png";
-import Image4 from "../assets/carphoto4.png";
-import Image5 from "../assets/carphoto5.png";
-import Image6 from "../assets/carphoto6.png";
+import { ref, onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
+import { Icon } from '@iconify/vue';
+import { useClient } from '../composables/useClient';
+import ProductCarousel from '../components/ProductCarousel.vue';
+import IsError from '../components/IsError.vue';
+import Image1 from '../assets/carphoto1.png';
+import Image2 from '../assets/carphoto2.png';
+import Image3 from '../assets/carphoto3.png';
+import Image4 from '../assets/carphoto4.png';
+import Image5 from '../assets/carphoto5.png';
+import Image6 from '../assets/carphoto6.png';
 const images = [Image1, Image2, Image3, Image4, Image5, Image6];
+const { get } = useClient();
+const route = useRoute();
+const isError = ref(false);
+const isLoading = ref(true);
+const car = ref(null);
+const carPhotos = ref(null);
+onBeforeMount(async () => {
+  try {
+    const id = route.params.id;
+    let res = await get(`/cars/${id}`);
+    console.log(res.data.message);
+    if (res.data.status == 'success') {
+      car.value = res.data.message;
+      res = await get(`/carphotos/car/${id}`);
+      if (res.data.status == 'success') {
+        carPhotos.value = res.data.message;
+        isLoading.value = false;
+        console.log('carphoto', carPhotos.value);
+      } else {
+        isError.value = true;
+        isLoading.value = false;
+      }
+    } else {
+      isError.value = true;
+      isLoading.value = false;
+    }
+  } catch (error) {
+    isError.value = true;
+    console.log(error.message);
+  }
+});
 </script>
 <template>
   <div class="w-full bg-white">
-    <div class="w-4/5 mx-auto pt-32 px-10">
+    <IsError
+      v-if="isError"
+      message="Unable to fetch information about the car."
+    />
+    <div class="w-4/5 mx-auto pt-32 px-10" v-else>
       <div class="h-auto mb-44 grid grid-cols-5 gap-x-8">
         <ProductCarousel class="col-span-3" :images="images" />
         <div
@@ -116,10 +155,13 @@ const images = [Image1, Image2, Image3, Image4, Image5, Image6];
       >
         <div class="bg-white/65 w-full h-full">
           <div class="mb-24">
-            <div class="font-bold text-3xl uppercase mb-6">bmw m2 2020</div>
+            <div class="font-bold text-3xl uppercase mb-6">
+              {{ car.make }} {{ car.model }} {{ car.year }}
+            </div>
             <div
               class="w-1/2 capitalize text-left mb-5 text-gray-700 text-lg font-light"
             >
+              <!-- TODO: add description for the car table and making it render on this -->
               the bmw m2 is the high-performance version of the 2 series 2-door
               coupe. the first generation of the m2 is the f8u coupe and is
               powered by turbocharged.
@@ -128,13 +170,55 @@ const images = [Image1, Image2, Image3, Image4, Image5, Image6];
           <div class="">
             <div class="font-bold text-3xl capitalize mb-8">specifications</div>
             <ul class="w-1/3">
-              <li
-                v-for="i in 10"
-                :key="i"
-                class="flex justify-between mb-6 text-gray-600"
-              >
-                <div class="">Body</div>
-                <div class="val">sedan</div>
+              <!-- TODO: owner only visible for logged in user maybe little profile of him -->
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Owner</div>
+                <div class="val">{{ car.owner_id }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Price Per Hour</div>
+                <div class="val">{{ car.price_per_hour }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Make</div>
+                <div class="val">{{ car.make }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Model</div>
+                <div class="val">{{ car.model }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Year</div>
+                <div class="val">{{ car.year }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Fuel Type</div>
+                <div class="val">{{ car.fuel_type }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">License Plate</div>
+                <div class="val">{{ car.license_plate }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Mileage</div>
+                <div class="val">{{ car.mileage }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Transmission</div>
+                <div class="val">{{ car.transmission }}</div>
+              </li>
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Vin Number</div>
+                <div class="val">{{ car.vin_number }}</div>
+              </li>
+              <!-- TODO: name instead of coordinates for location  -->
+              <!-- <li class="flex justify-between mb-6 text-gray-600"> -->
+              <!--   <div class="">Location</div> -->
+              <!--   <div class="val">{{ car.location }}</div> -->
+              <!-- </li> -->
+              <li class="flex justify-between mb-6 text-gray-600">
+                <div class="">Status</div>
+                <div class="val">{{ car.status }}</div>
               </li>
             </ul>
           </div>
