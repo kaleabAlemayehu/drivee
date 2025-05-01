@@ -49,7 +49,34 @@ interface CarCardProps {
   mileage: number;
   status: string;
 }
+
+type CarResponse = {
+  id: string;
+  owner_id: string;
+  thumbnail_picture: string;
+  description: string;
+  make: string;
+  model: string;
+  year: string;
+  license_plate: string;
+  vin_number: string;
+  transmission: string;
+  fuel_type: string;
+  mileage: number;
+  location: string;
+  price_per_hour: number;
+  status: string;
+};
+
+type CarPhotos = {
+  id: string;
+  car_id: string;
+  photo_url: string;
+};
+
 export type {
+  CarPhotos,
+  CarResponse,
   CarCardProps,
   SignupInputs,
   CursorPosition,

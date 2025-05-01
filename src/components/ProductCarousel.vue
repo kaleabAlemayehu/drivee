@@ -1,27 +1,29 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Icon } from "@iconify/vue";
+import { ref, onMounted } from 'vue';
+import { Icon } from '@iconify/vue';
+import type { CarPhotos } from '../types/index';
 
-const props = defineProps(["images"]);
+const props = defineProps<{ photos: CarPhotos[] }>();
 
 // Current slide index
 const currentIndex = ref(0);
 
 // Function to go to the next slide
 const nextSlide = () => {
-  currentIndex.value = (currentIndex.value + 1) % props.images.length;
+  currentIndex.value = (currentIndex.value + 1) % props.photos.length;
 };
 
 // Function to go to the previous slide
 const prevSlide = () => {
   currentIndex.value =
-    (currentIndex.value - 1 + props.images.length) % props.images.length;
+    (currentIndex.value - 1 + props.photos.length) % props.photos.length;
 };
 
 // Function to go to a specific slide
 const goToSlide = (index: number) => {
   currentIndex.value = index;
 };
+console.log('props', props.photos);
 </script>
 <template>
   <div class="w-full h-full">
@@ -30,7 +32,7 @@ const goToSlide = (index: number) => {
       <div class="relative h-[36rem]">
         <!-- Images -->
         <div
-          v-for="(image, index) in props.images"
+          v-for="(photo, index) in props.photos"
           :key="index"
           v-show="currentIndex === index"
           class="absolute inset-0 transition-opacity duration-500 ease-in-out bg-slate-100 mb-6"
@@ -40,7 +42,7 @@ const goToSlide = (index: number) => {
           }"
         >
           <img
-            :src="image"
+            :src="photo.photo_url"
             :alt="`Slide ${index + 1}`"
             class="object-contain w-full h-full"
           />
@@ -71,14 +73,14 @@ const goToSlide = (index: number) => {
     <!-- Indicators -->
     <div class="flex gap-x-4">
       <div
-        v-for="(image, index) in props.images"
+        v-for="(photo, index) in props.photos"
         :key="index"
         @click="goToSlide(index)"
         class="cursor-pointer border-2 z-10 border-transparent w-72 h-36 p-0 rounded-lg overflow-hidden bg-slate-100"
         :class="[index == currentIndex ? 'border-gray-200!' : '']"
       >
         <img
-          :src="image"
+          :src="photo.photo_url"
           :alt="`Slide ${index + 1}`"
           class="mx-auto inline-block object-contain h-full"
         />

@@ -12,11 +12,11 @@ const props = defineProps<CarCardProps>();
         <span
           :class="[
             'absolute inline-flex h-full w-full animate-ping rounded-full  opacity-75',
-            props.status == 'avaliable'
+            props.status === 'avaliable'
               ? 'bg-green-500'
-              : props.status == 'rented'
+              : props.status === 'rented'
                 ? 'bg-yellow-500'
-                : props.status == 'inactive'
+                : props.status === 'inactive'
                   ? 'bg-red-500'
                   : '',
           ]"
@@ -24,11 +24,11 @@ const props = defineProps<CarCardProps>();
         <span
           :class="[
             'relative inline-flex size-3 rounded-full ',
-            props.status == 'avaliable'
+            props.status === 'avaliable'
               ? 'bg-green-500'
-              : props.status == 'rented'
+              : props.status === 'rented'
                 ? 'bg-yellow-500'
-                : props.status == 'inactive'
+                : props.status === 'inactive'
                   ? 'bg-red-500'
                   : '',
           ]"

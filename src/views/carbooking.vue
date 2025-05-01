@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 import { Icon } from '@iconify/vue';
+import type { CarPhotos } from '../types/index';
 import { useClient } from '../composables/useClient';
 import ProductCarousel from '../components/ProductCarousel.vue';
 import IsError from '../components/IsError.vue';
@@ -16,13 +17,13 @@ const { get } = useClient();
 const route = useRoute();
 const isError = ref(false);
 const isLoading = ref(true);
-const car = ref(null);
-const carPhotos = ref(null);
+const car = ref();
+const carPhotos = ref<CarPhotos[]>();
 onBeforeMount(async () => {
   try {
     const id = route.params.id;
     let res = await get(`/cars/${id}`);
-    console.log(res.data.message);
+    // console.log(res.data.message);
     if (res.data.status == 'success') {
       car.value = res.data.message;
       res = await get(`/carphotos/car/${id}`);
@@ -38,7 +39,7 @@ onBeforeMount(async () => {
       isError.value = true;
       isLoading.value = false;
     }
-  } catch (error) {
+  } catch (error: any) {
     isError.value = true;
     console.log(error.message);
   }
@@ -52,7 +53,11 @@ onBeforeMount(async () => {
     />
     <div class="w-4/5 mx-auto pt-32 px-10" v-else>
       <div class="h-auto mb-44 grid grid-cols-5 gap-x-8">
-        <ProductCarousel class="col-span-3" :images="images" />
+        <ProductCarousel
+          v-if="!isLoading && carPhotos"
+          class="col-span-3"
+          :photos="carPhotos"
+        />
         <div
           class="col-span-2 bg-slate-100 rounded-lg px-10 py-8 h-min relative"
         >
@@ -156,12 +161,12 @@ onBeforeMount(async () => {
         <div class="bg-white/65 w-full h-full">
           <div class="mb-24">
             <div class="font-bold text-3xl uppercase mb-6">
-              {{ car.make }} {{ car.model }} {{ car.year }}
+              {{ car?.make }} {{ car?.model }} {{ car?.year }}
             </div>
             <div
               class="w-1/2 capitalize text-left mb-5 text-gray-700 text-lg font-light"
             >
-              {{ car.description }}
+              {{ car?.description }}
             </div>
           </div>
           <div class="">
@@ -170,43 +175,43 @@ onBeforeMount(async () => {
               <!-- TODO: owner only visible for logged in user maybe little profile of him -->
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Owner</div>
-                <div class="val">{{ car.owner_id }}</div>
+                <div class="val">{{ car?.owner_id }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Price Per Hour</div>
-                <div class="val">{{ car.price_per_hour }}</div>
+                <div class="val">{{ car?.price_per_hour }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Make</div>
-                <div class="val">{{ car.make }}</div>
+                <div class="val">{{ car?.make }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Model</div>
-                <div class="val">{{ car.model }}</div>
+                <div class="val">{{ car?.model }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Year</div>
-                <div class="val">{{ car.year }}</div>
+                <div class="val">{{ car?.year }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Fuel Type</div>
-                <div class="val">{{ car.fuel_type }}</div>
+                <div class="val">{{ car?.fuel_type }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">License Plate</div>
-                <div class="val">{{ car.license_plate }}</div>
+                <div class="val">{{ car?.license_plate }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Mileage</div>
-                <div class="val">{{ car.mileage }}</div>
+                <div class="val">{{ car?.mileage }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Transmission</div>
-                <div class="val">{{ car.transmission }}</div>
+                <div class="val">{{ car?.transmission }}</div>
               </li>
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Vin Number</div>
-                <div class="val">{{ car.vin_number }}</div>
+                <div class="val">{{ car?.vin_number }}</div>
               </li>
               <!-- TODO: name instead of coordinates for location  -->
               <!-- <li class="flex justify-between mb-6 text-gray-600"> -->
@@ -215,7 +220,7 @@ onBeforeMount(async () => {
               <!-- </li> -->
               <li class="flex justify-between mb-6 text-gray-600">
                 <div class="">Status</div>
-                <div class="val">{{ car.status }}</div>
+                <div class="val">{{ car?.status }}</div>
               </li>
             </ul>
           </div>
