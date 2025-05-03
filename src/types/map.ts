@@ -1,0 +1,31 @@
+import type {
+  LatLngExpression,
+  Map as LeafletMap,
+  Marker,
+  LayerGroup,
+} from 'leaflet';
+
+export interface MarkerData {
+  id: string | number;
+  position: LatLngExpression;
+  title?: string;
+  description?: string;
+  [key: string]: any;
+}
+
+export interface MapOptions {
+  center?: LatLngExpression;
+  zoom?: number;
+  mapOptions?: L.MapOptions;
+  tileLayerOptions?: L.TileLayerOptions;
+}
+
+export interface LeafletMarker extends MarkerData {
+  leafletMarker: Marker;
+}
+
+export interface MapState {
+  map: LeafletMap | null;
+  markersLayer: LayerGroup | null;
+  isInitialized: boolean;
+}

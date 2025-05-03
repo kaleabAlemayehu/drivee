@@ -1,25 +1,68 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
+import type {
+  LatLng,
+  Map as LeafletMap,
+  Marker,
+  LatLngExpression,
+} from 'leaflet';
 import { ref, onBeforeMount, watch, onMounted } from 'vue';
-import { useLeaflet } from '../composables/useLeaflet';
 import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
+import { useLeaflet } from '../composables/useLeaflet';
 import type { OwnerNav, OrderInfo } from '../types/index.ts';
 import image from '../assets/comment2.jpg';
 import { Icon } from '@iconify/vue';
-import Earth from '../assets/earth.svg';
-const initMap = ref(null);
+const {
+  mapContainer,
+  leafletMap,
+  isMapInitialized,
+  initMap,
+  addMarkers,
+  flyTo,
+} = useLeaflet();
+
+// TODO: fetch cars owned by the owner and display it on the map with flyto when clicked
+const cars = ref([]);
+
 onMounted(() => {
-  initMap.value = L.map('map').setView([9.0192, 38.7525], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(initMap.value);
-  const marker = L.marker([9.0192, 38.7525]).addTo(initMap.value);
-  marker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup();
+  initMap();
+  if (leafletMap.value) {
+    // Map click event
+    leafletMap.value.on('click', (e: L.LeafletMouseEvent) => {
+      // handle click event
+    });
+
+    // Add initial markers
+    updateMarkers();
+  }
 });
+
+const leafletMarkers = ref<Marker[]>([]);
+
+const updateMarkers = (): void => {
+  if (!isMapInitialized.value) return;
+
+  // Add markers and store references
+  // leafletMarkers.value = addMarkers();
+
+  // Add click events to markers
+  leafletMarkers.value.forEach((marker, index) => {
+    marker.on('click', () => {
+      // handle markers on click
+    });
+  });
+};
+
+watch(
+  () => cars.value,
+  () => {
+    updateMarkers();
+  },
+  { deep: true },
+);
 
 const navs: Array<OwnerNav> = [
   {
@@ -287,7 +330,7 @@ onBeforeMount(async () => {
           </div>
         </div>
 
-        <div id="map" class="mt-16 md:mt-0 md:py-8 h-[32rem]">
+        <div ref="mapContainer" class="mt-16 md:mt-0 md:py-8 h-[32rem]">
           <!-- <img -->
           <!--   :src="Earth" -->
           <!--   alt="World map" -->
