@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ref, onBeforeMount } from 'vue';
+import 'leaflet/dist/leaflet.css';
+import * as L from 'leaflet';
+import { ref, onBeforeMount, watch, onMounted } from 'vue';
+import { useLeaflet } from '../composables/useLeaflet';
 import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
@@ -7,6 +10,17 @@ import type { OwnerNav, OrderInfo } from '../types/index.ts';
 import image from '../assets/comment2.jpg';
 import { Icon } from '@iconify/vue';
 import Earth from '../assets/earth.svg';
+const initMap = ref(null);
+onMounted(() => {
+  initMap.value = L.map('map').setView([9.0192, 38.7525], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(initMap.value);
+  const marker = L.marker([9.0192, 38.7525]).addTo(initMap.value);
+  marker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup();
+});
+
 const navs: Array<OwnerNav> = [
   {
     icon: 'ic:baseline-home',
@@ -259,24 +273,9 @@ onBeforeMount(async () => {
       <div
         class="mt-10 relative w-full border-gray-200 border-2 bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
       >
-        <div class="md:absolute top-0 left-0 bg-transparent p-4 md:p-6 z-10">
-          <div class="capitalize font-semibold text-lg md:text-xl mb-4 md:mb-8">
+        <div class="pb-2 md:pb-4">
+          <div class="capitalize font-semibold text-lg md:text-xl">
             real-time
-          </div>
-          <div
-            class="flex md:flex-col justify-start md:justify-between text-white"
-          >
-            <div
-              class="p-2 w-min bg-black mr-2 md:mr-0 md:mb-2 cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
-            >
-              <Icon icon="material-symbols:add" class="text-xl" />
-            </div>
-
-            <div
-              class="p-2 w-min bg-black cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
-            >
-              <Icon icon="ic:baseline-minus" class="text-xl" />
-            </div>
           </div>
         </div>
 
@@ -288,12 +287,12 @@ onBeforeMount(async () => {
           </div>
         </div>
 
-        <div class="mt-16 md:mt-0 md:py-8">
-          <img
-            :src="Earth"
-            alt="World map"
-            class="inline-block w-full h-auto object-contain max-h-[400px]"
-          />
+        <div id="map" class="mt-16 md:mt-0 md:py-8 h-[32rem]">
+          <!-- <img -->
+          <!--   :src="Earth" -->
+          <!--   alt="World map" -->
+          <!--   class="inline-block w-full h-auto object-contain max-h-[400px]" -->
+          <!-- /> -->
         </div>
       </div>
     </div>
