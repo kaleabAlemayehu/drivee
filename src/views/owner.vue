@@ -1,199 +1,313 @@
 <script setup lang="ts">
-import type { OwnerNav, OrderInfo } from "../types/index.ts";
-import image from "../assets/comment2.jpg";
-import { Icon } from "@iconify/vue";
-import Earth from "../assets/earth.svg";
+import { ref, onBeforeMount } from 'vue';
+import { useUserStore } from '../store/useUserStore';
+import { useClient } from '../composables/useClient';
+import type { OwnerNav, OrderInfo } from '../types/index.ts';
+import image from '../assets/comment2.jpg';
+import { Icon } from '@iconify/vue';
+import Earth from '../assets/earth.svg';
 const navs: Array<OwnerNav> = [
   {
-    icon: "ic:baseline-home",
-    title: "Dashboard",
+    icon: 'ic:baseline-home',
+    title: 'Dashboard',
   },
 
   {
-    icon: "material-symbols:person",
-    title: "My Profile",
+    icon: 'material-symbols:person',
+    title: 'My Profile',
   },
 
   {
-    icon: "ion:wallet",
-    title: "My Wallet",
+    icon: 'ion:wallet',
+    title: 'My Wallet',
   },
 
   {
-    icon: "ant-design:insurance-filled",
-    title: "Insurance & Policy",
+    icon: 'ant-design:insurance-filled',
+    title: 'Insurance & Policy',
   },
 
   {
-    icon: "uil:exit",
-    title: "Sign Out",
+    icon: 'uil:exit',
+    title: 'Sign Out',
   },
 ];
 
 const orders: Array<OrderInfo> = [
   {
-    icon: "mingcute:history-anticlockwise-fill",
-    title: "Turn Over",
+    icon: 'mingcute:history-anticlockwise-fill',
+    title: 'Turn Over',
     number: 232,
   },
 
   {
-    icon: "ion:wallet",
-    title: "Your Wallet",
+    icon: 'ion:wallet',
+    title: 'Your Wallet',
     number: 3212,
   },
   {
-    icon: "solar:hand-money-linear",
-    title: "Drivee Returns",
+    icon: 'solar:hand-money-linear',
+    title: 'Drivee Returns',
     number: 234,
   },
 ];
+const isLoading = ref(true);
+const bookings = ref();
+const { user } = useUserStore();
+const { get } = useClient();
+onBeforeMount(async () => {
+  try {
+    const res = await get('/bookings/owner', {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (res.data.status === 'success') {
+      console.log(res.data.message);
+      bookings.value = res.data.message;
+      isLoading.value = false;
+      console.log(bookings.value);
+    } else {
+      // console.log(res.data);
+      //bookings.value = res.data.message;
+    }
+  } catch (error: any) {
+    console.log(error);
+  }
+});
 </script>
 <template>
-  <div class="bg-gray-50 w-full">
-    <div class="w-4/5 mx-auto py-42">
-      <div class="text-5xl font-semibold text-gray-600 capitalize mb-14">
+  <div class="bg-gray-50 w-full min-h-screen">
+    <div class="w-full max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <!-- Dashboard Header -->
+      <div
+        class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-600 capitalize mb-6 md:mb-10"
+      >
         Dashboard
       </div>
-      <div class="grid grid-cols-9 grid-rows-3 gap-x-10 gap-y-8 mt-8">
-        <div
-          class="h-[45.5rem] w-full border-gray-200 border-2 col-span-3 row-span-3 rounded-xl flex flex-col py-8 px-6 bg-white"
-        >
-          <div class="flex flex-col items-center">
-            <img
-              :src="image"
-              alt="profile_image"
-              class="size-50 rounded-full object-center object-cover inline-block mb-5"
-            />
-            <div class="text-3xl font-semibold mb-1 text-center capitalize">
-              Rovan Reels
+
+      <!-- Main Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left Sidebar: Profile -->
+        <div class="lg:col-span-3 space-y-6">
+          <!-- Profile Card -->
+          <div
+            class="border-gray-200 border-2 rounded-xl flex flex-col py-6 px-4 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
+          >
+            <div class="flex flex-col items-center">
+              <img
+                :src="image"
+                alt="profile_image"
+                class="w-28 h-28 md:w-32 md:h-32 rounded-full object-center object-cover inline-block mb-5 border-4 border-gray-100 shadow-sm"
+              />
+              <div
+                class="text-2xl md:text-3xl font-semibold mb-1 text-center capitalize"
+              >
+                Rovan Reels
+              </div>
+              <div class="text-md md:text-lg text-gray-400 text-center">
+                rovanreels@gmail.com
+              </div>
             </div>
-            <div class="text-lg text-gray-400 text-center">
-              rovanreels@gmail.com
+            <div class="flex flex-col mt-6">
+              <div
+                v-for="i in navs"
+                class="w-full py-3 px-4 cursor-pointer hover:bg-black hover:text-white hover:font-bold rounded-xl flex items-center font-[500] transition-all duration-300 transform hover:translate-x-1"
+              >
+                <Icon
+                  :icon="i.icon"
+                  class="text-xl md:text-2xl inline-block mr-4"
+                />
+                <div class="text-lg capitalize">{{ i.title }}</div>
+              </div>
             </div>
           </div>
-          <div class="flex flex-col mt-4">
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="lg:col-span-9 space-y-6">
+          <!-- Order Stats Cards -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
+          >
             <div
-              v-for="i in navs"
-              class="w-full py-5 px-6 cursor-pointer hover:bg-black hover:text-white hover:font-bold rounded-xl flex font-[500] transition-colors duration-300"
+              v-for="i in orders"
+              class="p-5 md:p-6 border-gray-200 border-2 rounded-xl flex flex-col bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:border-gray-300"
             >
-              <Icon :icon="i.icon" class="text-2xl inline-block mr-8" />
-              <div class="text-xl capitalize">{{ i.title }}</div>
-            </div>
-          </div>
-        </div>
-        <div
-          v-for="i in orders"
-          class="col-span-2 px-8 py-12 w-full h-[16rem] border-gray-200 border-2 rounded-xl flex flex-col bg-white"
-        >
-          <Icon :icon="i.icon" class="text-4xl text-black mb-6" />
-          <div class="text-4xl font-bold mb-4">${{ i.number }}</div>
-          <div class="text-gray-400 font-semibold text-2xl capitalize">
-            {{ i.title }}
-          </div>
-        </div>
-        <div
-          class="h-min bg-white rounded-xl border-2 border-gray-200 row-span-2 col-span-6 p-8"
-        >
-          <div class="text-3xl font-bold capitalize mb-8">My Recent Order</div>
-          <div class="w-full">
-            <table class="w-full">
-              <thead>
-                <tr>
-                  <th>Booking No</th>
-                  <th>Vehicle</th>
-                  <th>Pick Up Location</th>
-                  <th>Date</th>
-                  <th>Return Date</th>
-                  <th>Payment</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>#02323</td>
-                  <td>Jeep Renegade</td>
-                  <td>Effle Tower, NewYork</td>
-                  <td>22/01/2024</td>
-                  <td>28/01/2024</td>
-                  <td>$500</td>
-                  <td>completed</td>
-                </tr>
-
-                <tr>
-                  <td>#02323</td>
-                  <td>Jeep Renegade</td>
-                  <td>Effle Tower, NewYork</td>
-                  <td>22/01/2024</td>
-                  <td>28/01/2024</td>
-                  <td>$500</td>
-                  <td>completed</td>
-                </tr>
-
-                <tr>
-                  <td>#02323</td>
-                  <td>Jeep Renegade</td>
-                  <td>Effle Tower, NewYork</td>
-                  <td>22/01/2024</td>
-                  <td>28/01/2024</td>
-                  <td>$500</td>
-                  <td>completed</td>
-                </tr>
-
-                <tr>
-                  <td>#02323</td>
-                  <td>Jeep Renegade</td>
-                  <td>Effle Tower, NewYork</td>
-                  <td>22/01/2024</td>
-                  <td>28/01/2024</td>
-                  <td>$500</td>
-                  <td>
-                    <span
-                      class="rounded-full bg-green-500 inline-block px-3 py-2"
-                      >completed</span
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="w-full mb-18">
-        <div
-          class="relative fill-red-400 w-full h-auto border-gray-200 border-2 bg-white rounded-xl px-28 py-8"
-        >
-          <div class="absolute top-0 left-0 bg-transparent p-8">
-            <div class="capitalize font-semibold text-xl mb-8">real-time</div>
-            <div class="flex flex-col justify-between text-white w-min">
-              <div class="p-2 bg-black mb-2 cursor-pointer">
-                <Icon icon="material-symbols:add" class="text-xl" />
-              </div>
-
-              <div class="p-2 bg-black mb-2 cursor-pointer">
-                <Icon icon="ic:baseline-minus" class="text-xl" />
-              </div>
-            </div>
-          </div>
-
-          <div class="absolute top-0 right-0 bg-transparent p-8">
-            <div class="cursor-pointer p-2">
               <Icon
-                icon="ph:dots-three-outline-vertical-fill"
-                class="text-xl"
+                :icon="i.icon"
+                class="text-3xl md:text-4xl text-black mb-4"
+              />
+              <div class="text-3xl md:text-4xl font-bold mb-2">
+                ${{ i.number }}
+              </div>
+              <div class="text-gray-400 font-semibold text-xl capitalize">
+                {{ i.title }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Table -->
+          <div
+            class="bg-white rounded-xl border-2 border-gray-200 p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+            v-if="!isLoading"
+          >
+            <div class="text-2xl md:text-3xl font-bold capitalize mb-6">
+              My Recent Order
+            </div>
+
+            <!-- Table with fixed header and scrollable body -->
+            <div
+              class="w-full relative rounded-lg overflow-hidden border border-gray-200"
+            >
+              <!-- Table Header (Fixed) -->
+              <table class="w-full table-auto">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
+                    >
+                      Booking No
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
+                    >
+                      Vehicle
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10 hidden md:table-cell"
+                    >
+                      Pick Up Location
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10 hidden sm:table-cell"
+                    >
+                      Date
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10 hidden lg:table-cell"
+                    >
+                      Return Date
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
+                    >
+                      Payment
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
+                    >
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+
+              <!-- Table Body (Scrollable) -->
+              <div class="max-h-80 overflow-y-auto" v-if="!isLoading">
+                <table class="w-full table-auto">
+                  <tbody class="divide-y divide-gray-200">
+                    <tr
+                      v-for="b in bookings"
+                      :key="b.id"
+                      class="hover:bg-gray-50 transition-colors duration-150"
+                    >
+                      <td
+                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600"
+                      >
+                        {{ b?.id }}
+                      </td>
+                      <td
+                        class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-800"
+                      >
+                        {{ b?.car_id }}
+                      </td>
+                      <td
+                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden md:table-cell"
+                      >
+                        Effle Tower, NewYork
+                      </td>
+                      <td
+                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden sm:table-cell"
+                      >
+                        {{ b?.start_time }}
+                      </td>
+                      <td
+                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden lg:table-cell"
+                      >
+                        {{ b?.end_time }}
+                      </td>
+                      <td
+                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600"
+                      >
+                        {{ b?.total_price }}
+                      </td>
+                      <td class="px-4 py-3 whitespace-nowrap text-sm">
+                        <span
+                          class="rounded-full bg-green-500 text-white text-xs inline-block px-3 py-1"
+                        >
+                          {{ b?.status }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map/Chart Section -->
+          <div
+            class="relative w-full border-gray-200 border-2 bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+          >
+            <div
+              class="md:absolute top-0 left-0 bg-transparent p-4 md:p-6 z-10"
+            >
+              <div
+                class="capitalize font-semibold text-lg md:text-xl mb-4 md:mb-8"
+              >
+                real-time
+              </div>
+              <div
+                class="flex md:flex-col justify-start md:justify-between text-white"
+              >
+                <div
+                  class="p-2 w-min bg-black mr-2 md:mr-0 md:mb-2 cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
+                >
+                  <Icon icon="material-symbols:add" class="text-xl" />
+                </div>
+
+                <div
+                  class="p-2 w-min bg-black cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
+                >
+                  <Icon icon="ic:baseline-minus" class="text-xl" />
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="md:absolute top-0 right-0 bg-transparent p-4 md:p-6 z-10"
+            >
+              <div
+                class="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              >
+                <Icon
+                  icon="ph:dots-three-outline-vertical-fill"
+                  class="text-xl"
+                />
+              </div>
+            </div>
+
+            <div class="mt-16 md:mt-0 md:py-8">
+              <img
+                :src="Earth"
+                alt="World map"
+                class="inline-block w-full h-auto object-contain max-h-[400px]"
               />
             </div>
           </div>
-          <img
-            :src="Earth"
-            alt=""
-            class="inline-block w-full h-full object-contain fill-gray-800 stroke-black"
-          />
-          <!-- <img src="../assets/earth.svg" alt="" /> -->
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <style scoped></style>
