@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onBeforeMount } from 'vue';
+import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 import type { OwnerNav, OrderInfo } from '../types/index.ts';
@@ -200,7 +201,6 @@ onBeforeMount(async () => {
                   </tr>
                 </thead>
               </table>
-
               <!-- Table Body (Scrollable) -->
               <div class="max-h-80 overflow-y-auto" v-if="!isLoading">
                 <table class="w-full table-auto">
@@ -228,17 +228,17 @@ onBeforeMount(async () => {
                       <td
                         class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden sm:table-cell"
                       >
-                        {{ b?.start_time }}
+                        {{ format(b?.start_time, 'MMM dd,yyyy') }}
                       </td>
                       <td
                         class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden lg:table-cell"
                       >
-                        {{ b?.end_time }}
+                        {{ format(b?.end_time, 'MMM dd,yyyy') }}
                       </td>
                       <td
                         class="px-4 py-3 whitespace-nowrap text-sm text-gray-600"
                       >
-                        {{ b?.total_price }}
+                        ${{ b?.total_price }}
                       </td>
                       <td class="px-4 py-3 whitespace-nowrap text-sm">
                         <span
@@ -253,57 +253,47 @@ onBeforeMount(async () => {
               </div>
             </div>
           </div>
-
-          <!-- Map/Chart Section -->
+        </div>
+      </div>
+      <!-- Map/Chart Section -->
+      <div
+        class="mt-10 relative w-full border-gray-200 border-2 bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+      >
+        <div class="md:absolute top-0 left-0 bg-transparent p-4 md:p-6 z-10">
+          <div class="capitalize font-semibold text-lg md:text-xl mb-4 md:mb-8">
+            real-time
+          </div>
           <div
-            class="relative w-full border-gray-200 border-2 bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+            class="flex md:flex-col justify-start md:justify-between text-white"
           >
             <div
-              class="md:absolute top-0 left-0 bg-transparent p-4 md:p-6 z-10"
+              class="p-2 w-min bg-black mr-2 md:mr-0 md:mb-2 cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
             >
-              <div
-                class="capitalize font-semibold text-lg md:text-xl mb-4 md:mb-8"
-              >
-                real-time
-              </div>
-              <div
-                class="flex md:flex-col justify-start md:justify-between text-white"
-              >
-                <div
-                  class="p-2 w-min bg-black mr-2 md:mr-0 md:mb-2 cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
-                >
-                  <Icon icon="material-symbols:add" class="text-xl" />
-                </div>
-
-                <div
-                  class="p-2 w-min bg-black cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
-                >
-                  <Icon icon="ic:baseline-minus" class="text-xl" />
-                </div>
-              </div>
+              <Icon icon="material-symbols:add" class="text-xl" />
             </div>
 
             <div
-              class="md:absolute top-0 right-0 bg-transparent p-4 md:p-6 z-10"
+              class="p-2 w-min bg-black cursor-pointer rounded hover:bg-gray-800 transition-colors duration-200"
             >
-              <div
-                class="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-              >
-                <Icon
-                  icon="ph:dots-three-outline-vertical-fill"
-                  class="text-xl"
-                />
-              </div>
-            </div>
-
-            <div class="mt-16 md:mt-0 md:py-8">
-              <img
-                :src="Earth"
-                alt="World map"
-                class="inline-block w-full h-auto object-contain max-h-[400px]"
-              />
+              <Icon icon="ic:baseline-minus" class="text-xl" />
             </div>
           </div>
+        </div>
+
+        <div class="md:absolute top-0 right-0 bg-transparent p-4 md:p-6 z-10">
+          <div
+            class="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+          >
+            <Icon icon="ph:dots-three-outline-vertical-fill" class="text-xl" />
+          </div>
+        </div>
+
+        <div class="mt-16 md:mt-0 md:py-8">
+          <img
+            :src="Earth"
+            alt="World map"
+            class="inline-block w-full h-auto object-contain max-h-[400px]"
+          />
         </div>
       </div>
     </div>
