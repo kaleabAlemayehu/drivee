@@ -1,133 +1,300 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="col-span-6 row-span-5 h-min grid grid-rows-3 gap-x-10 gap-y-8">
-    <div class="w-full border-gray-200 border-2 rounded-xl px-10 py-8">
-      <div class="text-3xl font-bold capitalize mb-6">Booking Order</div>
-      <table class="w-full text-gray-600!">
-        <thead>
-          <tr>
-            <th>Booking No</th>
-            <th>Vehicle</th>
-            <th>Pick Up Location</th>
-            <th>Date</th>
-            <th>Return Date</th>
-            <th>Payment</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>#02323</td>
-            <td>Jeep Renegade</td>
-            <td>Effle Tower, NewYork</td>
-            <td>22/01/2024</td>
-            <td>28/01/2024</td>
-            <td>$500</td>
-            <td>completed</td>
-          </tr>
+  <div class="space-y-6">
+    <!-- Booking Order -->
+    <div
+      class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
+    >
+      <div class="px-6 pt-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800">Booking Orders</h2>
+          <span
+            class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
+          >
+            2 Orders
+          </span>
+        </div>
 
-          <tr>
-            <td>#02323</td>
-            <td>Jeep Renegade</td>
-            <td>Effle Tower, NewYork</td>
-            <td>22/01/2024</td>
-            <td>28/01/2024</td>
-            <td>$500</td>
-            <td>
-              <span
-                class="rounded-full bg-amber-500 inline-block px-3 py-2 text-white font-semibold"
-                >completed</span
+        <div class="overflow-x-auto pb-6">
+          <table class="w-full">
+            <thead>
+              <tr
+                class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200"
               >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <th class="px-4 py-3">Booking No</th>
+                <th class="px-4 py-3">Vehicle</th>
+                <th class="px-4 py-3 hidden md:table-cell">Pick Up Location</th>
+                <th class="px-4 py-3 hidden lg:table-cell">Date</th>
+                <th class="px-4 py-3 hidden lg:table-cell">Return Date</th>
+                <th class="px-4 py-3">Payment</th>
+                <th class="px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  #02323
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-600">Jeep Renegade</td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
+                >
+                  Eiffel Tower, New York
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  22/01/2024
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  28/01/2024
+                </td>
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  $500
+                </td>
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800"
+                  >
+                    Pending
+                  </span>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  #02323
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-600">Jeep Renegade</td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
+                >
+                  Eiffel Tower, New York
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  22/01/2024
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  28/01/2024
+                </td>
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  $500
+                </td>
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                  >
+                    In Progress
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <div class="w-full border-gray-200 border-2 rounded-xl px-10 py-8">
-      <div class="text-3xl font-bold capitalize mb-6">Completed Order</div>
-      <table class="w-full text-gray-600!">
-        <thead>
-          <tr>
-            <th>Booking No</th>
-            <th>Vehicle</th>
-            <th>Pick Up Location</th>
-            <th>Date</th>
-            <th>Return Date</th>
-            <th>Payment</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>#02323</td>
-            <td>Jeep Renegade</td>
-            <td>Effle Tower, NewYork</td>
-            <td>22/01/2024</td>
-            <td>28/01/2024</td>
-            <td>$500</td>
-            <td>completed</td>
-          </tr>
 
-          <tr>
-            <td>#02323</td>
-            <td>Jeep Renegade</td>
-            <td>Effle Tower, NewYork</td>
-            <td>22/01/2024</td>
-            <td>28/01/2024</td>
-            <td>$500</td>
-            <td>
-              <span
-                class="rounded-full bg-green-500 inline-block px-3 py-2 text-white font-semibold"
-                >completed</span
+    <!-- Completed Order -->
+    <div
+      class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
+    >
+      <div class="px-6 pt-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800">Completed Orders</h2>
+          <span
+            class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
+          >
+            2 Orders
+          </span>
+        </div>
+
+        <div class="overflow-x-auto pb-6">
+          <table class="w-full">
+            <thead>
+              <tr
+                class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200"
               >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <th class="px-4 py-3">Booking No</th>
+                <th class="px-4 py-3">Vehicle</th>
+                <th class="px-4 py-3 hidden md:table-cell">Pick Up Location</th>
+                <th class="px-4 py-3 hidden lg:table-cell">Date</th>
+                <th class="px-4 py-3 hidden lg:table-cell">Return Date</th>
+                <th class="px-4 py-3">Payment</th>
+                <th class="px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  #02323
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-600">Jeep Renegade</td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
+                >
+                  Eiffel Tower, New York
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  22/01/2024
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  28/01/2024
+                </td>
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  $500
+                </td>
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                  >
+                    Completed
+                  </span>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  #02323
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-600">Jeep Renegade</td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
+                >
+                  Eiffel Tower, New York
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  22/01/2024
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  28/01/2024
+                </td>
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  $500
+                </td>
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                  >
+                    Completed
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <div class="w-full border-gray-200 border-2 rounded-xl px-10 py-8">
-      <div class="text-3xl font-bold capitalize mb-6">Order Canclled</div>
-      <table class="w-full text-gray-600!">
-        <thead>
-          <tr>
-            <th>Booking No</th>
-            <th>Vehicle</th>
-            <th>Pick Up Location</th>
-            <th>Date</th>
-            <th>Return Date</th>
-            <th>Payment</th>
-            <th>Status</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <tr>
-            <td>#02323</td>
-            <td>Jeep Renegade</td>
-            <td>Effle Tower, NewYork</td>
-            <td>22/01/2024</td>
-            <td>28/01/2024</td>
-            <td>$500</td>
-            <td>completed</td>
-          </tr>
+    <!-- Cancelled Order -->
+    <div
+      class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
+    >
+      <div class="px-6 pt-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-800">Cancelled Orders</h2>
+          <span
+            class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
+          >
+            2 Orders
+          </span>
+        </div>
 
-          <tr>
-            <td>#02323</td>
-            <td>Jeep Renegade</td>
-            <td>Effle Tower, NewYork</td>
-            <td>22/01/2024</td>
-            <td>28/01/2024</td>
-            <td>$500</td>
-            <td>
-              <span
-                class="rounded-full bg-red-500 inline-block px-3 py-2 text-white font-semibold"
-                >completed</span
+        <div class="overflow-x-auto pb-6">
+          <table class="w-full">
+            <thead>
+              <tr
+                class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200"
               >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <th class="px-4 py-3">Booking No</th>
+                <th class="px-4 py-3">Vehicle</th>
+                <th class="px-4 py-3 hidden md:table-cell">Pick Up Location</th>
+                <th class="px-4 py-3 hidden lg:table-cell">Date</th>
+                <th class="px-4 py-3 hidden lg:table-cell">Return Date</th>
+                <th class="px-4 py-3">Payment</th>
+                <th class="px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  #02323
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-600">Jeep Renegade</td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
+                >
+                  Eiffel Tower, New York
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  22/01/2024
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  28/01/2024
+                </td>
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  $500
+                </td>
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800"
+                  >
+                    Cancelled
+                  </span>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  #02323
+                </td>
+                <td class="px-4 py-4 text-sm text-gray-600">Jeep Renegade</td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
+                >
+                  Eiffel Tower, New York
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  22/01/2024
+                </td>
+                <td
+                  class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
+                >
+                  28/01/2024
+                </td>
+                <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                  $500
+                </td>
+                <td class="px-4 py-4 text-sm">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800"
+                  >
+                    Cancelled
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
 <style scoped></style>
