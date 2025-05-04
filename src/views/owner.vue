@@ -2,12 +2,14 @@
 import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 import type {
-  LatLng,
+  LatLngLiteral,
   Map as LeafletMap,
   Marker,
   LatLngExpression,
+  LatLng,
 } from 'leaflet';
-import { ref, onBeforeMount, watch, onMounted } from 'vue';
+import type { MarkerData, MapOptions } from '../types/map';
+import { ref, onBeforeMount, watch, onMounted, type Ref } from 'vue';
 import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
@@ -15,54 +17,6 @@ import { useLeaflet } from '../composables/useLeaflet';
 import type { OwnerNav, OrderInfo } from '../types/index.ts';
 import image from '../assets/comment2.jpg';
 import { Icon } from '@iconify/vue';
-const {
-  mapContainer,
-  leafletMap,
-  isMapInitialized,
-  initMap,
-  addMarkers,
-  flyTo,
-} = useLeaflet();
-
-// TODO: fetch cars owned by the owner and display it on the map with flyto when clicked
-const cars = ref([]);
-
-onMounted(() => {
-  initMap();
-  if (leafletMap.value) {
-    // Map click event
-    leafletMap.value.on('click', (e: L.LeafletMouseEvent) => {
-      // handle click event
-    });
-
-    // Add initial markers
-    updateMarkers();
-  }
-});
-
-const leafletMarkers = ref<Marker[]>([]);
-
-const updateMarkers = (): void => {
-  if (!isMapInitialized.value) return;
-
-  // Add markers and store references
-  // leafletMarkers.value = addMarkers();
-
-  // Add click events to markers
-  leafletMarkers.value.forEach((marker, index) => {
-    marker.on('click', () => {
-      // handle markers on click
-    });
-  });
-};
-
-watch(
-  () => cars.value,
-  () => {
-    updateMarkers();
-  },
-  { deep: true },
-);
 
 const navs: Array<OwnerNav> = [
   {
@@ -109,20 +63,31 @@ const orders: Array<OrderInfo> = [
     number: 234,
   },
 ];
+
+const cars = ref([]);
 const isLoading = ref(true);
 const bookings = ref();
+const {
+  mapContainer,
+  leafletMap,
+  isMapInitialized,
+  initMap,
+  addMarkers,
+  flyTo,
+  getBounds,
+} = useLeaflet({ center: location.value });
 const { user } = useUserStore();
 const { get } = useClient();
 onBeforeMount(async () => {
   try {
-    const res = await get('/bookings/owner', {
+    const res = await get('/owner/bookings', {
       headers: { Authorization: `Bearer ${user.token}` },
     });
     if (res.data.status === 'success') {
-      console.log(res.data.message);
+      // console.log(res.data.message);
       bookings.value = res.data.message;
       isLoading.value = false;
-      console.log(bookings.value);
+      // console.log(bookings.value);
     } else {
       // console.log(res.data);
       //bookings.value = res.data.message;
@@ -130,7 +95,85 @@ onBeforeMount(async () => {
   } catch (error: any) {
     console.log(error);
   }
+  try {
+    const res = await get('/owner/cars', {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (res.data.status === 'success') {
+      cars.value = res.data.message;
+    } else {
+      console.log(res.data.message);
+    }
+  } catch (error: any) {
+    console.log(error);
+  }
 });
+
+// TODO: fetch cars owned by the owner and display it on the map with flyto when clicked
+
+onMounted(() => {
+  initMap();
+  if (leafletMap.value) {
+    // Map click event
+    leafletMap.value.on('click', (e: L.LeafletMouseEvent) => {
+      // handle click event
+    });
+
+    // Add initial markers
+    updateMarkers();
+  }
+});
+
+const leafletMarkers = ref<Marker[]>([]);
+
+const updateMarkers = (): void => {
+  if (!isMapInitialized.value) return;
+
+  // Map car locations to marker data
+  const markerCoordinates: MarkerData[] = cars.value.map((c) => {
+    return {
+      position: { lat: c.location.X, lng: c.location.Y } as LatLngLiteral,
+      id: `${c.make} ${c.model}`,
+      title: `${c.make} ${c.model}`,
+    };
+  });
+
+  // Add markers first
+  leafletMarkers.value = addMarkers(markerCoordinates);
+
+  // Then center map on first car if available
+  if (markerCoordinates.length > 0 && leafletMap.value) {
+    const firstCar = {
+      lat: markerCoordinates[0].position.lat,
+      lng: markerCoordinates[0].position.lng,
+    };
+
+    console.log('Centering map on:', firstCar);
+
+    // Use setView to center the map
+    leafletMap.value.setView(firstCar, 6, {
+      animate: true,
+    });
+  }
+
+  // Add click handlers to markers
+  leafletMarkers.value.forEach((marker) => {
+    marker.on('click', () => {
+      if (leafletMap.value) {
+        // handle markers on click
+        flyTo(marker.getLatLng());
+      }
+    });
+  });
+};
+
+watch(
+  () => cars.value,
+  () => {
+    updateMarkers();
+  },
+  { deep: true },
+);
 </script>
 <template>
   <div class="bg-gray-50 w-full min-h-screen">
@@ -322,7 +365,9 @@ onBeforeMount(async () => {
           </div>
         </div>
 
-        <div class="md:absolute top-0 right-0 bg-transparent p-4 md:p-6 z-10">
+        <div
+          class="md:absolute top-0 right-0 bg-transparent p-4 md:p-6 isolate"
+        >
           <div
             class="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
           >
