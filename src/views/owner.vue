@@ -135,6 +135,7 @@ const updateMarkers = (): void => {
       position: { lat: c.location.X, lng: c.location.Y } as LatLngLiteral,
       id: `${c.make} ${c.model}`,
       title: `${c.make} ${c.model}`,
+      image: `${c.thumbnail_picture}`,
     };
   });
 
@@ -147,9 +148,6 @@ const updateMarkers = (): void => {
       lat: markerCoordinates[0].position.lat,
       lng: markerCoordinates[0].position.lng,
     };
-
-    console.log('Centering map on:', firstCar);
-
     // Use setView to center the map
     leafletMap.value.setView(firstCar, 6, {
       animate: true,

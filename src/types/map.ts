@@ -10,6 +10,7 @@ export interface MarkerData {
   position: LatLngExpression;
   title?: string;
   description?: string;
+  image?: string;
   [key: string]: any;
 }
 

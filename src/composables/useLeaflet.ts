@@ -71,14 +71,14 @@ export function useLeaflet(options: MapOptions = {}): {
     markersLayer.value.clearLayers();
 
     return markers.map((marker) => {
-      const { position, title, description, ...rest } = marker;
+      const { position, title, image, ...rest } = marker;
 
       const leafletMarker = L.marker(position, rest).addTo(markersLayer.value!);
 
       if (title || description) {
         const popupContent = `
           ${title ? `<h3>${title}</h3>` : ''}
-          ${description ? `<p>${description}</p>` : ''}
+          ${image ? `<img src="${image}" style="max-width:120px;"/>` : ''}
         `;
         leafletMarker.bindPopup(popupContent);
       }
