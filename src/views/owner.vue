@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
-import type {
-  LatLngLiteral,
-  Map as LeafletMap,
-  Marker,
-  LatLngExpression,
-  LatLng,
-} from 'leaflet';
-import type { MarkerData, MapOptions } from '../types/map';
-import { ref, onBeforeMount, watch, onMounted, type Ref } from 'vue';
+import type { LatLngLiteral, Marker } from 'leaflet';
+import type { MarkerData } from '../types/map';
+import type { CarResponse } from '../types/index';
+import { ref, onBeforeMount, watch, onMounted } from 'vue';
 import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
@@ -64,7 +59,7 @@ const orders: Array<OrderInfo> = [
   },
 ];
 
-const cars = ref([]);
+const cars = ref<CarResponse[] | null>([]);
 const isLoading = ref(true);
 const bookings = ref();
 const {
@@ -74,8 +69,7 @@ const {
   initMap,
   addMarkers,
   flyTo,
-  getBounds,
-} = useLeaflet({ center: location.value });
+} = useLeaflet();
 const { user } = useUserStore();
 const { get } = useClient();
 onBeforeMount(async () => {
@@ -117,6 +111,7 @@ onMounted(() => {
     // Map click event
     leafletMap.value.on('click', (e: L.LeafletMouseEvent) => {
       // handle click event
+      console.log(e);
     });
 
     // Add initial markers
@@ -130,23 +125,24 @@ const updateMarkers = (): void => {
   if (!isMapInitialized.value) return;
 
   // Map car locations to marker data
-  const markerCoordinates: MarkerData[] = cars.value.map((c) => {
+  const markerCoordinates: MarkerData[] = cars?.value?.map((c: any) => {
     return {
-      position: { lat: c.location.X, lng: c.location.Y } as LatLngLiteral,
-      id: `${c.make} ${c.model}`,
-      title: `${c.make} ${c.model}`,
-      image: `${c.thumbnail_picture}`,
-    };
-  });
+      position: { lat: c?.location?.X, lng: c?.location?.Y } as LatLngLiteral,
+      id: `${c?.make} ${c?.model}`,
+      title: `${c?.make} ${c?.model}`,
+      image: `${c?.thumbnail_picture}`,
+    } as MarkerData;
+  }) as MarkerData[];
 
   // Add markers first
-  leafletMarkers.value = addMarkers(markerCoordinates);
+  leafletMarkers.value = addMarkers(markerCoordinates as MarkerData[]);
 
   // Then center map on first car if available
   if (markerCoordinates.length > 0 && leafletMap.value) {
+    let holder = markerCoordinates[0].position as LatLngLiteral;
     const firstCar = {
-      lat: markerCoordinates[0].position.lat,
-      lng: markerCoordinates[0].position.lng,
+      lat: holder.lat,
+      lng: holder.lng,
     };
     // Use setView to center the map
     leafletMap.value.setView(firstCar, 6, {
@@ -175,7 +171,7 @@ watch(
 </script>
 <template>
   <div class="bg-gray-50 w-full min-h-screen">
-    <div class="w-full max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <!-- Dashboard Header -->
       <div
         class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-600 capitalize mb-6 md:mb-10"

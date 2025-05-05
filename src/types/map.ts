@@ -3,9 +3,10 @@ import type {
   Map as LeafletMap,
   Marker,
   LayerGroup,
+  MarkerOptions,
 } from 'leaflet';
 
-export interface MarkerData {
+export interface MarkerData extends MarkerOptions {
   id: string | number;
   position: LatLngExpression;
   title?: string;

@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import ProductCarousel from "../components/ProductCarousel.vue";
-import Image1 from "../assets/bikephoto1.png";
-import Image2 from "../assets/bikephoto2.png";
-import Image3 from "../assets/bikephoto3.png";
-import Image4 from "../assets/bikephoto4.png";
-import Image5 from "../assets/bikephoto5.png";
-import Image6 from "../assets/bikephoto6.png";
+import { Icon } from '@iconify/vue';
+import { ref } from 'vue';
+import ProductCarousel from '../components/ProductCarousel.vue';
+import { type CarPhotos } from '../types/index';
 
-const images = [Image1, Image2, Image3, Image4, Image5, Image6];
+const bikePhotos = ref<CarPhotos[]>();
 </script>
 <template>
   <div class="w-full bg-white">
     <div class="w-4/5 mx-auto pt-32 px-10">
       <div class="h-auto mb-44 grid grid-cols-5 gap-x-8">
-        <ProductCarousel class="col-span-3" :images="images" />
+        <ProductCarousel
+          class="col-span-3"
+          :photos="bikePhotos as CarPhotos[]"
+        />
         <div
           class="col-span-2 bg-slate-100 rounded-lg px-10 py-8 h-min relative"
         >

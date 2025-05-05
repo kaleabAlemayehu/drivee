@@ -7,13 +7,6 @@ import { useClient } from '../composables/useClient';
 import ProductCarousel from '../components/ProductCarousel.vue';
 import SkeletonCarousel from '../components/SkeletonCarousel.vue';
 import IsError from '../components/IsError.vue';
-import Image1 from '../assets/carphoto1.png';
-import Image2 from '../assets/carphoto2.png';
-import Image3 from '../assets/carphoto3.png';
-import Image4 from '../assets/carphoto4.png';
-import Image5 from '../assets/carphoto5.png';
-import Image6 from '../assets/carphoto6.png';
-const images = [Image1, Image2, Image3, Image4, Image5, Image6];
 const { get } = useClient();
 const route = useRoute();
 const isError = ref(false);
@@ -56,7 +49,10 @@ onBeforeMount(async () => {
       />
       <div class="" v-else>
         <div class="h-auto mb-44 grid grid-cols-5 gap-x-8">
-          <ProductCarousel class="col-span-3" :photos="carPhotos" />
+          <ProductCarousel
+            class="col-span-3"
+            :photos="carPhotos as CarPhotos[]"
+          />
           <div
             class="col-span-2 bg-slate-100 rounded-lg px-10 py-8 h-min relative"
           >

@@ -63,7 +63,7 @@ type CarResponse = {
   transmission: string;
   fuel_type: string;
   mileage: number;
-  location: string;
+  location: { X: number; Y: number };
   price_per_hour: number;
   status: string;
 };

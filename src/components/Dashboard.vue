@@ -22,7 +22,7 @@ const orders: Array<OrderInfo> = [
 
 // Helper functions for dynamic styling
 
-const getStatusClass = (index) => {
+const getStatusClass = (index: number) => {
   const statuses = [
     'bg-green-100 text-green-800', // completed
     'bg-blue-100 text-blue-800', // in progress
@@ -33,7 +33,7 @@ const getStatusClass = (index) => {
   return statuses[index % statuses.length];
 };
 
-const getStatusText = (index) => {
+const getStatusText = (index: number) => {
   const statuses = [
     'Completed',
     'In Progress',

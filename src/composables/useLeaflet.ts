@@ -1,7 +1,11 @@
 import { ref, onBeforeUnmount, type Ref } from 'vue';
 import L from 'leaflet';
-import type { Map as LeafletMap, LatLngExpression, Marker } from 'leaflet';
-
+import type {
+  Map as LeafletMap,
+  LatLngExpression,
+  Marker,
+  FeatureGroup,
+} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { MapOptions, MarkerData } from '../types/map';
 
@@ -12,7 +16,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 export function useLeaflet(options: MapOptions = {}): {
   mapContainer: Ref<HTMLElement | null>;
   leafletMap: Ref<LeafletMap | null>;
-  markersLayer: Ref<L.LayerGroup | null>;
+  markersLayer: Ref<FeatureGroup | null>;
   isMapInitialized: Ref<boolean>;
   initMap: () => void;
   addMarkers: (markers: MarkerData[]) => Marker[];
@@ -25,17 +29,20 @@ export function useLeaflet(options: MapOptions = {}): {
 } {
   const mapContainer = ref<HTMLElement | null>(null);
   const leafletMap = ref<LeafletMap | null>(null);
-  const markersLayer = ref<L.LayerGroup | null>(null);
+  const markersLayer = ref<FeatureGroup | null>(null);
   const isMapInitialized = ref<boolean>(false);
 
   // Fix Leaflet's default icon path issues
   const fixLeafletIcon = (): void => {
-    delete L.Icon.Default.prototype._getIconUrl;
+    // This line is no longer needed with modern Leaflet
+    // delete L.Icon.Default.prototype._getIconUrl;
+
     L.Icon.Default.mergeOptions({
       iconUrl: icon,
       shadowUrl: iconShadow,
       iconSize: [25, 41],
       iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
     });
   };
 
@@ -44,22 +51,29 @@ export function useLeaflet(options: MapOptions = {}): {
 
     fixLeafletIcon();
 
-    // Create map with default options
-    leafletMap.value = L.map(mapContainer.value, {
+    // Create map with default options and more aggressive type assertion
+    const map = L.map(mapContainer.value, {
       center: options.center || [51.505, -0.09],
       zoom: options.zoom || 13,
       ...options.mapOptions,
     });
 
-    // Add default tile layer
+    // Set the ref with proper type assertion
+    leafletMap.value = map as unknown as LeafletMap;
+
+    // Add default tile layer with type assertion to avoid TypeScript errors
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       ...options.tileLayerOptions,
-    }).addTo(leafletMap.value);
+    }).addTo(map as any);
 
-    // Create markers layer group
-    markersLayer.value = L.layerGroup().addTo(leafletMap.value);
+    // Create markers layer group with 'new' keyword and type assertion
+    const featureGroup = new L.FeatureGroup();
+    // Add to map with type assertion
+    featureGroup.addTo(map as any);
+    // Set ref with proper type assertion
+    markersLayer.value = featureGroup as unknown as FeatureGroup;
 
     isMapInitialized.value = true;
   };
@@ -68,16 +82,26 @@ export function useLeaflet(options: MapOptions = {}): {
   const addMarkers = (markers: MarkerData[] = []): Marker[] => {
     if (!leafletMap.value || !markersLayer.value) return [];
 
-    markersLayer.value.clearLayers();
+    // Use type assertion to help TypeScript
+    const layer = markersLayer.value as any;
+    layer.clearLayers();
 
     return markers.map((marker) => {
-      const { position, title, image, ...rest } = marker;
+      // Extract all needed properties explicitly
+      const { position, title, image, description, ...markerOptions } = marker;
 
-      const leafletMarker = L.marker(position, rest).addTo(markersLayer.value!);
+      // Create marker and add it to the layer with type assertions
+      const leafletMarker = L.marker(
+        position,
+        markerOptions as L.MarkerOptions,
+      );
+      leafletMarker.addTo(layer);
 
-      if (title || description) {
+      // Now we have description in scope
+      if (title || description || image) {
         const popupContent = `
           ${title ? `<h3>${title}</h3>` : ''}
+          ${description ? `<p>${description}</p>` : ''}
           ${image ? `<img src="${image}" style="max-width:120px;"/>` : ''}
         `;
         leafletMarker.bindPopup(popupContent);
@@ -94,28 +118,33 @@ export function useLeaflet(options: MapOptions = {}): {
     options: L.ZoomPanOptions = {},
   ): void => {
     if (!leafletMap.value) return;
-    leafletMap.value.flyTo(position, zoom, options);
+    // Use type assertion for method call
+    (leafletMap.value as any).flyTo(position, zoom, options);
   };
 
   // Get current map bounds
   const getBounds = (): L.LatLngBounds | null => {
     if (!leafletMap.value) return null;
-    return leafletMap.value.getBounds();
+    // Use type assertion for method call
+    return (leafletMap.value as any).getBounds();
   };
 
   // Clean up when component is unmounted
   onBeforeUnmount(() => {
     if (leafletMap.value) {
-      leafletMap.value.remove();
+      // Use type assertion for method call
+      (leafletMap.value as any).remove();
       leafletMap.value = null;
+      markersLayer.value = null;
       isMapInitialized.value = false;
     }
   });
 
+  // Use type assertion for the whole return object
   return {
     mapContainer,
-    leafletMap,
-    markersLayer,
+    leafletMap: leafletMap as Ref<LeafletMap | null>,
+    markersLayer: markersLayer as Ref<FeatureGroup | null>,
     isMapInitialized,
     initMap,
     addMarkers,
