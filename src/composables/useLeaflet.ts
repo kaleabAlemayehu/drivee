@@ -9,10 +9,6 @@ import type {
 import 'leaflet/dist/leaflet.css';
 import type { MapOptions, MarkerData } from '../types/map';
 
-// Fix for default marker icon issue
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
 export function useLeaflet(options: MapOptions = {}): {
   mapContainer: Ref<HTMLElement | null>;
   leafletMap: Ref<LeafletMap | null>;
@@ -38,8 +34,6 @@ export function useLeaflet(options: MapOptions = {}): {
     // delete L.Icon.Default.prototype._getIconUrl;
 
     L.Icon.Default.mergeOptions({
-      iconUrl: icon,
-      shadowUrl: iconShadow,
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
