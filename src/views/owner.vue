@@ -83,8 +83,9 @@ onBeforeMount(async () => {
       isLoading.value = false;
       // console.log(bookings.value);
     } else {
-      // console.log(res.data);
-      //bookings.value = res.data.message;
+      console.log(res.data);
+      bookings.value = res.data.message;
+      isLoading.value = false;
     }
   } catch (error: any) {
     console.log(error);
@@ -171,7 +172,7 @@ watch(
 </script>
 <template>
   <div class="bg-gray-50 w-full min-h-screen">
-    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
       <!-- Dashboard Header -->
       <div
         class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-600 capitalize mb-6 md:mb-10"
@@ -253,8 +254,14 @@ watch(
             <div
               class="w-full relative rounded-lg overflow-hidden border border-gray-200"
             >
+              <div
+                class="w-full min-h-58 flex font-normal text-2xl justify-center items-center"
+                v-if="!bookings"
+              >
+                Oops...There is no booking
+              </div>
               <!-- Table Header (Fixed) -->
-              <table class="w-full table-auto">
+              <table class="w-full table-auto" v-if="!isLoading && bookings">
                 <thead class="bg-gray-50">
                   <tr>
                     <th
@@ -296,7 +303,10 @@ watch(
                 </thead>
               </table>
               <!-- Table Body (Scrollable) -->
-              <div class="max-h-80 overflow-y-auto" v-if="!isLoading">
+              <div
+                class="max-h-80 overflow-y-auto"
+                v-if="!isLoading && bookings"
+              >
                 <table class="w-full table-auto">
                   <tbody class="divide-y divide-gray-200">
                     <tr
