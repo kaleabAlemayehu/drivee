@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/vue';
 import type { CustomerNav } from '../types/index.ts';
 import { RouterView, RouterLink } from 'vue-router';
+import { useUserStore } from '../store/useUserStore';
 import image from '../assets/comment2.jpg';
 import dudeImage from '../assets/guywithlaptop.svg';
 import flowerImage from '../assets/flowerpot.svg';
@@ -37,6 +38,8 @@ const navs: Array<CustomerNav> = [
     route: '/',
   },
 ];
+
+const { user } = useUserStore();
 </script>
 <template>
   <!-- Hero section with gradient background and animated elements -->
@@ -99,13 +102,13 @@ const navs: Array<CustomerNav> = [
               <div class="flex flex-col items-center">
                 <div class="relative group">
                   <img
-                    :src="image"
+                    :src="user.profile_picture"
                     alt="Profile"
                     class="h-24 w-24 md:h-28 md:w-28 rounded-full object-cover border-4 border-white shadow-md transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
                 <h2 class="text-xl md:text-2xl font-bold mt-4 text-gray-800">
-                  Rovan Reels
+                  {{ user.first_name }}
                 </h2>
                 <p class="text-gray-500 flex items-center">
                   <svg
@@ -120,7 +123,7 @@ const navs: Array<CustomerNav> = [
                       d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
                     ></path>
                   </svg>
-                  rovanreels@gmail.com
+                  {{ user.email }}
                 </p>
               </div>
             </div>

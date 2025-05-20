@@ -90,9 +90,10 @@ const account: Array<NavBarNav> = [
           class="select-none rounded-full border-black border-[1px] outline-none ring-0 size-9 text-md text-black font-bold bg-white cursor-pointer flex justify-center items-center"
         >
           <img
-            v-if="userStore.user.profile_image"
-            :src="userStore.user.profile_image"
+            v-if="userStore.user.profile_picture"
+            :src="userStore.user.profile_picture"
             :alt="`${userStore.user.first_name} profile image`"
+            class="rounded-full"
           />
 
           <span class="" v-else>

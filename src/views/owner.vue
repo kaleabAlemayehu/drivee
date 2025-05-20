@@ -188,24 +188,39 @@ watch(
           <div
             class="border-gray-200 border-2 rounded-xl flex flex-col py-6 px-4 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
           >
-            <div class="flex flex-col items-center">
-              <img
-                :src="image"
-                alt="profile_image"
-                class="w-28 h-28 md:w-32 md:h-32 rounded-full object-center object-cover inline-block mb-5 border-4 border-gray-100 shadow-sm"
-              />
-              <div
-                class="text-2xl md:text-3xl font-semibold mb-1 text-center capitalize"
-              >
-                Rovan Reels
-              </div>
-              <div class="text-md md:text-lg text-gray-400 text-center">
-                rovanreels@gmail.com
+            <div class="p-6 border-b border-gray-100">
+              <div class="flex flex-col items-center">
+                <div class="relative group">
+                  <img
+                    :src="user.profile_picture"
+                    alt="Profile"
+                    class="h-24 w-24 md:h-28 md:w-28 rounded-full object-cover border-4 border-white shadow-md transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h2 class="text-xl md:text-2xl font-bold mt-4 text-gray-800">
+                  {{ user.first_name }}
+                </h2>
+                <p class="text-gray-500 flex items-center">
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                    ></path>
+                    <path
+                      d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                    ></path>
+                  </svg>
+                  {{ user.email }}
+                </p>
               </div>
             </div>
             <div class="flex flex-col mt-6">
               <div
                 v-for="i in navs"
+                :key="i"
                 class="w-full py-3 px-4 cursor-pointer hover:bg-black hover:text-white hover:font-bold rounded-xl flex items-center font-[500] transition-all duration-300 transform hover:translate-x-1"
               >
                 <Icon
