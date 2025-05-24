@@ -29,7 +29,7 @@ onMounted(() => {
   >
     <div class="px-6 pt-6">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800">{{ bookings?.title }}</h2>
+        <h2 class="text-xl font-bold text-gray-800 capitalize">{{ bookings?.title }}</h2>
         <span
           class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
         >
