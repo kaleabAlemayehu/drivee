@@ -13,11 +13,14 @@ const completedBookings = ref<bookingsProp>();
 const confirmedBookings = ref<bookingsProp>();
 const canceledBookings = ref<bookingsProp>();
 const pendingBookings = ref<bookingsProp>();
-const isLoading = ref(true);
+const completedIsLoading = ref(true);
+const confirmedIsLoading = ref(true);
+const canceledIsLoading = ref(true);
+const pendingIsLoading = ref(true);
 const { user } = useUserStore();
 const { get } = useClient();
 onBeforeMount(async () => {
-  isLoading.value = true;
+  completedIsLoading.value = true;
   try {
     const res = await get('/bookings/?status=completed', {
       headers: { Authorization: `Bearer ${user.token}` },
@@ -32,7 +35,7 @@ onBeforeMount(async () => {
         total: BookingData.length,
         title: 'completed',
       };
-      isLoading.value = false;
+      completedIsLoading.value = false;
     } else {
       console.log('API request not successful:', res.data);
       completedBookings.value = {
@@ -41,11 +44,11 @@ onBeforeMount(async () => {
         total: 0,
         title: 'completed (failed to load)',
       };
-      isLoading.value = false;
+      completedIsLoading.value = false;
     }
   } catch (error: any) {
     console.log(error);
-    isLoading.value = false;
+    completedIsLoading.value = false;
   }
 
   try {
@@ -62,7 +65,7 @@ onBeforeMount(async () => {
         total: BookingData.length,
         title: 'canceled',
       };
-      isLoading.value = false;
+      canceledIsLoading.value = false;
     } else {
       console.log('API request not successful:', res.data);
       canceledBookings.value = {
@@ -71,11 +74,11 @@ onBeforeMount(async () => {
         total: 0,
         title: 'canceled (failed to load)',
       };
-      isLoading.value = false;
+      canceledIsLoading.value = false;
     }
   } catch (error: any) {
     console.log(error);
-    isLoading.value = false;
+    canceledIsLoading.value = false;
   }
 
   try {
@@ -92,20 +95,20 @@ onBeforeMount(async () => {
         total: BookingData.length,
         title: 'pending',
       };
-      isLoading.value = false;
+      pendingIsLoading.value = false;
     } else {
       console.log('API request not successful:', res.data);
-     pendingBookings.value = {
+      pendingBookings.value = {
         // Assign a default/error state
         bookings: [],
         total: 0,
         title: 'pending (failed to load)',
       };
-      isLoading.value = false;
+      pendingIsLoading.value = false;
     }
   } catch (error: any) {
     console.log(error);
-    isLoading.value = false;
+    pendingIsLoading.value = false;
   }
 
   try {
@@ -122,20 +125,20 @@ onBeforeMount(async () => {
         total: BookingData.length,
         title: 'confirmed',
       };
-      isLoading.value = false;
+      confirmedIsLoading.value = false;
     } else {
       console.log('API request not successful:', res.data);
-     confirmedBookings.value = {
+      confirmedBookings.value = {
         // Assign a default/error state
         bookings: [],
         total: 0,
         title: 'confirmed (failed to load)',
       };
-      isLoading.value = false;
+      confirmedIsLoading.value = false;
     }
   } catch (error: any) {
     console.log(error);
-    isLoading.value = false;
+    confirmedIsLoading.value = false;
   }
 });
 const transformer = async (
@@ -166,22 +169,26 @@ const transformer = async (
 </script>
 <template>
   <div class="space-y-6">
-    <TableSkeleton v-if="isLoading" />
-    <TableSkeleton v-if="isLoading" />
-    <TableSkeleton v-if="isLoading" />
+    <TableSkeleton v-if="confirmedIsLoading" />
+    <TableSkeleton v-if="pendingIsLoading" />
+    <TableSkeleton v-if="completedIsLoading" />
+    <TableSkeleton v-if="canceledIsLoading" />
     <Table
-      v-if="!isLoading && confirmedBookings"
+      v-if="!confirmedIsLoading && confirmedBookings"
       :bookings="confirmedBookings"
     />
     <Table
-      v-if="!isLoading && pendingBookings"
+      v-if="!pendingIsLoading && pendingBookings"
       :bookings="pendingBookings"
     />
     <Table
-      v-if="!isLoading && completedBookings"
+      v-if="!completedIsLoading && completedBookings"
       :bookings="completedBookings"
     />
-    <Table v-if="!isLoading && canceledBookings" :bookings="canceledBookings" />
+    <Table
+      v-if="!canceledIsLoading && canceledBookings"
+      :bookings="canceledBookings"
+    />
   </div>
 </template>
 
