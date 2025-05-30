@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
-import type { CarPhotos } from '../types/index';
+import type { CarPhotos } from '../types/car';
 
 const props = defineProps<{ photos: CarPhotos[] }>();
 

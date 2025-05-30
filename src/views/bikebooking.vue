@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import ProductCarousel from '../components/ProductCarousel.vue';
-import { type CarPhotos } from '../types/index';
+import { type CarPhotos } from '../types/car';
 
 const bikePhotos = ref<CarPhotos[]>();
 </script>

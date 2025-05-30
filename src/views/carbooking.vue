@@ -2,7 +2,7 @@
 import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
 import { Icon } from '@iconify/vue';
-import type { CarPhotos } from '../types/index';
+import type { CarPhotos } from '../types/car';
 import { useClient } from '../composables/useClient';
 import ProductCarousel from '../components/ProductCarousel.vue';
 import SkeletonCarousel from '../components/SkeletonCarousel.vue';

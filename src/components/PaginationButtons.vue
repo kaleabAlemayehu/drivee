@@ -23,7 +23,6 @@ const emit = defineEmits<{
 const visiblePages = computed(() => {
   const delta = 2; // Number of pages to show on each side of current page
   const range = [];
-  const rangeWithDots = [];
 
   for (
     let i = Math.max(2, props.currentPage - delta);
@@ -54,14 +53,6 @@ const showLastEllipsis = computed(() => {
     visiblePages.value[visiblePages.value.length - 1] < props.totalPages - 1
   );
 });
-
-const startItem = computed(() => {
-  return (props.currentPage - 1) * props.pageSize + 1;
-});
-
-const endItem = computed(() => {
-  return Math.min(props.currentPage * props.pageSize, props.totalCount);
-});
 </script>
 <template>
   <div
@@ -71,7 +62,7 @@ const endItem = computed(() => {
     <div class="flex items-center space-x-2">
       <!-- Previous Button -->
       <button
-        @click="$emit('page-change', currentPage - 1)"
+        @click="emit('page-change', currentPage - 1)"
         :disabled="!hasPrev"
         class="cursor-pointer flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-500 transition-colors duration-200"
       >
@@ -96,7 +87,7 @@ const endItem = computed(() => {
         <!-- First Page -->
         <button
           v-if="showFirstPage"
-          @click="$emit('page-change', 1)"
+          @click="emit('page-change', 1)"
           class="cursor-pointer px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200"
         >
           1
@@ -111,7 +102,7 @@ const endItem = computed(() => {
         <button
           v-for="page in visiblePages"
           :key="page"
-          @click="$emit('page-change', page)"
+          @click="emit('page-change', page)"
           :class="[
             'cursor-pointer px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
             page === currentPage
@@ -128,7 +119,7 @@ const endItem = computed(() => {
         <!-- Last Page -->
         <button
           v-if="showLastPage"
-          @click="$emit('page-change', totalPages)"
+          @click="emit('page-change', totalPages)"
           class="cursor-pointer px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200"
         >
           {{ totalPages }}
@@ -137,7 +128,7 @@ const endItem = computed(() => {
 
       <!-- Next Button -->
       <button
-        @click="$emit('page-change', currentPage + 1)"
+        @click="emit('page-change', currentPage + 1)"
         :disabled="!hasNext"
         class="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-500 transition-colors duration-200"
       >

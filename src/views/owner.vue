@@ -10,33 +10,37 @@ import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 import { useLeaflet } from '../composables/useLeaflet';
 import type { OwnerNav, OrderInfo } from '../types/index.ts';
-import image from '../assets/comment2.jpg';
 import { Icon } from '@iconify/vue';
 
 const navs: Array<OwnerNav> = [
   {
     icon: 'ic:baseline-home',
     title: 'Dashboard',
+    route: '',
   },
 
   {
     icon: 'material-symbols:person',
     title: 'My Profile',
+    route: '',
   },
 
   {
     icon: 'ion:wallet',
     title: 'My Wallet',
+    route: '',
   },
 
   {
     icon: 'ant-design:insurance-filled',
     title: 'Insurance & Policy',
+    route: '',
   },
 
   {
     icon: 'uil:exit',
     title: 'Sign Out',
+    route: '',
   },
 ];
 
@@ -222,7 +226,7 @@ watch(
             <div class="p-3">
               <div
                 v-for="i in navs"
-                :key="i"
+                :key="i.title"
                 class="flex items-center p-3 mb-1 rounded-xl font-medium transition-all duration-200 cursor-pointer hover:bg-gray-100"
                 :class="[
                   i.route == $route.fullPath
@@ -245,7 +249,7 @@ watch(
           >
             <div
               v-for="i in orders"
-              :key="i"
+              :key="i.title"
               class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group"
             >
               <div class="p-6 flex flex-col h-full">

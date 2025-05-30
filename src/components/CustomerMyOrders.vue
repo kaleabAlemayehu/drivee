@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch, onMounted } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import Table from '../components/Table.vue';
 import TableSkeleton from '../components/TableSkeleton.vue';
-import type {
-  bookingsProp,
-  bookings as bookingType,
-  APIBookingResponse,
-} from '../types/bookings';
+import type { bookingsProp, APIBookingResponse } from '../types/bookings';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 import { transformer } from '../utils/transformer';

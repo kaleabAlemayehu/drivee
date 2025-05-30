@@ -15,7 +15,7 @@ const offset = ref(0);
 const limit = ref(12);
 const currentPage = ref(1);
 const totalPage = ref(1);
-const carsRes: Ref<APICarResponse> = ref({});
+const carsRes: Ref<APICarResponse> = ref({} as APICarResponse);
 const { get } = useClient();
 onBeforeMount(async () => {
   await fetchCars();
@@ -86,7 +86,7 @@ const handlePageChange = async (page: number) => {
       <SkeletonCard v-for="i in 12" :i="i" v-bind:key="i" />
     </div>
     <div class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto" v-else>
-      <CarCard v-for="c in carsRes.cars" v-bind="c" v-bind:key="c" />
+      <CarCard v-for="c in carsRes.cars" v-bind="c as any" v-bind:key="c" />
     </div>
   </div>
   <PaginationButtons

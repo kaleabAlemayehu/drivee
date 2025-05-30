@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
 import { format } from 'date-fns';
-import Table from '../components/Table.vue';
 import TableSkeleton from '../components/TableSkeleton.vue';
 import { type OrderInfo } from '../types/index';
 import type { bookings, APIBookingResponse } from '../types/bookings';
 import { transformer } from '../utils/transformer';
-import type { bookingsProp } from '../types/bookings';
 import { getStatusClass } from '../utils/bookings';
-import { ref, type Ref, onBeforeMount, watch, onMounted } from 'vue';
+import { ref, type Ref, onBeforeMount } from 'vue';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 const orders: Ref<Array<OrderInfo>> = ref([

@@ -25,6 +25,7 @@ type CustomerNav = {
 type OwnerNav = {
   icon: string;
   title: string;
+  route: string;
 };
 type NavBarNav = {
   title: string;

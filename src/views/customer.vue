@@ -2,8 +2,6 @@
 import { Icon } from '@iconify/vue';
 import type { CustomerNav } from '../types/index';
 import { useUserStore } from '../store/useUserStore';
-import { useClient } from '../composables/useClient';
-import image from '../assets/comment2.jpg';
 import dudeImage from '../assets/guywithlaptop.svg';
 import flowerImage from '../assets/flowerpot.svg';
 import desktopImage from '../assets/desktop.svg';
