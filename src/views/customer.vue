@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-import type { CustomerNav } from '../types/index.ts';
-import { router-view, router-link } from 'vue-router';
+import type { CustomerNav } from '../types/index';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 import image from '../assets/comment2.jpg';
