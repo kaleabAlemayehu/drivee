@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import type { CarCardProps } from '../types/index';
+import type { CarCardProps } from '../types/car';
 const props = defineProps<CarCardProps>();
 </script>
 <template>

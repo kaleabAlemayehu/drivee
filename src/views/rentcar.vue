@@ -1,37 +1,58 @@
 <script setup lang="ts">
 import { type Ref, ref, onBeforeMount } from 'vue';
-import type { CarCardProps } from '../types/index';
+import type { APICarResponse } from '../types/car';
 import { useClient } from '../composables/useClient';
 import CarCard from '../components/CarCard.vue';
 import SkeletonCard from '../components/SkeletonCard.vue';
+import PaginationButtons from '../components/PaginationButtons.vue';
 import IsError from '../components/IsError.vue';
 import mapImage from './../assets/map.svg';
 import rentCarImage from '../assets/rentcar.png';
 
 const isLoading = ref(true);
 const isError = ref(false);
-const cars: Ref<CarCardProps[]> = ref([]);
+const offset = ref(0);
+const limit = ref(12);
+const currentPage = ref(1);
+const totalPage = ref(1);
+const carsRes: Ref<APICarResponse> = ref({});
 const { get } = useClient();
 onBeforeMount(async () => {
+  await fetchCars();
+});
+const fetchCars = async () => {
+  isLoading.value = true;
   try {
-    const { data } = await get('/cars/');
+    const { data } = await get(
+      `/cars/?limit=${limit.value}&offset=${offset.value}`,
+    );
     if (data.status == 'success') {
-      console.log(data.message);
-      isLoading.value = false;
-      cars.value = data.message;
+      setTimeout(() => {
+        isLoading.value = false;
+      }, 1500);
+      carsRes.value = data.message;
+      totalPage.value = Math.ceil(carsRes.value.total / 12);
     } else {
       setTimeout(() => {
         isLoading.value = false;
         isError.value = true;
-      }, 1000);
+      }, 1500);
     }
   } catch (error) {
     setTimeout(() => {
       isLoading.value = false;
       isError.value = true;
-    }, 2000);
+    }, 1500);
   }
-});
+};
+
+const handlePageChange = async (page: number) => {
+  if (page <= totalPage.value && page > 0) {
+    currentPage.value = page;
+    offset.value = (page - 1) * 12;
+    await fetchCars();
+  }
+};
 </script>
 <template>
   <div
@@ -65,8 +86,17 @@ onBeforeMount(async () => {
       <SkeletonCard v-for="i in 12" :i="i" v-bind:key="i" />
     </div>
     <div class="grid grid-cols-4 grid-row-3 gap-6 w-6/7 mx-auto" v-else>
-      <CarCard v-for="c in cars" v-bind="c as any" v-bind:key="c" />
+      <CarCard v-for="c in carsRes.cars" v-bind="c" v-bind:key="c" />
     </div>
   </div>
+  <PaginationButtons
+    class="bg-gray-100! pb-18"
+    :current-page="currentPage"
+    :total-pages="totalPage"
+    :has-next="currentPage < totalPage"
+    :has-prev="currentPage > 1"
+    :total-count="carsRes.total"
+    @page-change="handlePageChange"
+  />
 </template>
 <style scoped></style>

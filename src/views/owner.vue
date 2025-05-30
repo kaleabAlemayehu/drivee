@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 import type { LatLngLiteral, Marker } from 'leaflet';
 import type { MarkerData } from '../types/map';
-import type { CarResponse } from '../types/index';
+import type { CarResponse } from '../types/car';
 import { ref, onBeforeMount, watch, onMounted } from 'vue';
 import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
