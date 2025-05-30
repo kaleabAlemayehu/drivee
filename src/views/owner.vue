@@ -171,6 +171,7 @@ watch(
   { deep: true },
 );
 </script>
+
 <template>
   <div class="bg-gray-50 w-full min-h-screen">
     <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -187,7 +188,7 @@ watch(
         <div class="lg:col-span-3 space-y-6">
           <!-- Profile Card -->
           <div
-            class="border-gray-200 border-2 rounded-xl flex flex-col py-6 px-4 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
+            class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
           >
             <div class="p-6 border-b border-gray-100">
               <div class="flex flex-col items-center">
@@ -218,17 +219,19 @@ watch(
                 </p>
               </div>
             </div>
-            <div class="flex flex-col mt-6">
+            <div class="p-3">
               <div
                 v-for="i in navs"
                 :key="i"
-                class="w-full py-3 px-4 cursor-pointer hover:bg-black hover:text-white hover:font-bold rounded-xl flex items-center font-[500] transition-all duration-300 transform hover:translate-x-1"
+                class="flex items-center p-3 mb-1 rounded-xl font-medium transition-all duration-200 cursor-pointer hover:bg-gray-100"
+                :class="[
+                  i.route == $route.fullPath
+                    ? 'bg-black text-white shadow-md'
+                    : 'text-gray-700',
+                ]"
               >
-                <Icon
-                  :icon="i.icon"
-                  class="text-xl md:text-2xl inline-block mr-4"
-                />
-                <div class="text-lg capitalize">{{ i.title }}</div>
+                <Icon :icon="i.icon" class="text-xl mr-3" />
+                <span class="capitalize">{{ i.title }}</span>
               </div>
             </div>
           </div>
@@ -243,77 +246,80 @@ watch(
             <div
               v-for="i in orders"
               :key="i"
-              class="p-5 md:p-6 border-gray-200 border-2 rounded-xl flex flex-col bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:border-gray-300"
+              class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group"
             >
-              <Icon
-                :icon="i.icon"
-                class="text-3xl md:text-4xl text-black mb-4"
-              />
-              <div class="text-3xl md:text-4xl font-bold mb-2">
-                ${{ i.number }}
-              </div>
-              <div class="text-gray-400 font-semibold text-xl capitalize">
-                {{ i.title }}
+              <div class="p-6 flex flex-col h-full">
+                <div
+                  class="text-3xl text-black mb-3 transition-transform duration-300 group-hover:scale-110 transform origin-left"
+                >
+                  <Icon :icon="i.icon" />
+                </div>
+                <div class="mt-auto">
+                  <div class="text-3xl font-bold text-gray-800">
+                    ${{ i.number }}
+                  </div>
+                  <div
+                    class="text-gray-500 text-sm font-medium mt-1 capitalize"
+                  >
+                    {{ i.title }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Orders Table -->
           <div
-            class="bg-white rounded-xl border-2 border-gray-200 p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+            class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
             v-if="!isLoading"
           >
-            <div class="text-2xl md:text-3xl font-bold capitalize mb-6">
-              My Recent Order
-            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                  My Recent Orders
+                </h2>
+                <router-link
+                  to="/dashboard/customer/order/"
+                  class="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center transition-colors cursor-pointer"
+                >
+                  View All
+                  <svg
+                    class="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </router-link>
+              </div>
 
-            <!-- Table with fixed header and scrollable body -->
-            <div
-              class="w-full relative rounded-lg overflow-hidden border border-gray-200"
-            >
-              <!-- Table Header (Fixed) -->
-              <table class="w-full table-auto">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr
+                      class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200"
                     >
-                      Booking No
-                    </th>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
-                    >
-                      Vehicle
-                    </th>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10 hidden md:table-cell"
-                    >
-                      Pick Up Location
-                    </th>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10 hidden sm:table-cell"
-                    >
-                      Date
-                    </th>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10 hidden lg:table-cell"
-                    >
-                      Return Date
-                    </th>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
-                    >
-                      Payment
-                    </th>
-                    <th
-                      class="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50 z-10"
-                    >
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-              <!-- Table Body (Scrollable) -->
+                      <th class="px-4 py-3">Booking No</th>
+                      <th class="px-4 py-3">Vehicle</th>
+                      <th class="px-4 py-3 hidden md:table-cell">
+                        Pick Up Location
+                      </th>
+                      <th class="px-4 py-3 hidden lg:table-cell">Date</th>
+                      <th class="px-4 py-3 hidden lg:table-cell">
+                        Return Date
+                      </th>
+                      <th class="px-4 py-3">Payment</th>
+                      <th class="px-4 py-3">Status</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
 
               <div
                 class="w-full min-h-58 flex font-normal text-2xl justify-center items-center"
@@ -321,50 +327,45 @@ watch(
               >
                 Oops...There is no booking
               </div>
-              <div
-                class="max-h-80 overflow-y-auto"
-                v-if="!isLoading && bookings"
-              >
-                <table class="w-full table-auto">
-                  <tbody class="divide-y divide-gray-200">
+
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <tbody
+                    class="divide-y divide-gray-100"
+                    v-if="!isLoading && bookings"
+                  >
                     <tr
                       v-for="b in bookings"
                       :key="b.id"
-                      class="hover:bg-gray-50 transition-colors duration-150"
+                      class="hover:bg-gray-50 transition-colors"
                     >
-                      <td
-                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600"
-                      >
-                        {{ b?.id }}
+                      <td class="px-4 py-4 text-sm font-medium text-gray-900">
+                        #{{ b?.id }}
                       </td>
-                      <td
-                        class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-800"
-                      >
+                      <td class="px-4 py-4 text-sm text-gray-600">
                         {{ b?.car_id }}
                       </td>
                       <td
-                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden md:table-cell"
+                        class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell"
                       >
                         Effle Tower, NewYork
                       </td>
                       <td
-                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden sm:table-cell"
+                        class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
                       >
                         {{ format(b?.start_time, 'MMM dd,yyyy') }}
                       </td>
                       <td
-                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 hidden lg:table-cell"
+                        class="px-4 py-4 text-sm text-gray-600 hidden lg:table-cell"
                       >
                         {{ format(b?.end_time, 'MMM dd,yyyy') }}
                       </td>
-                      <td
-                        class="px-4 py-3 whitespace-nowrap text-sm text-gray-600"
-                      >
+                      <td class="px-4 py-4 text-sm font-medium text-gray-900">
                         ${{ b?.total_price }}
                       </td>
-                      <td class="px-4 py-3 whitespace-nowrap text-sm">
+                      <td class="px-4 py-4 text-sm">
                         <span
-                          class="rounded-full bg-green-500 text-white text-xs inline-block px-3 py-1"
+                          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
                         >
                           {{ b?.status }}
                         </span>
@@ -377,32 +378,29 @@ watch(
           </div>
         </div>
       </div>
+
       <!-- Map/Chart Section -->
       <div
-        class="mt-10 relative w-full border-gray-200 border-2 bg-white rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+        class="mt-10 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
       >
-        <div class="pb-2 md:pb-4">
-          <div class="capitalize font-semibold text-lg md:text-xl">
-            real-time
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800 capitalize">
+              Real-time
+            </h2>
+            <div
+              class="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+            >
+              <Icon
+                icon="ph:dots-three-outline-vertical-fill"
+                class="text-xl"
+              />
+            </div>
           </div>
-        </div>
 
-        <div
-          class="md:absolute top-0 right-0 bg-transparent p-4 md:p-6 isolate"
-        >
-          <div
-            class="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-          >
-            <Icon icon="ph:dots-three-outline-vertical-fill" class="text-xl" />
+          <div ref="mapContainer" class="h-[32rem]">
+            <!-- Map content goes here -->
           </div>
-        </div>
-
-        <div ref="mapContainer" class="mt-16 md:mt-0 md:py-8 h-[32rem]">
-          <!-- <img -->
-          <!--   :src="Earth" -->
-          <!--   alt="World map" -->
-          <!--   class="inline-block w-full h-auto object-contain max-h-[400px]" -->
-          <!-- /> -->
         </div>
       </div>
     </div>
