@@ -3,32 +3,37 @@ import { Icon } from '@iconify/vue';
 import { format } from 'date-fns';
 import Table from '../components/Table.vue';
 import TableSkeleton from '../components/TableSkeleton.vue';
-import { type OrderInfo } from '../types/index.ts';
+import { type OrderInfo } from '../types/index';
 import type { bookings, APIBookingResponse } from '../types/bookings';
 import { transformer } from '../utils/transformer';
 import type { bookingsProp } from '../types/bookings';
 import { getStatusClass } from '../utils/bookings';
-import { ref, onBeforeMount, watch, onMounted } from 'vue';
+import { ref, type Ref, onBeforeMount, watch, onMounted } from 'vue';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
-const orders: Array<OrderInfo> = [
+const orders: Ref<Array<OrderInfo>> = ref([
   {
     icon: 'uis:calender',
-    title: 'Total Order',
-    number: 3,
+    title: 'Completed Order',
+    number: 0,
   },
 
   {
-    icon: 'mdi:tag',
-    title: 'coupons',
-    number: 12,
+    icon: 'material-symbols:check-circle-outline',
+    title: 'Confirmed Order',
+    number: 0,
+  },
+  {
+    icon: 'material-symbols:pending-actions-rounded',
+    title: 'Pending Order',
+    number: 0,
   },
   {
     icon: 'material-symbols:cancel',
-    title: 'Cancle Order',
-    number: 24,
+    title: 'Canceled Order',
+    number: 0,
   },
-];
+]);
 const booking = ref<bookings[]>();
 const isLoading = ref(true);
 const { user } = useUserStore();
@@ -55,18 +60,83 @@ onBeforeMount(async () => {
     console.log(error);
     isLoading.value = false;
   }
-});
-onMounted(() => {
-  // console.log('bookings', booking.value);
+  try {
+    const res = await get('/bookings/?status=completed', {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (res.data.status === 'success') {
+      const bookingData: APIBookingResponse[] = Array.isArray(res.data.message)
+        ? res.data.message
+        : [];
+      orders.value[0].number = bookingData.length;
+    } else {
+      orders.value[0].number = 0;
+    }
+  } catch (error: any) {
+    console.log(error);
+    isLoading.value = false;
+  }
+
+  try {
+    const res = await get('/bookings/?status=confirmed', {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (res.data.status === 'success') {
+      const bookingData: APIBookingResponse[] = Array.isArray(res.data.message)
+        ? res.data.message
+        : [];
+      orders.value[1].number = bookingData.length;
+    } else {
+      orders.value[1].number = 0;
+    }
+  } catch (error: any) {
+    console.log(error);
+    isLoading.value = false;
+  }
+
+  try {
+    const res = await get('/bookings/?status=pending', {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (res.data.status === 'success') {
+      const bookingData: APIBookingResponse[] = Array.isArray(res.data.message)
+        ? res.data.message
+        : [];
+      orders.value[2].number = bookingData.length;
+    } else {
+      orders.value[2].number = 0;
+    }
+  } catch (error: any) {
+    console.log(error);
+    isLoading.value = false;
+  }
+
+  try {
+    const res = await get('/bookings/?status=canceled', {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (res.data.status === 'success') {
+      const bookingData: APIBookingResponse[] = Array.isArray(res.data.message)
+        ? res.data.message
+        : [];
+      orders.value[3].number = bookingData.length;
+    } else {
+      orders.value[3].number = 0;
+    }
+  } catch (error: any) {
+    console.log(error);
+    isLoading.value = false;
+  }
 });
 </script>
 
 <template>
   <!-- Stats cards grid -->
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mb-6">
-    <div
+    <router-link
       v-for="(i, index) in orders"
       :key="index"
+      to="/dashboard/customer/order/"
       class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group"
     >
       <div class="p-6 flex flex-col h-full">
@@ -84,7 +154,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 
   <TableSkeleton v-if="isLoading" />
