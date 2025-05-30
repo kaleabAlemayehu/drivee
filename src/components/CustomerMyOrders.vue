@@ -9,6 +9,7 @@ import type {
 } from '../types/bookings';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
+import { transformer } from '../utils/transformer';
 const completedBookings = ref<bookingsProp>();
 const confirmedBookings = ref<bookingsProp>();
 const canceledBookings = ref<bookingsProp>();
@@ -141,31 +142,6 @@ onBeforeMount(async () => {
     confirmedIsLoading.value = false;
   }
 });
-const transformer = async (
-  response: APIBookingResponse[],
-): Promise<bookingType[]> => {
-  const bookings: bookingType[] = [] as bookingType[];
-  for (let r of response) {
-    let booking: bookingType;
-    const res = await get(`/cars/${r.car_id}`);
-    let car;
-    if (res.data.status == 'success') {
-      car = res.data.message;
-    }
-    booking = {
-      bookingNo: r.id,
-      make: car.make,
-      model: car.model,
-      pickUpLocation: 'NewYork',
-      pickUpDate: r.start_time,
-      returnDate: r.end_time,
-      status: r.status,
-      payment: r.total_price,
-    };
-    bookings.push(booking);
-  }
-  return bookings;
-};
 </script>
 <template>
   <div class="space-y-6">

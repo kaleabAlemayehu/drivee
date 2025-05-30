@@ -1,5 +1,6 @@
 type bookings = {
-  bookingNo: string;
+  id: string;
+  bookingNo: number;
   make: string;
   model: string;
   pickUpLocation: string;
@@ -16,6 +17,7 @@ type APIBookingResponse = {
   end_time: string;
   status: string;
   total_price: number;
+  booking_no: number;
 };
 
 interface bookingsProp {
@@ -24,4 +26,6 @@ interface bookingsProp {
   bookings: Array<bookings>;
 }
 
-export type { bookingsProp, bookings, APIBookingResponse };
+type BookingStatus = 'pending' | 'confirmed' | 'canceled' | 'completed';
+
+export type { bookingsProp, bookings, APIBookingResponse, BookingStatus };

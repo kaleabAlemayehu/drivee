@@ -2,23 +2,12 @@
 import { ref, onMounted, watchEffect } from 'vue';
 import { format } from 'date-fns';
 import type { bookingsProp } from '../types/bookings';
+import { getStatusClass } from '../utils/bookings';
 const props = defineProps<{ bookings: bookingsProp }>();
 const bookings = ref<bookingsProp>();
 watchEffect(() => {
   bookings.value = props.bookings;
 });
-type BookingStatus = 'pending' | 'confirmed' | 'canceled' | 'completed';
-
-const statusColor: Record<BookingStatus, string> = {
-  pending: 'bg-amber-100 text-amber-800', // pending
-  confirmed: 'bg-blue-100 text-blue-800', // confirmed
-  canceled: 'bg-rose-100 text-rose-800', // cancelled
-  completed: 'bg-green-100 text-green-800', // completed
-};
-
-const getStatusClass = (status: string) => {
-  return statusColor[status as BookingStatus] || 'bg-gray-100 text-gray-800';
-};
 onMounted(() => {
   console.log('bookings', bookings.value);
 });
@@ -29,7 +18,9 @@ onMounted(() => {
   >
     <div class="px-6 pt-6">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800 capitalize">{{ bookings?.title }}</h2>
+        <h2 class="text-xl font-bold text-gray-800 capitalizre">
+          {{ bookings?.title }}
+        </h2>
         <span
           class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
         >
@@ -66,7 +57,7 @@ onMounted(() => {
               <tr
                 class="hover:bg-gray-50 transition-colors"
                 v-for="booking in bookings?.bookings"
-                :key="booking?.bookingNo"
+                :key="booking?.id"
               >
                 <td class="px-4 py-4 text-sm font-medium text-gray-900">
                   {{ booking?.bookingNo }}
