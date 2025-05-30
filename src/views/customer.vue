@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-import { ref, onBeforeMount, watch, onMounted } from 'vue';
 import type { CustomerNav } from '../types/index.ts';
-import { RouterView, RouterLink } from 'vue-router';
+import { router-view, router-link } from 'vue-router';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 import image from '../assets/comment2.jpg';
@@ -41,27 +40,7 @@ const navs: Array<CustomerNav> = [
   },
 ];
 
-const bookings = ref();
-const isLoading = ref(true);
 const { user } = useUserStore();
-const { get } = useClient();
-onBeforeMount(async () => {
-  try {
-    const res = await get('/bookings', {
-      headers: { Authorization: `Bearer ${user.token}` },
-    });
-    if (res.data.success === 'success') {
-      bookings.value = res.data.message;
-      isLoading.value = false;
-    } else {
-      console.log(res.data);
-      bookings.value = res.data.message;
-      isLoading.value = false;
-    }
-  } catch (error: any) {
-    console.log(error);
-  }
-});
 </script>
 <template>
   <!-- Hero section with gradient background and animated elements -->

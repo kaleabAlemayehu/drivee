@@ -89,6 +89,7 @@ onBeforeMount(async () => {
     }
   } catch (error: any) {
     console.log(error);
+    isLoading.value = false;
   }
   try {
     const res = await get('/owner/cars', {
@@ -241,6 +242,7 @@ watch(
           >
             <div
               v-for="i in orders"
+              :key="i"
               class="p-5 md:p-6 border-gray-200 border-2 rounded-xl flex flex-col bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:border-gray-300"
             >
               <Icon
@@ -269,14 +271,8 @@ watch(
             <div
               class="w-full relative rounded-lg overflow-hidden border border-gray-200"
             >
-              <div
-                class="w-full min-h-58 flex font-normal text-2xl justify-center items-center"
-                v-if="!bookings"
-              >
-                Oops...There is no booking
-              </div>
               <!-- Table Header (Fixed) -->
-              <table class="w-full table-auto" v-if="!isLoading && bookings">
+              <table class="w-full table-auto">
                 <thead class="bg-gray-50">
                   <tr>
                     <th
@@ -318,6 +314,13 @@ watch(
                 </thead>
               </table>
               <!-- Table Body (Scrollable) -->
+
+              <div
+                class="w-full min-h-58 flex font-normal text-2xl justify-center items-center"
+                v-if="!bookings"
+              >
+                Oops...There is no booking
+              </div>
               <div
                 class="max-h-80 overflow-y-auto"
                 v-if="!isLoading && bookings"
