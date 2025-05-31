@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Ref, ref, onBeforeMount } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import type { APICarResponse } from '../types/car';
 import { useClient } from '../composables/useClient';
 import CarCard from '../components/CarCard.vue';
@@ -15,11 +16,38 @@ const offset = ref(0);
 const limit = ref(12);
 const currentPage = ref(1);
 const totalPage = ref(1);
+const router = useRouter();
+const route = useRoute();
 const carsRes: Ref<APICarResponse> = ref({} as APICarResponse);
 const { get } = useClient();
+
 onBeforeMount(async () => {
-  await fetchCars();
+  let page = parseInt(route.query.page as string);
+  if (isNaN(page)) {
+    page = 1;
+  }
+  if (page > 0) {
+    currentPage.value = page;
+    offset.value = (page - 1) * 12;
+    await fetchCars();
+  }
+  if (totalPage.value < page) {
+    currentPage.value = totalPage.value;
+    offset.value = (currentPage.value - 1) * 12;
+    await fetchCars();
+  }
+  if (page < 0) {
+    currentPage.value = 1;
+    offset.value = (currentPage.value - 1) * 12;
+    console.log('offset', offset.value);
+    await fetchCars();
+  }
+  router.replace({
+    path: '/book-car',
+    query: { page: `${currentPage.value}` },
+  });
 });
+
 const fetchCars = async () => {
   isLoading.value = true;
   try {
@@ -51,6 +79,7 @@ const handlePageChange = async (page: number) => {
     currentPage.value = page;
     offset.value = (page - 1) * 12;
     await fetchCars();
+    router.push({ path: '/book-car', query: { page: `${currentPage.value}` } });
   }
 };
 </script>

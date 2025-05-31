@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import type { Ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { Icon } from "@iconify/vue";
+import { ref, watch } from 'vue';
+import type { Ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { Icon } from '@iconify/vue';
 const questions: Ref<number[], number[]> = ref([1, 2, 3, 4, 5, 6]);
 const tabs: Array<string> = [
-  "general",
-  "security",
-  "booking",
-  "payment",
-  "others",
+  'general',
+  'security',
+  'booking',
+  'payment',
+  'others',
 ];
 const router = useRouter();
 const route = useRoute();
-const activeTab = ref("booking");
+const activeTab = ref('booking');
 watch(
   () => route.hash,
   (newHash) => {
-    activeTab.value = newHash.replace("#faq-", "") || "booking";
-    console.log("activeTab", activeTab.value);
+    activeTab.value = newHash.replace('#faq-', '') || 'booking';
+    console.log('activeTab', activeTab.value);
   },
 );
 

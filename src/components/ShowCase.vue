@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router';
 </script>
 <template>
   <div
@@ -17,7 +17,7 @@ import { RouterLink } from "vue-router";
         </div>
         <div class="my-16 mx-0 flex justify-around w-1/4">
           <router-link
-            to="/book-car/"
+            to="/book-car/?page=1"
             class="select-none rounded-md border-white border-[0.1px] outline-none ring-0 py-3 px-6 text-black bg-white! cursor-pointer!"
           >
             Rent Car

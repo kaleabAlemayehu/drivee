@@ -88,7 +88,12 @@ const showLastEllipsis = computed(() => {
         <button
           v-if="showFirstPage"
           @click="emit('page-change', 1)"
-          class="cursor-pointer px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200"
+          :class="[
+            'cursor-pointer px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
+            1 === currentPage
+              ? 'text-white bg-black border border-black hover:bg-gray-800'
+              : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700',
+          ]"
         >
           1
         </button>
@@ -120,7 +125,12 @@ const showLastEllipsis = computed(() => {
         <button
           v-if="showLastPage"
           @click="emit('page-change', totalPages)"
-          class="cursor-pointer px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200"
+          :class="[
+            'cursor-pointer px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200',
+            totalPages === currentPage
+              ? 'text-white bg-black border border-black hover:bg-gray-800'
+              : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700',
+          ]"
         >
           {{ totalPages }}
         </button>
