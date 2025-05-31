@@ -9,6 +9,7 @@ import home from "../views/home.vue";
 import rentcar from "../views/rentcar.vue";
 import rentbike from "../views/rentbike.vue";
 import signup from "../views/signup.vue";
+import signin from "../views/signin.vue";
 import contact from "../views/contact.vue";
 import carhosting from "../views/carhosting.vue";
 import bikehosting from "../views/bikehosting.vue";
@@ -136,6 +137,13 @@ const routes: RouteRecordRaw[] = [
 		path: "/signup/",
 		components: {
 			default: signup,
+		},
+	},
+
+	{
+		path: "/signin/",
+		components: {
+			default: signin,
 		},
 	},
 	{

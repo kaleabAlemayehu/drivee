@@ -65,7 +65,6 @@ onBeforeMount(() => {
   }
 });
 </script>
-
 <template>
   <div class="h-screen w-full flex w-hidden overflow-hidden">
     <div

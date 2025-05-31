@@ -39,8 +39,9 @@ export const useUserStore = defineStore('user', {
         return { message: message, err: isErr };
       }
     },
-    login() {
+    login(email: string, password: string, rememberMe: boolean) {
       // make request to login
+      return { rememberMe, email, password };
     },
     logout() {
       // clear user data
