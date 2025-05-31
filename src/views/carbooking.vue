@@ -60,7 +60,7 @@ onBeforeMount(async () => {
   }
 
   try {
-    const res = await get(`/users/${car.value.owner_id}`, {
+    const res = await get(`/users/${car.value?.owner_id}`, {
       headers: { Authorization: `Bearer ${user.token}` },
     });
     if (res.data.status == 'success') {
@@ -236,30 +236,30 @@ onBeforeMount(async () => {
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Price Per Hour</div>
-                  <div class="val">{{ car.price_per_hour }}</div>
+                  <div class="val">{{ car?.price_per_hour }}</div>
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Make</div>
-                  <div class="val">{{ car.make }}</div>
+                  <div class="val">{{ car?.make }}</div>
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Model</div>
-                  <div class="val">{{ car.model }}</div>
+                  <div class="val">{{ car?.model }}</div>
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Year</div>
-                  <div class="val">{{ car.year }}</div>
+                  <div class="val">{{ car?.year }}</div>
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Fuel Type</div>
 
-                  <div class="val">{{ car.fuel_type }}</div>
+                  <div class="val">{{ car?.fuel_type }}</div>
                 </li>
                 <li
                   class="flex justify-between items-center mb-6 text-gray-600"
                 >
                   <div class="">License Plate</div>
-                  <div class="" v-if="showInfo">{{ car.license_plate }}</div>
+                  <div class="" v-if="showInfo">{{ car?.license_plate }}</div>
                   <span
                     class="-top-2 -right-5 px-3 py-2 rounded-xl z-9999 bg-gray-200"
                     v-else
@@ -268,17 +268,17 @@ onBeforeMount(async () => {
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Mileage</div>
-                  <div class="val">{{ car.mileage }}</div>
+                  <div class="val">{{ car?.mileage }}</div>
                 </li>
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Transmission</div>
-                  <div class="val">{{ car.transmission }}</div>
+                  <div class="val">{{ car?.transmission }}</div>
                 </li>
                 <li
                   class="flex justify-between items-center mb-6 text-gray-600"
                 >
                   <div class="">Vin Number</div>
-                  <div class="" v-if="showInfo">{{ car.vin_number }}</div>
+                  <div class="" v-if="showInfo">{{ car?.vin_number }}</div>
                   <span
                     class="-top-2 -right-5 px-3 py-2 rounded-xl z-9999 bg-gray-200"
                     v-else
@@ -294,7 +294,7 @@ onBeforeMount(async () => {
                 <!-- </li> -->
                 <li class="flex justify-between mb-6 text-gray-600">
                   <div class="">Status</div>
-                  <div class="val">{{ car.status }}</div>
+                  <div class="val">{{ car?.status }}</div>
                 </li>
               </ul>
             </div>
