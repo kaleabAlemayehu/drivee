@@ -32,15 +32,7 @@ type NavBarNav = {
   route: string;
 };
 
-type SignupInputs = {
-  first_name: string;
-  email: string;
-  password: string;
-  policy?: boolean;
-};
-
 export type {
-  SignupInputs,
   CursorPosition,
   CustomerNav,
   NavBarNav,

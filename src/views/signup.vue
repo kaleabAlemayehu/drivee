@@ -202,7 +202,9 @@ onBeforeMount(() => {
 
           <div class="capitalize">
             already have an account?
-            <span class="underline cursor-pointer">login here</span>
+            <router-link to="/signin" class="underline cursor-pointer"
+              >login here</router-link
+            >
           </div>
         </div>
       </div>

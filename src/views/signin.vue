@@ -29,26 +29,23 @@ const [rememberMe, _] = defineField('rememberMe');
 
 const onSubmit = handleSubmit(async (values) => {
   isLoading.value = true;
-  const res = await userStore.login(
+  const { message, err } = await userStore.login(
     values.email,
     values.password,
     values.rememberMe as boolean,
   );
-  // TODO: may want to get rid of this timeout
   setTimeout(() => {
     isLoading.value = false;
   }, 1000);
-  console.log(res);
-  // submitErr.value = message;
-  // TODO: add push notification or onsite notification to verify email and fill the remaining fields
-
-  // clear values
-  setValues({
-    email: '',
-    password: '',
-    rememberMe: false,
-  });
-
+  if (err) {
+    submitErr.value = message;
+  } else {
+    setValues({
+      email: '',
+      password: '',
+      rememberMe: false,
+    });
+  }
   router.push({ path: '/', replace: true });
 });
 onBeforeMount(() => {
@@ -184,11 +181,12 @@ onBeforeMount(() => {
                 >Remember me</label
               >
             </div>
-            <div
-              class="text-blue-600 underline cursor-pointer text-sm sm:text-base hover:text-blue-800"
+            <router-link
+              to="/forget-password"
+              class="underline cursor-pointer text-sm sm:text-base"
             >
               Forgot password?
-            </div>
+            </router-link>
           </div>
 
           <!-- Error Message -->
@@ -215,11 +213,9 @@ onBeforeMount(() => {
           <!-- Signup Link -->
           <div class="text-sm sm:text-base">
             Don't have an account?
-            <span
-              class="underline cursor-pointer text-blue-600 hover:text-blue-800"
-            >
+            <router-link to="/signup" class="underline cursor-pointer">
               sign up here
-            </span>
+            </router-link>
           </div>
         </div>
       </div>

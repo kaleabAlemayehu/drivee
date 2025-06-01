@@ -109,7 +109,7 @@ const account: Array<NavBarNav> = [
       </div>
       <div class="flex justify-end gap-x-6 text-lg" v-else>
         <router-link
-          to="/sign-in/"
+          to="/signin/"
           class="select-none rounded-md border-white border-[1px] outline-none ring-0 py-3 px-5 text-white bg-black cursor-pointer"
         >
           Sign In

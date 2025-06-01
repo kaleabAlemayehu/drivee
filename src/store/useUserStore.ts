@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type { AxiosError } from 'axios';
 import { useClient } from '../composables/useClient';
-import type { SignupInputs } from '../types';
+import type { LoginInputs, SignupInputs } from '../types/auth';
 
 const client = useClient();
 export const useUserStore = defineStore('user', {
@@ -39,9 +39,30 @@ export const useUserStore = defineStore('user', {
         return { message: message, err: isErr };
       }
     },
-    login(email: string, password: string, rememberMe: boolean) {
+    async login(email: string, password: string, rememberMe: boolean) {
+      let message,
+        isErr = false;
+      try {
+        const data: LoginInputs = {
+          email: email,
+          password: password,
+          rememberMe: rememberMe,
+        };
+        let res = await client.post('/login', data);
+        message = res.data.message;
+        if (res.data.status === 'error') {
+          isErr = true;
+          return { message, err: isErr };
+        }
+        this.user = message;
+        localStorage.setItem('user', JSON.stringify(message));
+        return { message, err: isErr };
+      } catch (error: any | AxiosError) {
+        message = error.response.data.message;
+        isErr = true;
+        return { message: message, err: isErr };
+      }
       // make request to login
-      return { rememberMe, email, password };
     },
     logout() {
       // clear user data
