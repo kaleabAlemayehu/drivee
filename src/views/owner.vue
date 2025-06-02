@@ -5,13 +5,15 @@ import type { LatLngLiteral, Marker } from 'leaflet';
 import type { MarkerData } from '../types/map';
 import type { CarResponse } from '../types/car';
 import { ref, onBeforeMount, watch, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
 import { useUserStore } from '../store/useUserStore';
 import { useClient } from '../composables/useClient';
 import { useLeaflet } from '../composables/useLeaflet';
-import type { OwnerNav, OrderInfo } from '../types/index.ts';
+import type { OwnerNav, OrderInfo } from '../types/index';
 import { Icon } from '@iconify/vue';
 
+const router = useRouter();
 const navs: Array<OwnerNav> = [
   {
     icon: 'ic:baseline-home',
@@ -34,12 +36,6 @@ const navs: Array<OwnerNav> = [
   {
     icon: 'ant-design:insurance-filled',
     title: 'Insurance & Policy',
-    route: '',
-  },
-
-  {
-    icon: 'uil:exit',
-    title: 'Sign Out',
     route: '',
   },
 ];
@@ -74,7 +70,7 @@ const {
   addMarkers,
   flyTo,
 } = useLeaflet();
-const { user } = useUserStore();
+const { user, logout } = useUserStore();
 const { get } = useClient();
 onBeforeMount(async () => {
   try {
@@ -174,6 +170,10 @@ watch(
   },
   { deep: true },
 );
+const handleSignOut = () => {
+  logout();
+  router.replace('/');
+};
 </script>
 
 <template>
@@ -236,6 +236,14 @@ watch(
               >
                 <Icon :icon="i.icon" class="text-xl mr-3" />
                 <span class="capitalize">{{ i.title }}</span>
+              </div>
+
+              <div
+                class="flex items-center p-3 mb-1 rounded-xl font-medium transition-all duration-200 cursor-pointer active:bg-red-400 hover:bg-red-600 text-black"
+                @click="handleSignOut"
+              >
+                <Icon icon="uil:exit" class="text-xl mr-3" />
+                <span class="capitalize">Sign Out</span>
               </div>
             </div>
           </div>

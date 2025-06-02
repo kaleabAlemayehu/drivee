@@ -18,9 +18,6 @@ onMounted(() => {
     }
   });
 });
-const handleLogout = () => {
-  userStore.logout();
-};
 // const hosting: Array<NavBarNav> = [
 //   {
 //     name: "Car Hosting & Referals",
@@ -99,12 +96,6 @@ const account: Array<NavBarNav> = [
           <span class="" v-else>
             {{ userStore.user.first_name[0].toUpperCase() }}
           </span>
-        </div>
-        <div
-          @click="handleLogout"
-          class="select-none rounded-md border-none outline-none ring-0 py-3 px-4 text-white bg-red-500 cursor-pointer"
-        >
-          Log Out
         </div>
       </div>
       <div class="flex justify-end gap-x-6 text-lg" v-else>

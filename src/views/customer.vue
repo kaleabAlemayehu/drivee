@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import type { CustomerNav } from '../types/index';
 import { useUserStore } from '../store/useUserStore';
@@ -29,15 +30,15 @@ const navs: Array<CustomerNav> = [
     title: 'Insurance & Policy',
     route: '/insuratance-and-policy/',
   },
-
-  {
-    icon: 'uil:exit',
-    title: 'Sign Out',
-    route: '/',
-  },
 ];
 
-const { user } = useUserStore();
+const { user, logout } = useUserStore();
+const router = useRouter();
+
+const handleSignOut = () => {
+  logout();
+  router.replace('/');
+};
 </script>
 <template>
   <!-- Hero section with gradient background and animated elements -->
@@ -142,6 +143,14 @@ const { user } = useUserStore();
                 <Icon :icon="i.icon" class="text-xl mr-3" />
                 <span>{{ i.title }}</span>
               </router-link>
+
+              <div
+                class="flex items-center p-3 mb-1 rounded-xl font-medium transition-all duration-200 cursor-pointer active:bg-red-400 hover:bg-red-600 text-black"
+                @click="handleSignOut"
+              >
+                <Icon icon="uil:exit" class="text-xl mr-3" />
+                <span class="capitalize">Sign Out</span>
+              </div>
             </div>
           </div>
         </div>
