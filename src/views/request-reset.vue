@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useClient } from '../composables/useClient';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
@@ -11,17 +12,26 @@ const schema = toTypedSchema(
 const { handleSubmit, defineField, errors } = useForm({
   validationSchema: schema,
 });
+const { post } = useClient();
 const isSubmitting = ref(false);
 const submissionMessage = ref(null);
 const submissionSuccess = ref(null);
 const [email, emailAttr] = defineField('email');
 const onSubmit = handleSubmit(async (value) => {
   isSubmitting.value = true;
-  setTimeout(() => {
-    isSubmitting.value = false;
-    submissionMessage.value = 'success';
-    submissionSuccess.value = true;
-  }, 3000);
+  try {
+    const res = await post('/reset-password', {
+      email: value.email,
+    });
+    console.log(res.data);
+    setTimeout(() => {
+      isSubmitting.value = false;
+      submissionMessage.value = 'success';
+      submissionSuccess.value = true;
+    }, 3000);
+  } catch (error: any) {
+    console.log(error);
+  }
 });
 </script>
 <template>

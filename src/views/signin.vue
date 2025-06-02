@@ -182,7 +182,7 @@ onBeforeMount(() => {
               >
             </div>
             <router-link
-              to="/forget-password"
+              to="/request-reset"
               class="underline cursor-pointer text-sm sm:text-base"
             >
               Forgot password?
