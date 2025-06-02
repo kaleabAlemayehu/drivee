@@ -7,6 +7,7 @@ import NavBar from '../components/NavBar.vue';
 import Footer from '../components/Footer.vue';
 import home from '../views/home.vue';
 import requestreset from '../views/request-reset.vue';
+import resetpassword from '../views/reset-password.vue';
 import rentcar from '../views/rentcar.vue';
 import rentbike from '../views/rentbike.vue';
 import signup from '../views/signup.vue';
@@ -152,6 +153,13 @@ const routes: RouteRecordRaw[] = [
     path: '/request-reset/',
     components: {
       default: requestreset,
+    },
+  },
+
+  {
+    path: '/reset-password/',
+    components: {
+      default: resetpassword,
     },
   },
   {

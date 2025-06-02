@@ -38,17 +38,17 @@ const onSubmit = handleSubmit(async (value) => {
   <div class="bg-world h-screen w-full bg-cover bg-no-repeat">
     <div class="bg-white/50 w-full h-full flex justify-center items-center">
       <div
-        class="rounded-xl row-span-3 h-[calc(100vh-16rem)] bg-white flex justify-center items-center flex-col w-6/10"
+        class="rounded-xl row-span-3 h-[calc(100vh-16rem)] bg-white flex justify-center items-center flex-col w-full max-w-xl"
       >
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">
           Forget Your Password?
         </h2>
-        <p class="text-center text-gray-700 mb-8 px-18">
+        <p class="text-center text-gray-700 mb-8 px-12">
           Enter your email address below and we'll send you a link to reset your
           password.
         </p>
 
-        <form @submit.prevent="onSubmit" class="w-4/9">
+        <form @submit.prevent="onSubmit" class="w-8/10">
           <div class="mb-6">
             <label
               for="email"
