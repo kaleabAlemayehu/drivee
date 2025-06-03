@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, onBeforeMount } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useClient } from '../composables/useClient';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import LoadingIcon from '../components/icons/Loading.vue';
 const schema = toTypedSchema(
   yup.object({
     newPassword: yup.string().min(8).required(),
@@ -17,6 +19,10 @@ const schema = toTypedSchema(
 const { handleSubmit, defineField, errors } = useForm({
   validationSchema: schema,
 });
+const isError = ref(false);
+const errorMessage = ref(null);
+const isLoading = ref(true);
+const userInfo = ref(null);
 const { post } = useClient();
 const isSubmitting = ref(false);
 const submissionMessage = ref(null);
@@ -26,8 +32,10 @@ const [confirmPassword, confirmPasswordAttr] = defineField('confirmPassword');
 const onSubmit = handleSubmit(async (value) => {
   isSubmitting.value = true;
   try {
-    const res = await post('/update-password', {
+    const res = await post('/reset-password', {
       password: value.newPassword,
+      userID: userInfo.value.user_id,
+      token: userInfo.value.token,
     });
     console.log(res.data);
     setTimeout(() => {
@@ -39,11 +47,64 @@ const onSubmit = handleSubmit(async (value) => {
     console.log(error);
   }
 });
+const route = useRoute();
+const router = useRouter();
+onBeforeMount(async () => {
+  try {
+    const data = {
+      token: route.query.token,
+    };
+    if (data.token) {
+      const res = await post('/verify-token', data);
+      if (res.data.status === 'success') {
+        userInfo.value = res.data.message;
+        isLoading.value = false;
+        router.replace('/reset-password/');
+        console.log(userInfo.value);
+      } else {
+        console.log(res.data.message);
+      }
+    } else {
+      router.push('/');
+    }
+  } catch (error: any) {
+    isError.value = true;
+    errorMessage.value = error.response.data.message;
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 1000);
+
+    setTimeout(() => {
+      router.push('/');
+    }, 3000);
+  }
+});
 </script>
 <template>
   <div class="bg-world h-screen w-full bg-cover bg-no-repeat">
     <div class="bg-white/50 w-full h-full flex justify-center items-center p-4">
-      <div class="rounded-xl bg-white flex flex-col w-full max-w-md p-6 sm:p-8">
+      <div
+        v-if="isLoading"
+        class="h-[26.5rem] rounded-xl bg-white flex justify-center items-center w-full max-w-md p-6 sm:p-8"
+      >
+        <LoadingIcon />
+      </div>
+
+      <div
+        v-else-if="isError && !isLoading"
+        class="h-[26.5rem] rounded-xl bg-white flex justify-center items-center w-full max-w-md p-6 sm:p-8"
+      >
+        <div
+          class="px-6 py-3 rounded-md text-lg bg-red-100 text-red-700': !submissionSuccess, }"
+        >
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <div
+        v-else
+        class="rounded-xl bg-white flex flex-col w-full max-w-md p-6 sm:p-8"
+      >
         <h2
           class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6"
         >

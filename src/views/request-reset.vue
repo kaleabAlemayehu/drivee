@@ -20,7 +20,7 @@ const [email, emailAttr] = defineField('email');
 const onSubmit = handleSubmit(async (value) => {
   isSubmitting.value = true;
   try {
-    const res = await post('/reset-password', {
+    const res = await post('/request-reset', {
       email: value.email,
     });
     console.log(res.data);
@@ -30,6 +30,7 @@ const onSubmit = handleSubmit(async (value) => {
       submissionSuccess.value = true;
     }, 3000);
   } catch (error: any) {
+    submissionSuccess.value = false;
     console.log(error);
   }
 });
