@@ -1,37 +1,55 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useClient } from '../composables/useClient';
 import { toTypedSchema } from '@vee-validate/yup';
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
+import LoadingIcon from '../components/icons/Loading.vue';
 const schema = toTypedSchema(
   yup.object({
     email: yup.string().email().required(),
   }),
 );
-const { handleSubmit, defineField, errors } = useForm({
+const { handleSubmit, defineField, errors, resetForm } = useForm({
   validationSchema: schema,
 });
 const { post } = useClient();
 const isSubmitting = ref(false);
 const submissionMessage = ref(null);
 const submissionSuccess = ref(null);
+const router = useRouter();
 const [email, emailAttr] = defineField('email');
 const onSubmit = handleSubmit(async (value) => {
   isSubmitting.value = true;
   try {
-    const res = await post('/request-reset', {
-      email: value.email,
-    });
+    const res = await post(
+      '/request-reset',
+      {
+        email: value.email,
+      },
+      { timeout: 10000 },
+    );
     console.log(res.data);
+    isSubmitting.value = false;
+    submissionMessage.value = res.data.message;
+    submissionSuccess.value = true;
     setTimeout(() => {
-      isSubmitting.value = false;
-      submissionMessage.value = 'success';
-      submissionSuccess.value = true;
+      router.push('/');
     }, 3000);
   } catch (error: any) {
-    submissionSuccess.value = false;
-    console.log(error);
+    isSubmitting.value = false;
+    if (error.response) {
+      submissionMessage.value = error.response.data.message;
+      submissionSuccess.value = true;
+    } else {
+      submissionMessage.value = error.message;
+      submissionSuccess.value = false;
+    }
+    resetForm();
+    setTimeout(() => {
+      router.push('/');
+    }, 3000);
   }
 });
 </script>
@@ -82,13 +100,20 @@ const onSubmit = handleSubmit(async (value) => {
           </div>
 
           <button
-            type="submit"
-            :disabled="isSubmitting || errors.email"
+            v-if="isSubmitting"
             class="w-full bg-black hover:bg-black text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+            disabled
           >
-            {{ isSubmitting ? 'Sending...' : 'Send Reset Link' }}
+            <LoadingIcon />
           </button>
 
+          <button
+            v-else
+            type="submit"
+            class="w-full bg-black hover:bg-black text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+          >
+            Send Reset Link
+          </button>
           <p class="text-center text-gray-600 text-sm mt-6">
             Remembered your password?
             <router-link
