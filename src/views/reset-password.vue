@@ -37,14 +37,36 @@ const onSubmit = handleSubmit(async (value) => {
       userID: userInfo.value.user_id,
       token: userInfo.value.token,
     });
-    console.log(res.data);
-    setTimeout(() => {
-      isSubmitting.value = false;
-      submissionMessage.value = 'success';
-      submissionSuccess.value = true;
-    }, 3000);
+    if (res.data.status === 'success') {
+      setTimeout(() => {
+        isSubmitting.value = false;
+        submissionMessage.value = res.data.message;
+        submissionSuccess.value = true;
+        router.push('/signin');
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        isSubmitting.value = false;
+        submissionMessage.value = res.data.message;
+        submissionSuccess.value = true;
+      }, 3000);
+    }
   } catch (error: any) {
-    console.log(error);
+    if (error.response.data) {
+      setTimeout(() => {
+        isSubmitting.value = false;
+        submissionMessage.value = error.response.data.message;
+        submissionSuccess.value = false;
+        console.log(error);
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        isSubmitting.value = false;
+        submissionMessage.value = error.message;
+        submissionSuccess.value = false;
+        console.log(error);
+      }, 3000);
+    }
   }
 });
 const route = useRoute();
@@ -58,11 +80,16 @@ onBeforeMount(async () => {
       const res = await post('/verify-token', data);
       if (res.data.status === 'success') {
         userInfo.value = res.data.message;
+        console.log(res.data);
         isLoading.value = false;
         router.replace('/reset-password/');
         console.log(userInfo.value);
       } else {
-        console.log(res.data.message);
+        setTimeout(() => {
+          router.replace('/');
+        }, 3000);
+        userInfo.value = res.data.message;
+        isLoading.value = false;
       }
     } else {
       router.push('/');
@@ -165,11 +192,19 @@ onBeforeMount(async () => {
           </div>
 
           <button
-            type="submit"
-            :disabled="isSubmitting"
+            v-if="isSubmitting"
             class="w-full bg-black text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800"
+            disabled
           >
-            {{ isSubmitting ? 'Updating...' : 'Reset Password' }}
+            <LoadingIcon />
+          </button>
+
+          <button
+            v-else
+            type="submit"
+            class="w-full cursor-pointer bg-black text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800"
+          >
+            Reset Password
           </button>
 
           <div
