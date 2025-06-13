@@ -7,11 +7,13 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useUserStore } from '../store/useUserStore';
 import LoadingIcon from '../components/icons/Loading.vue';
+import GoogleLogin from '../components/GoogleLogin.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
 const submitErr = ref(null);
 const isLoading = ref(false);
+
 const schema = toTypedSchema(
   yup.object({
     name: yup.string().required(),
@@ -23,6 +25,10 @@ const schema = toTypedSchema(
       .required(),
   }),
 );
+
+const handleError = (message: string) => {
+  submitErr.value = message;
+};
 const { handleSubmit, defineField, errors, setValues } = useForm({
   validationSchema: schema,
 });
@@ -112,15 +118,7 @@ onBeforeMount(() => {
             Continue with Facebook
           </div>
         </div>
-
-        <div
-          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center xl:px-6 lg:px-4 xl:py-5 lg:py-4 mb-2 cursor-pointer select-none"
-        >
-          <Icon icon="devicon:google" class="text-3xl mr-18" />
-          <div class="xl:text-xl lg:text-lg font-semibold text-gray-600">
-            Continue with Google
-          </div>
-        </div>
+        <GoogleLogin @error="handleError" />
         <div
           class="w-3/4 border-[1px] border-transparent border-t-gray-100 flex flex-col py-4"
         >

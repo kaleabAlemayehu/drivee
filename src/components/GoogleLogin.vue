@@ -1,6 +1,5 @@
-<!-- src/components/GoogleSignIn.vue -->
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeMount } from 'vue';
 import { loadGoogleScript } from '../utils/googleAuth';
 import { useClient } from '../composables/useClient';
 import { useRouter } from 'vue-router';
@@ -16,8 +15,7 @@ const emit = defineEmits<{
 
 const buttonRef = ref<HTMLElement | null>(null);
 const handleCredentialResponse = async (response: GoogleAuthResponse) => {
-  // Send token to backend for verification
-  console.log(response.credential);
+  console.log(response);
   const data: GoogleAuth = {
     token: response.credential,
   } as GoogleAuth;
@@ -34,9 +32,13 @@ onMounted(async () => {
 
   if (buttonRef.value && window.google?.accounts) {
     window.google.accounts.id.initialize({
+      use_fedcm_for_prompt: true,
       client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse,
       ux_mode: 'popup',
+      auto_select: true,
+      cancel_on_tap_outside: false,
+      prompt_parent_id: 'google-one-tap-container', // Important for Chrome
     });
 
     window.google.accounts.id.renderButton(buttonRef.value, {
@@ -48,12 +50,11 @@ onMounted(async () => {
       width: 500, // optional: sets fixed width
     });
 
-    // Optional: Automatic sign-in prompt
-    window.google.accounts.id.prompt();
+    // window.google.accounts.id.prompt();
   }
 });
 </script>
 
 <template>
-  <div ref="buttonRef" class="google-signin-container"></div>
+  <div ref="buttonRef" class="google-one-tap-container"></div>
 </template>

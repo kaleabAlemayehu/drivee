@@ -125,18 +125,6 @@ onBeforeMount(() => {
               Continue with Facebook
             </div>
           </div>
-
-          <!-- <div -->
-          <!--   class="w-full sm:w-4/5 bg-gray-100 rounded-full flex items-center px-4 xl:px-6 py-4 xl:py-5 cursor-pointer select-none hover:bg-gray-200 transition-colors" -->
-          <!-- > -->
-          <!--   <Icon -->
-          <!--     icon="devicon:google" -->
-          <!--     class="text-2xl xl:text-3xl mr-4 sm:mr-18" -->
-          <!--   /> -->
-          <!--   <div class="text-base xl:text-xl font-semibold text-gray-600"> -->
-          <!--     Continue with Google -->
-          <!--   </div> -->
-          <!-- </div> -->
           <GoogleLogin @error="handleError" />
         </div>
 
