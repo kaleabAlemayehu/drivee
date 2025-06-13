@@ -13,6 +13,7 @@ const router = useRouter();
 const userStore = useUserStore();
 const submitErr = ref(null);
 const isLoading = ref(false);
+const pageLoading = ref(true);
 
 const schema = toTypedSchema(
   yup.object({
@@ -66,6 +67,9 @@ const onSubmit = handleSubmit(async (values) => {
   }
 });
 onBeforeMount(() => {
+  setTimeout(() => {
+    pageLoading.value = false;
+  }, 1500);
   if (userStore.user) {
     router.push({ path: '/', replace: true });
   }
@@ -97,7 +101,11 @@ onBeforeMount(() => {
         </div>
       </div>
     </div>
+    <div class="flex justify-center items-center w-full" v-if="pageLoading">
+      <LoadingIcon class="text-4xl" />
+    </div>
     <form
+      v-else
       @submit.prevent="onSubmit"
       class="h-full min-h-screen bg-white w-full xl:py-8 lg:py-4"
     >

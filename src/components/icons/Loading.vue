@@ -2,9 +2,12 @@
 <template>
   <svg
     aria-hidden="true"
-    class="inline size-5 text-xl text-gray-500 animate-spin fill-white"
+    class="inline animate-spin text-gray-500 fill-white"
+    :class="{
+      'w-[1em] h-[1em]': true,
+      'text-xl': !$attrs.class,
+    }"
     viewBox="0 0 100 101"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

@@ -8,10 +8,12 @@ import * as yup from 'yup';
 import { useUserStore } from '../store/useUserStore';
 import LoadingIcon from '../components/icons/Loading.vue';
 import GoogleLogin from '../components/GoogleLogin.vue';
+// import SkeletonSignin from '../components/SkeletonSignin.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
 const submitErr = ref(null);
+const pageLoading = ref(true);
 const isLoading = ref(false);
 const schema = toTypedSchema(
   yup.object({
@@ -53,6 +55,10 @@ const onSubmit = handleSubmit(async (values) => {
   router.push({ path: '/', replace: true });
 });
 onBeforeMount(() => {
+  setTimeout(() => {
+    pageLoading.value = false;
+  }, 1500);
+
   if (userStore.user) {
     router.push({ path: '/', replace: true });
   }
@@ -62,7 +68,7 @@ onBeforeMount(() => {
   <div class="h-screen w-full flex flex-col lg:flex-row overflow-hidden">
     <!-- Background Section -->
     <div
-      class="hidden lg:block bg-cover bg-signup bg-center h-full object-none origin-center w-full lg:w-1/2 bg-no-repeat"
+      class="hidden lg:block bg-cover bg-signup bg-center h-full object-none origin-center w-full lg:w-1/2 bg-no-repeat flex-none"
     >
       <div
         class="w-full bg-black/65 text-white h-full flex justify-center items-center mx-auto flex-col select-none px-4"
@@ -91,7 +97,12 @@ onBeforeMount(() => {
     </div>
 
     <!-- Form Section -->
+    <!-- <SkeletonSignin v-if="pageLoading" /> -->
+    <div class="flex justify-center items-center w-full" v-if="pageLoading">
+      <LoadingIcon class="text-4xl" />
+    </div>
     <form
+      v-else
       @submit.prevent="onSubmit"
       class="h-full min-h-screen bg-white w-full lg:w-1/2 px-4 sm:px-6 lg:px-8 xl:px-16 py-6 lg:py-8 overflow-y-auto"
     >
