@@ -10,4 +10,5 @@ type LoginInputs = {
   password: string;
   rememberMe: boolean;
 };
+
 export type { SignupInputs, LoginInputs };

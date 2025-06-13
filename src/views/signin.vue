@@ -7,6 +7,7 @@ import { toTypedSchema } from '@vee-validate/yup';
 import * as yup from 'yup';
 import { useUserStore } from '../store/useUserStore';
 import LoadingIcon from '../components/icons/Loading.vue';
+import GoogleLogin from '../components/GoogleLogin.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -19,6 +20,9 @@ const schema = toTypedSchema(
     rememberMe: yup.bool(),
   }),
 );
+const handleError = (message: string) => {
+  submitErr.value = message;
+};
 const { handleSubmit, defineField, errors, setValues } = useForm({
   validationSchema: schema,
 });
@@ -30,7 +34,7 @@ const [rememberMe, _] = defineField('rememberMe');
 const onSubmit = handleSubmit(async (values) => {
   isLoading.value = true;
   const { message, err } = await userStore.login(
-    values.email,
+    values.email.toLowerCase(),
     values.password,
     values.rememberMe as boolean,
   );
@@ -111,28 +115,29 @@ onBeforeMount(() => {
         <!-- Social Login Buttons -->
         <div class="space-y-3 mb-6">
           <div
-            class="w-full sm:w-4/5 bg-gray-100 rounded-full flex items-center px-4 xl:px-6 py-4 xl:py-5 cursor-pointer select-none hover:bg-gray-200 transition-colors"
+            class="w-full sm:w-4/5 bg-gray-100 rounded-full flex items-center px-2 xl:px-4 py-4 xl:py-3 cursor-pointer select-none hover:bg-gray-200 transition-colors"
           >
             <Icon
               icon="logos:facebook"
-              class="text-2xl xl:text-3xl mr-4 sm:mr-18"
+              class="text-xl xl:text-3xl mr-4 sm:mr-18"
             />
-            <div class="text-base xl:text-xl font-semibold text-gray-600">
+            <div class="text-sm xl:text-lg font-semibold text-gray-600">
               Continue with Facebook
             </div>
           </div>
 
-          <div
-            class="w-full sm:w-4/5 bg-gray-100 rounded-full flex items-center px-4 xl:px-6 py-4 xl:py-5 cursor-pointer select-none hover:bg-gray-200 transition-colors"
-          >
-            <Icon
-              icon="devicon:google"
-              class="text-2xl xl:text-3xl mr-4 sm:mr-18"
-            />
-            <div class="text-base xl:text-xl font-semibold text-gray-600">
-              Continue with Google
-            </div>
-          </div>
+          <!-- <div -->
+          <!--   class="w-full sm:w-4/5 bg-gray-100 rounded-full flex items-center px-4 xl:px-6 py-4 xl:py-5 cursor-pointer select-none hover:bg-gray-200 transition-colors" -->
+          <!-- > -->
+          <!--   <Icon -->
+          <!--     icon="devicon:google" -->
+          <!--     class="text-2xl xl:text-3xl mr-4 sm:mr-18" -->
+          <!--   /> -->
+          <!--   <div class="text-base xl:text-xl font-semibold text-gray-600"> -->
+          <!--     Continue with Google -->
+          <!--   </div> -->
+          <!-- </div> -->
+          <GoogleLogin @error="handleError" />
         </div>
 
         <!-- Form Fields Container -->
