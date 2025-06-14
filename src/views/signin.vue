@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
-import { Icon } from '@iconify/vue';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/yup';
+import { Icon } from '@iconify/vue';
 import * as yup from 'yup';
 import { useUserStore } from '../store/useUserStore';
 import LoadingIcon from '../components/icons/Loading.vue';
 import GoogleLogin from '../components/GoogleLogin.vue';
+import XLogin from '../components/XLogin.vue';
 // import SkeletonSignin from '../components/SkeletonSignin.vue';
 
 const router = useRouter();
@@ -125,17 +126,7 @@ onBeforeMount(() => {
 
         <!-- Social Login Buttons -->
         <div class="space-y-3 mb-6">
-          <div
-            class="w-full sm:w-4/5 bg-gray-100 rounded-full flex items-center px-2 xl:px-4 py-4 xl:py-3 cursor-pointer select-none hover:bg-gray-200 transition-colors"
-          >
-            <Icon
-              icon="logos:facebook"
-              class="text-xl xl:text-3xl mr-4 sm:mr-18"
-            />
-            <div class="text-sm xl:text-lg font-semibold text-gray-600">
-              Continue with Facebook
-            </div>
-          </div>
+          <XLogin />
           <GoogleLogin @error="handleError" />
         </div>
 

@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useUserStore } from '../store/useUserStore';
 import LoadingIcon from '../components/icons/Loading.vue';
 import GoogleLogin from '../components/GoogleLogin.vue';
+import XLogin from '../components/XLogin.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -118,14 +119,7 @@ onBeforeMount(() => {
           We'd love to have you on board. Join over 500+ customers around the
           globe and enhance productivity.
         </div>
-        <div
-          class="w-4/5 bg-gray-100 m-0 rounded-full flex items-center xl:px-6 lg:px-4 xl:py-5 lg:py-4 mb-2 cursor-pointer select-none"
-        >
-          <Icon icon="logos:facebook" class="text-3xl mr-18" />
-          <div class="xl:text-xl lg:text-lg font-semibold text-gray-600">
-            Continue with Facebook
-          </div>
-        </div>
+        <XLogin />
         <GoogleLogin @error="handleError" />
         <div
           class="w-3/4 border-[1px] border-transparent border-t-gray-100 flex flex-col py-4"
