@@ -11,4 +11,10 @@ type LoginInputs = {
   rememberMe: boolean;
 };
 
-export type { SignupInputs, LoginInputs };
+type Token = {
+  token: string;
+  expires_at: number;
+  user_id: string;
+};
+
+export type { SignupInputs, LoginInputs, Token };

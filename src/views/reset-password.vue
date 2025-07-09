@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Token } from '../types/auth';
 import { ref, watch, onBeforeMount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useClient } from '../composables/useClient';
@@ -22,20 +23,20 @@ const { handleSubmit, defineField, errors } = useForm({
 const isError = ref(false);
 const errorMessage = ref(null);
 const isLoading = ref(true);
-const userInfo = ref(null);
+const userInfo = ref<Token>();
 const { post } = useClient();
 const isSubmitting = ref(false);
 const submissionMessage = ref(null);
-const submissionSuccess = ref(null);
-const [newPassword, newPasswordAttr] = defineField('newPassword');
-const [confirmPassword, confirmPasswordAttr] = defineField('confirmPassword');
+const submissionSuccess = ref<null | boolean>(null);
+const [newPassword] = defineField('newPassword');
+const [confirmPassword] = defineField('confirmPassword');
 const onSubmit = handleSubmit(async (value) => {
   isSubmitting.value = true;
   try {
     const res = await post('/reset-password', {
       password: value.newPassword,
-      userID: userInfo.value.user_id,
-      token: userInfo.value.token,
+      userID: userInfo?.value?.user_id,
+      token: userInfo?.value?.token,
     });
     if (res.data.status === 'success') {
       setTimeout(() => {
@@ -79,7 +80,7 @@ onBeforeMount(async () => {
     if (data.token) {
       const res = await post('/verify-token', data);
       if (res.data.status === 'success') {
-        userInfo.value = res.data.message;
+        userInfo.value = res.data.message as Token;
         console.log(res.data);
         isLoading.value = false;
         router.replace('/reset-password/');
@@ -158,7 +159,6 @@ onBeforeMount(async () => {
               }"
               placeholder="Enter new password"
               required
-              @input="validatePassword"
             />
             <p v-if="errors.newPassword" class="text-red-500 text-xs mt-1">
               {{ errors.newPassword }}
@@ -184,7 +184,6 @@ onBeforeMount(async () => {
               }"
               placeholder="Confirm your password"
               required
-              @input="validatePasswordMatch"
             />
             <p v-if="errors.confirmPassword" class="text-red-500 text-xs mt-1">
               {{ errors.confirmPassword }}

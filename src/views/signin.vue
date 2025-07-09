@@ -13,7 +13,7 @@ import XLogin from '../components/XLogin.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
-const submitErr = ref(null);
+const submitErr = ref('');
 const pageLoading = ref(true);
 const isLoading = ref(false);
 const schema = toTypedSchema(

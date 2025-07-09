@@ -12,7 +12,7 @@ import XLogin from '../components/XLogin.vue';
 
 const router = useRouter();
 const userStore = useUserStore();
-const submitErr = ref(null);
+const submitErr = ref('');
 const isLoading = ref(false);
 const pageLoading = ref(true);
 
@@ -119,7 +119,7 @@ onBeforeMount(() => {
           We'd love to have you on board. Join over 500+ customers around the
           globe and enhance productivity.
         </div>
-        <XLogin />
+        <XLogin @error="handleError" />
         <GoogleLogin @error="handleError" />
         <div
           class="w-3/4 border-[1px] border-transparent border-t-gray-100 flex flex-col py-4"
