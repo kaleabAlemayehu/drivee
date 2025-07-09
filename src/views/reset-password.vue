@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Token } from '../types/auth';
-import { ref, watch, onBeforeMount } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useClient } from '../composables/useClient';
 import { toTypedSchema } from '@vee-validate/yup';

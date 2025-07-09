@@ -17,7 +17,7 @@ const { handleSubmit, defineField, errors, resetForm } = useForm({
 const { post } = useClient();
 const isSubmitting = ref(false);
 const submissionMessage = ref(null);
-const submissionSuccess = ref(null);
+const submissionSuccess = ref<null | boolean>(null);
 const router = useRouter();
 const [email, emailAttr] = defineField('email');
 const onSubmit = handleSubmit(async (value) => {
@@ -84,7 +84,7 @@ const onSubmit = handleSubmit(async (value) => {
               class="p-4 w-full outline-none ring-0 border-[1px] border-gray-400 rounded-lg"
               :class="{
                 'border-red-500': errors.email,
-                'border-gray-500': !errors.semail,
+                'border-gray-500': !errors.email,
               }"
               placeholder="your.email@example.com"
               required

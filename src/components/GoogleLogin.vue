@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref, onMounted } from 'vue';
 import { loadGoogleScript } from '../utils/googleAuth';
-import { useClient } from '../composables/useClient';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../store/useUserStore';
 import type { GoogleAuthResponse, GoogleAuth } from '../types/google';
 
 const router = useRouter();
 const userStore = useUserStore();
-const { post } = useClient();
 const emit = defineEmits<{
-  (e: 'Error', message: string);
+  (e: 'Error', message: string): void;
 }>();
 
 const buttonRef = ref<HTMLElement | null>(null);
